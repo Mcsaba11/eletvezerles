@@ -114,6 +114,7 @@ fun SettingsScreen(vm: MainViewModel, satori: SatoriViewModel, onBack: () -> Uni
             when (r.getOrNull()) {
                 ImportKind.FULL -> R.string.backup_restored
                 ImportKind.SATORI_LEGACY -> R.string.satori_imported
+                ImportKind.FOOD_LEGACY -> R.string.food_imported
                 null -> R.string.backup_bad
             }
         )
@@ -212,7 +213,7 @@ fun SettingsScreen(vm: MainViewModel, satori: SatoriViewModel, onBack: () -> Uni
                 VSpace(4)
                 MenuRow(Icons.Outlined.FileDownload, stringResource(R.string.backup_export), stringResource(R.string.backup_export_sub),
                     onClick = { exportLauncher.launch("eletvezerles-mentes-${LocalDate.now()}.json") })
-                MenuRow(Icons.Outlined.FileUpload, stringResource(R.string.backup_import), stringResource(R.string.backup_import_sub),
+                MenuRow(Icons.Outlined.FileUpload, stringResource(R.string.backup_import), stringResource(R.string.backup_import_sub2),
                     onClick = { importLauncher.launch(arrayOf("application/json", "text/plain", "*/*")) })
                 MenuRow(Icons.Outlined.ContentPaste, stringResource(R.string.satori_paste), stringResource(R.string.satori_paste_sub),
                     onClick = { pasteOpen = true })

@@ -18,9 +18,10 @@ data class BackupFile(
     val entries: List<EntryEntity> = emptyList(),
     val moods: List<MoodEntity> = emptyList(),
     val satori: JsonElement? = null,
+    val food: JsonElement? = null,
 )
 
-enum class ImportKind { FULL, SATORI_LEGACY }
+enum class ImportKind { FULL, SATORI_LEGACY, FOOD_LEGACY }
 
 /** Teljes mentés egyetlen JSON-fájlba, és visszatöltés. A régi Satori mentését is felismeri. */
 class Backup(private val c: AppContainer) {
@@ -29,11 +30,12 @@ class Backup(private val c: AppContainer) {
     suspend fun export(): String {
         val db = c.db
         val satori = json.parseToJsonElement(c.satori.exportJson())
+        val food = json.parseToJsonElement(c.food.exportJson())
         return json.encodeToString(
             BackupFile.serializer(),
             BackupFile(
                 events = db.events().all(), todos = db.todos().all(), entries = db.entries().all(),
-                moods = db.moods().all(), satori = satori,
+                moods = db.moods().all(), satori = satori, food = food,
             )
         )
     }
@@ -41,6 +43,11 @@ class Backup(private val c: AppContainer) {
     /** Felismeri, mi van a fájlban, és betölti. Hibás tartalomnál kivételt dob. */
     suspend fun import(text: String): ImportKind {
         val root = json.parseToJsonElement(text.trim()).jsonObject
+        val app = (root["app"] as? kotlinx.serialization.json.JsonPrimitive)?.content
+        if (app == "ir-naplo" || (app == null && root["profile"] != null && root["days"] != null)) {
+            c.food.importLegacy(text)
+            return ImportKind.FOOD_LEGACY
+        }
         if (root["app"] == null && root["data"] != null) {
             c.satori.importLegacy(text)
             return ImportKind.SATORI_LEGACY
@@ -54,6 +61,7 @@ class Backup(private val c: AppContainer) {
             c.db.moods().clear(); c.db.moods().insertAll(b.moods)
         }
         b.satori?.let { c.satori.replaceFromBackup(SatoriRepository.json.encodeToString(JsonElement.serializer(), it)) }
+        b.food?.let { c.food.replaceFromBackup(SatoriRepository.json.encodeToString(JsonElement.serializer(), it)) }
         return ImportKind.FULL
     }
 }

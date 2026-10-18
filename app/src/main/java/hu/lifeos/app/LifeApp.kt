@@ -5,6 +5,8 @@ import android.content.Context
 import hu.lifeos.app.data.AppDatabase
 import hu.lifeos.app.data.PhoneCalendar
 import hu.lifeos.app.data.SettingsStore
+import hu.lifeos.app.food.FoodContent
+import hu.lifeos.app.food.FoodRepository
 import hu.lifeos.app.satori.SatoriContent
 import hu.lifeos.app.satori.SatoriRepository
 import kotlinx.coroutines.CoroutineScope
@@ -20,6 +22,7 @@ class AppContainer(context: Context) {
     val settings = SettingsStore(context)
     val phoneCalendar = PhoneCalendar(context)
     val satori = SatoriRepository(db, SatoriContent.load(context), scope)
+    val food = FoodRepository(db, FoodContent.load(context), scope)
 }
 
 class LifeApp : Application() {
@@ -29,7 +32,7 @@ class LifeApp : Application() {
     override fun onCreate() {
         super.onCreate()
         container = AppContainer(this)
-        container.scope.launch { container.satori.load() }
+        container.scope.launch { container.satori.load(); container.food.load() }
     }
 }
 

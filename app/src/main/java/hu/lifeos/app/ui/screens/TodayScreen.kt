@@ -55,6 +55,10 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import hu.lifeos.app.R
+import hu.lifeos.app.food.FoodViewModel
+import hu.lifeos.app.food.ui.FastBar
+import hu.lifeos.app.food.ui.MacroBar
+import androidx.compose.material.icons.outlined.Restaurant
 import hu.lifeos.app.data.TodoEntity
 import hu.lifeos.app.satori.SatoriLogic
 import hu.lifeos.app.satori.SatoriViewModel
@@ -76,8 +80,10 @@ import java.time.ZoneId
 fun TodayScreen(
     vm: MainViewModel,
     satori: SatoriViewModel,
+    food: FoodViewModel,
     onOpenSatori: () -> Unit,
     onSos: () -> Unit,
+    onOpenFood: () -> Unit,
     onOpenCalendar: () -> Unit,
     onOpenTodos: () -> Unit,
     onOpenSettings: () -> Unit,
@@ -175,6 +181,21 @@ fun TodayScreen(
                         Text(stringResource(R.string.sos))
                     }
                 }
+            }
+        }
+
+        // ---------- Étkezés ----------
+        item {
+            val fs by food.state.collectAsState()
+            val fr = food.logic.targets(fs.profile)
+            val ft = food.logic.totals(fs.day(todayStr).items)
+            AppCard(onClick = onOpenFood) {
+                CardHeader(Icons.Outlined.Restaurant, stringResource(R.string.food_card_title))
+                VSpace(4)
+                FastBar(food)
+                VSpace(4)
+                MacroBar(stringResource(R.string.food_kcal), ft.kcal, fr.target, "kcal", "max")
+                MacroBar(stringResource(R.string.food_protein), ft.p, fr.p.toDouble(), "g", "min")
             }
         }
 

@@ -1,0 +1,3735 @@
+{
+ "foods": [
+  {
+   "id": "tojas",
+   "name": "Tojás",
+   "cat": "tej",
+   "r": "g",
+   "kcal": 143,
+   "p": 12.6,
+   "c": 0.7,
+   "f": 9.5,
+   "fib": 0,
+   "gi": 0,
+   "u": "db",
+   "ug": 60,
+   "note": "Ideális böjtzáró, szinte nem emel vércukrot."
+  },
+  {
+   "id": "tojasfeher",
+   "name": "Tojásfehérje",
+   "cat": "tej",
+   "r": "g",
+   "kcal": 52,
+   "p": 11,
+   "c": 0.7,
+   "f": 0.2,
+   "fib": 0,
+   "gi": 0,
+   "u": "db",
+   "ug": 33,
+   "note": "Szinte tiszta fehérje."
+  },
+  {
+   "id": "gorog",
+   "name": "Görög joghurt, natúr 2%",
+   "cat": "tej",
+   "r": "g",
+   "kcal": 73,
+   "p": 10,
+   "c": 3.6,
+   "f": 2,
+   "fib": 0,
+   "gi": 11,
+   "u": "pohár",
+   "ug": 150,
+   "note": "Cukrozatlanul, bogyósokkal."
+  },
+  {
+   "id": "gorog10",
+   "name": "Görög joghurt, 10%",
+   "cat": "tej",
+   "r": "m",
+   "kcal": 133,
+   "p": 5,
+   "c": 4,
+   "f": 10,
+   "fib": 0,
+   "gi": 11,
+   "u": "pohár",
+   "ug": 150,
+   "note": "Zsírosabb, kevesebb fehérjével."
+  },
+  {
+   "id": "skyr",
+   "name": "Skyr, natúr",
+   "cat": "tej",
+   "r": "g",
+   "kcal": 63,
+   "p": 11,
+   "c": 4,
+   "f": 0.2,
+   "fib": 0,
+   "gi": 15,
+   "u": "pohár",
+   "ug": 150,
+   "note": "Az egyik legtöbb fehérje kalóriánként."
+  },
+  {
+   "id": "joghurt",
+   "name": "Natúr joghurt",
+   "cat": "tej",
+   "r": "g",
+   "kcal": 61,
+   "p": 3.5,
+   "c": 4.7,
+   "f": 3,
+   "fib": 0,
+   "gi": 35,
+   "u": "pohár",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "kefir",
+   "name": "Kefir",
+   "cat": "tej",
+   "r": "g",
+   "kcal": 55,
+   "p": 3.4,
+   "c": 4.5,
+   "f": 2.5,
+   "fib": 0,
+   "gi": 30,
+   "u": "pohár",
+   "ug": 250,
+   "note": "Natúr, bélflórának is jó."
+  },
+  {
+   "id": "tej",
+   "name": "Tej, 1,5%",
+   "cat": "tej",
+   "r": "m",
+   "kcal": 47,
+   "p": 3.4,
+   "c": 4.8,
+   "f": 1.5,
+   "fib": 0,
+   "gi": 30,
+   "u": "bögre",
+   "ug": 250,
+   "note": "Böjtben nem, étkezéshez mehet."
+  },
+  {
+   "id": "turo",
+   "name": "Túró, félzsíros",
+   "cat": "tej",
+   "r": "g",
+   "kcal": 120,
+   "p": 17,
+   "c": 3,
+   "f": 4.5,
+   "fib": 0,
+   "gi": 10,
+   "u": "doboz",
+   "ug": 250,
+   "note": "Sósan zöldséggel vagy natúran."
+  },
+  {
+   "id": "turosov",
+   "name": "Túró, sovány",
+   "cat": "tej",
+   "r": "g",
+   "kcal": 80,
+   "p": 14,
+   "c": 3.5,
+   "f": 0.5,
+   "fib": 0,
+   "gi": 10,
+   "u": "doboz",
+   "ug": 250,
+   "note": "Legjobb fehérje-kalória arány."
+  },
+  {
+   "id": "cottage",
+   "name": "Cottage cheese",
+   "cat": "tej",
+   "r": "g",
+   "kcal": 98,
+   "p": 11,
+   "c": 3.4,
+   "f": 4.3,
+   "fib": 0,
+   "gi": 10,
+   "u": "doboz",
+   "ug": 200,
+   "note": "Gyors uzsonna."
+  },
+  {
+   "id": "mozzarella",
+   "name": "Mozzarella",
+   "cat": "tej",
+   "r": "m",
+   "kcal": 254,
+   "p": 22,
+   "c": 2,
+   "f": 18,
+   "fib": 0,
+   "gi": 0,
+   "u": "golyó",
+   "ug": 125,
+   "note": "Mértékkel, sok a telített zsír."
+  },
+  {
+   "id": "mozzlight",
+   "name": "Mozzarella light",
+   "cat": "tej",
+   "r": "g",
+   "kcal": 165,
+   "p": 20,
+   "c": 1,
+   "f": 9,
+   "fib": 0,
+   "gi": 0,
+   "u": "golyó",
+   "ug": 125,
+   "note": ""
+  },
+  {
+   "id": "feta",
+   "name": "Feta",
+   "cat": "tej",
+   "r": "m",
+   "kcal": 264,
+   "p": 14,
+   "c": 4,
+   "f": 21,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 30,
+   "note": "Sós, kis mennyiségben."
+  },
+  {
+   "id": "trappista",
+   "name": "Trappista sajt",
+   "cat": "tej",
+   "r": "m",
+   "kcal": 350,
+   "p": 26,
+   "c": 1,
+   "f": 27,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 20,
+   "note": "Kalóriadús, kis adagban."
+  },
+  {
+   "id": "parmezan",
+   "name": "Parmezán",
+   "cat": "tej",
+   "r": "m",
+   "kcal": 392,
+   "p": 35,
+   "c": 0,
+   "f": 28,
+   "fib": 0,
+   "gi": 0,
+   "u": "evőkanál",
+   "ug": 10,
+   "note": "Ízesítésnek kevés is elég."
+  },
+  {
+   "id": "halloumi",
+   "name": "Halloumi",
+   "cat": "tej",
+   "r": "m",
+   "kcal": 320,
+   "p": 22,
+   "c": 2,
+   "f": 25,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 30,
+   "note": "Grillezve jó fehérjeforrás."
+  },
+  {
+   "id": "ricotta",
+   "name": "Ricotta",
+   "cat": "tej",
+   "r": "m",
+   "kcal": 150,
+   "p": 11,
+   "c": 3,
+   "f": 10,
+   "fib": 0,
+   "gi": 30,
+   "u": "evőkanál",
+   "ug": 30,
+   "note": ""
+  },
+  {
+   "id": "tejfol",
+   "name": "Tejföl, 12%",
+   "cat": "tej",
+   "r": "m",
+   "kcal": 140,
+   "p": 2.8,
+   "c": 4,
+   "f": 12,
+   "fib": 0,
+   "gi": 30,
+   "u": "evőkanál",
+   "ug": 15,
+   "note": "Joghurttal keverve könnyebb."
+  },
+  {
+   "id": "tejszin",
+   "name": "Tejszín, 30%",
+   "cat": "tej",
+   "r": "m",
+   "kcal": 290,
+   "p": 2.2,
+   "c": 3,
+   "f": 30,
+   "fib": 0,
+   "gi": 0,
+   "u": "evőkanál",
+   "ug": 15,
+   "note": ""
+  },
+  {
+   "id": "vaj",
+   "name": "Vaj",
+   "cat": "tej",
+   "r": "m",
+   "kcal": 740,
+   "p": 0.5,
+   "c": 0.6,
+   "f": 82,
+   "fib": 0,
+   "gi": 0,
+   "u": "teáskanál",
+   "ug": 5,
+   "note": ""
+  },
+  {
+   "id": "tejsavo",
+   "name": "Fehérjepor, tejsavó",
+   "cat": "feherje",
+   "r": "g",
+   "kcal": 390,
+   "p": 78,
+   "c": 7,
+   "f": 6,
+   "fib": 0,
+   "gi": 0,
+   "u": "adag",
+   "ug": 30,
+   "note": "Pótlásnak, ha nem jön ki a fehérje."
+  },
+  {
+   "id": "borsopor",
+   "name": "Fehérjepor, borsó",
+   "cat": "feherje",
+   "r": "g",
+   "kcal": 380,
+   "p": 80,
+   "c": 3,
+   "f": 6,
+   "fib": 3,
+   "gi": 0,
+   "u": "adag",
+   "ug": 30,
+   "note": "Vegán fehérjepótlás."
+  },
+  {
+   "id": "tofu",
+   "name": "Tofu, natúr",
+   "cat": "feherje",
+   "r": "g",
+   "kcal": 120,
+   "p": 13,
+   "c": 1.5,
+   "f": 7,
+   "fib": 1,
+   "gi": 15,
+   "u": "csomag",
+   "ug": 200,
+   "note": "Pirítva, fűszerezve, rántottának is."
+  },
+  {
+   "id": "fusttofu",
+   "name": "Füstölt tofu",
+   "cat": "feherje",
+   "r": "g",
+   "kcal": 155,
+   "p": 16,
+   "c": 2,
+   "f": 9,
+   "fib": 1,
+   "gi": 15,
+   "u": "csomag",
+   "ug": 175,
+   "note": "Szeletelve szendvicsbe, salátába."
+  },
+  {
+   "id": "tempeh",
+   "name": "Tempeh",
+   "cat": "feherje",
+   "r": "g",
+   "kcal": 192,
+   "p": 20,
+   "c": 7.6,
+   "f": 11,
+   "fib": 4,
+   "gi": 15,
+   "u": "szelet",
+   "ug": 50,
+   "note": "Erjesztett szója, sok fehérje és rost."
+  },
+  {
+   "id": "szejtan",
+   "name": "Szejtán",
+   "cat": "feherje",
+   "r": "g",
+   "kcal": 140,
+   "p": 25,
+   "c": 6,
+   "f": 2,
+   "fib": 1,
+   "gi": 15,
+   "u": "adag",
+   "ug": 100,
+   "note": "Búzafehérje, gluténérzékenységnél nem."
+  },
+  {
+   "id": "edamame",
+   "name": "Edamame",
+   "cat": "feherje",
+   "r": "g",
+   "kcal": 121,
+   "p": 12,
+   "c": 6,
+   "f": 5,
+   "fib": 5,
+   "gi": 18,
+   "u": "marék",
+   "ug": 50,
+   "note": "Snacknek vagy salátába."
+  },
+  {
+   "id": "szojagran",
+   "name": "Szójagranulátum (száraz)",
+   "cat": "feherje",
+   "r": "g",
+   "kcal": 330,
+   "p": 50,
+   "c": 15,
+   "f": 1,
+   "fib": 18,
+   "gi": 15,
+   "u": "adag",
+   "ug": 40,
+   "note": "Darált hús helyett, bolognaiba."
+  },
+  {
+   "id": "lencseteszta",
+   "name": "Vöröslencse-tészta (száraz)",
+   "cat": "feherje",
+   "r": "g",
+   "kcal": 340,
+   "p": 25,
+   "c": 50,
+   "f": 2,
+   "fib": 8,
+   "gi": 30,
+   "u": "adag",
+   "ug": 80,
+   "note": "Fehér tészta helyett."
+  },
+  {
+   "id": "hummusz",
+   "name": "Hummusz",
+   "cat": "feherje",
+   "r": "g",
+   "kcal": 170,
+   "p": 8,
+   "c": 14,
+   "f": 9,
+   "fib": 6,
+   "gi": 6,
+   "u": "evőkanál",
+   "ug": 30,
+   "note": "Mártogatósnak zöldséghez."
+  },
+  {
+   "id": "falafel",
+   "name": "Falafel",
+   "cat": "feherje",
+   "r": "m",
+   "kcal": 333,
+   "p": 13,
+   "c": 32,
+   "f": 18,
+   "fib": 5,
+   "gi": 32,
+   "u": "db",
+   "ug": 20,
+   "note": "Olajban sütve kalóriadús."
+  },
+  {
+   "id": "vegaburger",
+   "name": "Vega burgerpogácsa (bolti)",
+   "cat": "feherje",
+   "r": "m",
+   "kcal": 220,
+   "p": 15,
+   "c": 15,
+   "f": 11,
+   "fib": 4,
+   "gi": 40,
+   "u": "db",
+   "ug": 100,
+   "note": "Nézd a címkét: sok benne a keményítő."
+  },
+  {
+   "id": "lencse",
+   "name": "Lencse, főtt",
+   "cat": "huvelyes",
+   "r": "g",
+   "kcal": 116,
+   "p": 9,
+   "c": 12,
+   "f": 0.4,
+   "fib": 8,
+   "gi": 30,
+   "u": "adag",
+   "ug": 200,
+   "note": "Rost és fehérje együtt, lassan emel."
+  },
+  {
+   "id": "voroslencse",
+   "name": "Vöröslencse, főtt",
+   "cat": "huvelyes",
+   "r": "g",
+   "kcal": 110,
+   "p": 8,
+   "c": 14,
+   "f": 0.4,
+   "fib": 4,
+   "gi": 26,
+   "u": "adag",
+   "ug": 200,
+   "note": "Gyorsan fő, curryhez ideális."
+  },
+  {
+   "id": "csicseri",
+   "name": "Csicseriborsó, főtt",
+   "cat": "huvelyes",
+   "r": "g",
+   "kcal": 164,
+   "p": 8.9,
+   "c": 20,
+   "f": 2.6,
+   "fib": 7.6,
+   "gi": 28,
+   "u": "adag",
+   "ug": 150,
+   "note": "Salátába, curryhez, sütve snacknek."
+  },
+  {
+   "id": "vorosbab",
+   "name": "Vörösbab, főtt",
+   "cat": "huvelyes",
+   "r": "g",
+   "kcal": 127,
+   "p": 8.7,
+   "c": 15,
+   "f": 0.5,
+   "fib": 7.4,
+   "gi": 24,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "feherbab",
+   "name": "Fehérbab, főtt",
+   "cat": "huvelyes",
+   "r": "g",
+   "kcal": 139,
+   "p": 9.7,
+   "c": 18,
+   "f": 0.4,
+   "fib": 6.3,
+   "gi": 31,
+   "u": "adag",
+   "ug": 150,
+   "note": "Babgulyáshoz, salátába."
+  },
+  {
+   "id": "feketebab",
+   "name": "Feketebab, főtt",
+   "cat": "huvelyes",
+   "r": "g",
+   "kcal": 132,
+   "p": 8.9,
+   "c": 16,
+   "f": 0.5,
+   "fib": 8.7,
+   "gi": 30,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "sargaborso",
+   "name": "Sárgaborsó, főtt",
+   "cat": "huvelyes",
+   "r": "g",
+   "kcal": 118,
+   "p": 8,
+   "c": 14,
+   "f": 0.4,
+   "fib": 8,
+   "gi": 32,
+   "u": "adag",
+   "ug": 200,
+   "note": ""
+  },
+  {
+   "id": "zoldborso",
+   "name": "Zöldborsó",
+   "cat": "huvelyes",
+   "r": "m",
+   "kcal": 81,
+   "p": 5.4,
+   "c": 9,
+   "f": 0.4,
+   "fib": 5,
+   "gi": 48,
+   "u": "adag",
+   "ug": 100,
+   "note": ""
+  },
+  {
+   "id": "sultbab",
+   "name": "Sült bab paradicsomszószban",
+   "cat": "huvelyes",
+   "r": "m",
+   "kcal": 95,
+   "p": 5,
+   "c": 13,
+   "f": 0.4,
+   "fib": 4,
+   "gi": 40,
+   "u": "fél konzerv",
+   "ug": 200,
+   "note": "Gyakran cukrozott, nézd a címkét."
+  },
+  {
+   "id": "brokkoli",
+   "name": "Brokkoli",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 34,
+   "p": 2.8,
+   "c": 4,
+   "f": 0.4,
+   "fib": 2.6,
+   "gi": 15,
+   "u": "adag",
+   "ug": 200,
+   "note": "Korlátlanul."
+  },
+  {
+   "id": "karfiol",
+   "name": "Karfiol",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 25,
+   "p": 1.9,
+   "c": 3,
+   "f": 0.3,
+   "fib": 2,
+   "gi": 15,
+   "u": "adag",
+   "ug": 200,
+   "note": "Rizs és püré helyett is."
+  },
+  {
+   "id": "spenot",
+   "name": "Spenót",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 23,
+   "p": 2.9,
+   "c": 1.4,
+   "f": 0.4,
+   "fib": 2.2,
+   "gi": 15,
+   "u": "adag",
+   "ug": 100,
+   "note": ""
+  },
+  {
+   "id": "cukkini",
+   "name": "Cukkini",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 17,
+   "p": 1.2,
+   "c": 2.2,
+   "f": 0.3,
+   "fib": 1,
+   "gi": 15,
+   "u": "db",
+   "ug": 250,
+   "note": "Tészta helyett spirálozva."
+  },
+  {
+   "id": "padlizsan",
+   "name": "Padlizsán",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 25,
+   "p": 1,
+   "c": 3,
+   "f": 0.2,
+   "fib": 3,
+   "gi": 15,
+   "u": "db",
+   "ug": 300,
+   "note": ""
+  },
+  {
+   "id": "paprika",
+   "name": "Paprika",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 26,
+   "p": 1,
+   "c": 4.6,
+   "f": 0.3,
+   "fib": 1.5,
+   "gi": 15,
+   "u": "db",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "paradicsom",
+   "name": "Paradicsom",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 18,
+   "p": 0.9,
+   "c": 2.6,
+   "f": 0.2,
+   "fib": 1.2,
+   "gi": 15,
+   "u": "db",
+   "ug": 120,
+   "note": ""
+  },
+  {
+   "id": "uborka",
+   "name": "Uborka",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 15,
+   "p": 0.7,
+   "c": 2.5,
+   "f": 0.1,
+   "fib": 0.5,
+   "gi": 15,
+   "u": "fél db",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "gomba",
+   "name": "Gomba",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 22,
+   "p": 3.1,
+   "c": 0.5,
+   "f": 0.3,
+   "fib": 1,
+   "gi": 15,
+   "u": "adag",
+   "ug": 150,
+   "note": "Telít, alig van kalóriája."
+  },
+  {
+   "id": "kaposzta",
+   "name": "Fejes káposzta",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 25,
+   "p": 1.3,
+   "c": 3.5,
+   "f": 0.1,
+   "fib": 2.5,
+   "gi": 15,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "lilakaposzta",
+   "name": "Lila káposzta",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 31,
+   "p": 1.4,
+   "c": 5,
+   "f": 0.2,
+   "fib": 2,
+   "gi": 15,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "savanyukaposzta",
+   "name": "Savanyú káposzta",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 19,
+   "p": 0.9,
+   "c": 1.5,
+   "f": 0.1,
+   "fib": 2.9,
+   "gi": 15,
+   "u": "adag",
+   "ug": 150,
+   "note": "Erjesztett, bélflórának jó."
+  },
+  {
+   "id": "kelbimbo",
+   "name": "Kelbimbó",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 43,
+   "p": 3.4,
+   "c": 5,
+   "f": 0.3,
+   "fib": 3.8,
+   "gi": 15,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "kel",
+   "name": "Kelkáposzta",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 33,
+   "p": 2.9,
+   "c": 3.6,
+   "f": 0.6,
+   "fib": 3,
+   "gi": 15,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "zoldbab",
+   "name": "Zöldbab",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 31,
+   "p": 1.8,
+   "c": 4,
+   "f": 0.2,
+   "fib": 2.7,
+   "gi": 15,
+   "u": "adag",
+   "ug": 200,
+   "note": ""
+  },
+  {
+   "id": "sparga",
+   "name": "Spárga",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 20,
+   "p": 2.2,
+   "c": 2,
+   "f": 0.1,
+   "fib": 2.1,
+   "gi": 15,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "salata",
+   "name": "Fejes saláta, jégsaláta",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 14,
+   "p": 1,
+   "c": 1.8,
+   "f": 0.2,
+   "fib": 1.3,
+   "gi": 10,
+   "u": "tál",
+   "ug": 100,
+   "note": "Korlátlanul."
+  },
+  {
+   "id": "rukkola",
+   "name": "Rukkola",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 25,
+   "p": 2.6,
+   "c": 2,
+   "f": 0.7,
+   "fib": 1.6,
+   "gi": 10,
+   "u": "marék",
+   "ug": 30,
+   "note": ""
+  },
+  {
+   "id": "retek",
+   "name": "Retek",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 16,
+   "p": 0.7,
+   "c": 2,
+   "f": 0.1,
+   "fib": 1.6,
+   "gi": 15,
+   "u": "csokor",
+   "ug": 100,
+   "note": ""
+  },
+  {
+   "id": "hagyma",
+   "name": "Vöröshagyma",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 40,
+   "p": 1.1,
+   "c": 7.6,
+   "f": 0.1,
+   "fib": 1.7,
+   "gi": 15,
+   "u": "db",
+   "ug": 100,
+   "note": ""
+  },
+  {
+   "id": "fokhagyma",
+   "name": "Fokhagyma",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 149,
+   "p": 6.4,
+   "c": 30,
+   "f": 0.5,
+   "fib": 2,
+   "gi": 30,
+   "u": "gerezd",
+   "ug": 5,
+   "note": ""
+  },
+  {
+   "id": "sargarepa",
+   "name": "Sárgarépa",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 41,
+   "p": 0.9,
+   "c": 7,
+   "f": 0.2,
+   "fib": 2.8,
+   "gi": 39,
+   "u": "db",
+   "ug": 80,
+   "note": "Nyersen alacsonyabb a GI."
+  },
+  {
+   "id": "cekla",
+   "name": "Cékla",
+   "cat": "zoldseg",
+   "r": "m",
+   "kcal": 43,
+   "p": 1.6,
+   "c": 7,
+   "f": 0.2,
+   "fib": 2.8,
+   "gi": 64,
+   "u": "db",
+   "ug": 100,
+   "note": "Magas GI, de kevés szénhidrát."
+  },
+  {
+   "id": "sutotok",
+   "name": "Sütőtök",
+   "cat": "zoldseg",
+   "r": "m",
+   "kcal": 45,
+   "p": 1,
+   "c": 9,
+   "f": 0.1,
+   "fib": 2,
+   "gi": 75,
+   "u": "adag",
+   "ug": 200,
+   "note": "Sütve gyorsan emel, kis adagban."
+  },
+  {
+   "id": "zeller",
+   "name": "Zellergumó",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 42,
+   "p": 1.5,
+   "c": 7,
+   "f": 0.3,
+   "fib": 1.8,
+   "gi": 35,
+   "u": "adag",
+   "ug": 100,
+   "note": "Krumplipüré helyett."
+  },
+  {
+   "id": "karalabe",
+   "name": "Karalábé",
+   "cat": "zoldseg",
+   "r": "g",
+   "kcal": 27,
+   "p": 1.7,
+   "c": 2.6,
+   "f": 0.1,
+   "fib": 3.6,
+   "gi": 15,
+   "u": "db",
+   "ug": 200,
+   "note": ""
+  },
+  {
+   "id": "kukorica",
+   "name": "Csemegekukorica",
+   "cat": "zoldseg",
+   "r": "m",
+   "kcal": 96,
+   "p": 3.4,
+   "c": 19,
+   "f": 1.5,
+   "fib": 2.4,
+   "gi": 52,
+   "u": "adag",
+   "ug": 100,
+   "note": ""
+  },
+  {
+   "id": "burgonya",
+   "name": "Burgonya, főtt",
+   "cat": "zoldseg",
+   "r": "m",
+   "kcal": 77,
+   "p": 2,
+   "c": 17,
+   "f": 0.1,
+   "fib": 1.8,
+   "gi": 78,
+   "u": "db",
+   "ug": 150,
+   "note": "Hűtve-újramelegítve kicsit jobb."
+  },
+  {
+   "id": "edesburgonya",
+   "name": "Édesburgonya, sült",
+   "cat": "zoldseg",
+   "r": "m",
+   "kcal": 90,
+   "p": 2,
+   "c": 18,
+   "f": 0.2,
+   "fib": 3.3,
+   "gi": 63,
+   "u": "adag",
+   "ug": 150,
+   "note": "Jobb a fehér krumplinál."
+  },
+  {
+   "id": "zabpehely",
+   "name": "Zabpehely (nem instant)",
+   "cat": "gabona",
+   "r": "g",
+   "kcal": 372,
+   "p": 13.5,
+   "c": 58,
+   "f": 7,
+   "fib": 10,
+   "gi": 55,
+   "u": "adag",
+   "ug": 50,
+   "note": "Joghurttal, fehérjével kombináld."
+  },
+  {
+   "id": "zabkorpa",
+   "name": "Zabkorpa",
+   "cat": "gabona",
+   "r": "g",
+   "kcal": 246,
+   "p": 17,
+   "c": 50,
+   "f": 7,
+   "fib": 15,
+   "gi": 50,
+   "u": "evőkanál",
+   "ug": 10,
+   "note": "Rostdúsítás bármihez."
+  },
+  {
+   "id": "hajdina",
+   "name": "Hajdina, főtt",
+   "cat": "gabona",
+   "r": "g",
+   "kcal": 92,
+   "p": 3.4,
+   "c": 18,
+   "f": 0.6,
+   "fib": 2.7,
+   "gi": 45,
+   "u": "adag",
+   "ug": 150,
+   "note": "Rizs helyett jó köret."
+  },
+  {
+   "id": "quinoa",
+   "name": "Quinoa, főtt",
+   "cat": "gabona",
+   "r": "g",
+   "kcal": 120,
+   "p": 4.4,
+   "c": 19,
+   "f": 1.9,
+   "fib": 2.8,
+   "gi": 53,
+   "u": "adag",
+   "ug": 150,
+   "note": "Teljes értékű fehérjét is ad."
+  },
+  {
+   "id": "bulgur",
+   "name": "Bulgur, főtt",
+   "cat": "gabona",
+   "r": "g",
+   "kcal": 83,
+   "p": 3.1,
+   "c": 15,
+   "f": 0.2,
+   "fib": 4.5,
+   "gi": 46,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "vadrizs",
+   "name": "Vadrizs, főtt",
+   "cat": "gabona",
+   "r": "g",
+   "kcal": 101,
+   "p": 4,
+   "c": 20,
+   "f": 0.3,
+   "fib": 1.8,
+   "gi": 45,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "barnarizs",
+   "name": "Barna rizs, főtt",
+   "cat": "gabona",
+   "r": "m",
+   "kcal": 123,
+   "p": 2.7,
+   "c": 24,
+   "f": 1,
+   "fib": 1.8,
+   "gi": 68,
+   "u": "adag",
+   "ug": 150,
+   "note": "Kisebb adagban, zöldséggel."
+  },
+  {
+   "id": "basmati",
+   "name": "Basmati rizs, főtt",
+   "cat": "gabona",
+   "r": "m",
+   "kcal": 121,
+   "p": 3.5,
+   "c": 25,
+   "f": 0.4,
+   "fib": 0.4,
+   "gi": 58,
+   "u": "adag",
+   "ug": 150,
+   "note": "A fehér rizsek közül a legjobb."
+  },
+  {
+   "id": "fehrizs",
+   "name": "Fehér rizs, főtt",
+   "cat": "gabona",
+   "r": "b",
+   "kcal": 130,
+   "p": 2.7,
+   "c": 28,
+   "f": 0.3,
+   "fib": 0.4,
+   "gi": 73,
+   "u": "adag",
+   "ug": 150,
+   "note": "Quinoára, hajdinára cseréld."
+  },
+  {
+   "id": "tkteszta",
+   "name": "Teljes kiőrlésű tészta, főtt",
+   "cat": "gabona",
+   "r": "m",
+   "kcal": 149,
+   "p": 6,
+   "c": 27,
+   "f": 1,
+   "fib": 4,
+   "gi": 48,
+   "u": "adag",
+   "ug": 150,
+   "note": "Al dente, kis adag, sok zöldséggel."
+  },
+  {
+   "id": "fehteszta",
+   "name": "Fehér tészta, főtt",
+   "cat": "gabona",
+   "r": "b",
+   "kcal": 158,
+   "p": 5.8,
+   "c": 30,
+   "f": 0.9,
+   "fib": 1.8,
+   "gi": 55,
+   "u": "adag",
+   "ug": 200,
+   "note": "Teljes kiőrlésűre vagy lencsetésztára cseréld."
+  },
+  {
+   "id": "kuszkusz",
+   "name": "Kuszkusz, főtt",
+   "cat": "gabona",
+   "r": "m",
+   "kcal": 112,
+   "p": 3.8,
+   "c": 22,
+   "f": 0.2,
+   "fib": 1.4,
+   "gi": 65,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "polenta",
+   "name": "Polenta, főtt",
+   "cat": "gabona",
+   "r": "m",
+   "kcal": 70,
+   "p": 1.6,
+   "c": 15,
+   "f": 0.3,
+   "fib": 0.6,
+   "gi": 68,
+   "u": "adag",
+   "ug": 200,
+   "note": ""
+  },
+  {
+   "id": "rozs",
+   "name": "Rozskenyér, teljes kiőrlésű",
+   "cat": "gabona",
+   "r": "g",
+   "kcal": 259,
+   "p": 8.5,
+   "c": 45,
+   "f": 3.3,
+   "fib": 6,
+   "gi": 50,
+   "u": "szelet",
+   "ug": 40,
+   "note": ""
+  },
+  {
+   "id": "tkkenyer",
+   "name": "Teljes kiőrlésű kenyér",
+   "cat": "gabona",
+   "r": "g",
+   "kcal": 247,
+   "p": 13,
+   "c": 40,
+   "f": 3.4,
+   "fib": 7,
+   "gi": 51,
+   "u": "szelet",
+   "ug": 40,
+   "note": ""
+  },
+  {
+   "id": "tortilla",
+   "name": "Teljes kiőrlésű tortilla",
+   "cat": "gabona",
+   "r": "m",
+   "kcal": 290,
+   "p": 9,
+   "c": 45,
+   "f": 7,
+   "fib": 6,
+   "gi": 50,
+   "u": "db",
+   "ug": 60,
+   "note": ""
+  },
+  {
+   "id": "fehkenyer",
+   "name": "Fehér kenyér",
+   "cat": "gabona",
+   "r": "b",
+   "kcal": 265,
+   "p": 9,
+   "c": 49,
+   "f": 3.2,
+   "fib": 2.7,
+   "gi": 75,
+   "u": "szelet",
+   "ug": 40,
+   "note": "Gyorsan emeli a vércukrot."
+  },
+  {
+   "id": "kifli",
+   "name": "Kifli",
+   "cat": "gabona",
+   "r": "b",
+   "kcal": 290,
+   "p": 9,
+   "c": 55,
+   "f": 3.5,
+   "fib": 2.5,
+   "gi": 80,
+   "u": "db",
+   "ug": 45,
+   "note": "Finomított liszt."
+  },
+  {
+   "id": "zsemle",
+   "name": "Zsemle",
+   "cat": "gabona",
+   "r": "b",
+   "kcal": 280,
+   "p": 9,
+   "c": 55,
+   "f": 2,
+   "fib": 2.5,
+   "gi": 80,
+   "u": "db",
+   "ug": 50,
+   "note": ""
+  },
+  {
+   "id": "kalacs",
+   "name": "Kalács",
+   "cat": "gabona",
+   "r": "b",
+   "kcal": 340,
+   "p": 8,
+   "c": 55,
+   "f": 9,
+   "fib": 2,
+   "gi": 75,
+   "u": "szelet",
+   "ug": 50,
+   "note": "Cukor és fehér liszt."
+  },
+  {
+   "id": "rizsszelet",
+   "name": "Puffasztott rizs",
+   "cat": "gabona",
+   "r": "b",
+   "kcal": 387,
+   "p": 8,
+   "c": 81,
+   "f": 2.8,
+   "fib": 3.5,
+   "gi": 85,
+   "u": "db",
+   "ug": 9,
+   "note": "Az egyik leggyorsabb szénhidrát."
+  },
+  {
+   "id": "kukoricapehely",
+   "name": "Kukoricapehely",
+   "cat": "gabona",
+   "r": "b",
+   "kcal": 357,
+   "p": 7,
+   "c": 84,
+   "f": 0.4,
+   "fib": 3,
+   "gi": 81,
+   "u": "adag",
+   "ug": 40,
+   "note": ""
+  },
+  {
+   "id": "musli",
+   "name": "Cukros müzli, granola",
+   "cat": "gabona",
+   "r": "b",
+   "kcal": 430,
+   "p": 9,
+   "c": 62,
+   "f": 15,
+   "fib": 6,
+   "gi": 65,
+   "u": "adag",
+   "ug": 50,
+   "note": "Zabpehelyre cseréld."
+  },
+  {
+   "id": "nokedli",
+   "name": "Nokedli",
+   "cat": "gabona",
+   "r": "b",
+   "kcal": 150,
+   "p": 5,
+   "c": 28,
+   "f": 2,
+   "fib": 1,
+   "gi": 75,
+   "u": "adag",
+   "ug": 200,
+   "note": "Fehér liszt, kevés fehérje."
+  },
+  {
+   "id": "afonya",
+   "name": "Áfonya",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 57,
+   "p": 0.7,
+   "c": 12,
+   "f": 0.3,
+   "fib": 2.4,
+   "gi": 53,
+   "u": "marék",
+   "ug": 80,
+   "note": ""
+  },
+  {
+   "id": "malna",
+   "name": "Málna",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 52,
+   "p": 1.2,
+   "c": 5.4,
+   "f": 0.7,
+   "fib": 6.5,
+   "gi": 25,
+   "u": "marék",
+   "ug": 80,
+   "note": "Sok rost, kevés cukor."
+  },
+  {
+   "id": "eper",
+   "name": "Eper",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 32,
+   "p": 0.7,
+   "c": 5.7,
+   "f": 0.3,
+   "fib": 2,
+   "gi": 40,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "szeder",
+   "name": "Szeder",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 43,
+   "p": 1.4,
+   "c": 4.3,
+   "f": 0.5,
+   "fib": 5.3,
+   "gi": 25,
+   "u": "marék",
+   "ug": 80,
+   "note": ""
+  },
+  {
+   "id": "ribizli",
+   "name": "Ribizli",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 56,
+   "p": 1.4,
+   "c": 8,
+   "f": 0.2,
+   "fib": 4,
+   "gi": 25,
+   "u": "marék",
+   "ug": 80,
+   "note": ""
+  },
+  {
+   "id": "alma",
+   "name": "Alma",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 52,
+   "p": 0.3,
+   "c": 11.4,
+   "f": 0.2,
+   "fib": 2.4,
+   "gi": 36,
+   "u": "db",
+   "ug": 180,
+   "note": "Egészben, héjastul."
+  },
+  {
+   "id": "korte",
+   "name": "Körte",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 57,
+   "p": 0.4,
+   "c": 12,
+   "f": 0.1,
+   "fib": 3.1,
+   "gi": 38,
+   "u": "db",
+   "ug": 180,
+   "note": ""
+  },
+  {
+   "id": "narancs",
+   "name": "Narancs",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 47,
+   "p": 0.9,
+   "c": 9,
+   "f": 0.1,
+   "fib": 2.4,
+   "gi": 43,
+   "u": "db",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "mandarin",
+   "name": "Mandarin",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 53,
+   "p": 0.8,
+   "c": 12,
+   "f": 0.3,
+   "fib": 1.8,
+   "gi": 47,
+   "u": "db",
+   "ug": 80,
+   "note": ""
+  },
+  {
+   "id": "grapefruit",
+   "name": "Grapefruit",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 42,
+   "p": 0.8,
+   "c": 9,
+   "f": 0.1,
+   "fib": 1.6,
+   "gi": 25,
+   "u": "fél db",
+   "ug": 150,
+   "note": "Gyógyszerekkel kölcsönhatásba léphet."
+  },
+  {
+   "id": "cseresznye",
+   "name": "Cseresznye",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 63,
+   "p": 1.1,
+   "c": 13,
+   "f": 0.2,
+   "fib": 2.1,
+   "gi": 22,
+   "u": "marék",
+   "ug": 100,
+   "note": ""
+  },
+  {
+   "id": "meggy",
+   "name": "Meggy",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 50,
+   "p": 1,
+   "c": 10,
+   "f": 0.3,
+   "fib": 1.6,
+   "gi": 22,
+   "u": "marék",
+   "ug": 100,
+   "note": ""
+  },
+  {
+   "id": "oszibarack",
+   "name": "Őszibarack",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 39,
+   "p": 0.9,
+   "c": 8,
+   "f": 0.3,
+   "fib": 1.5,
+   "gi": 42,
+   "u": "db",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "kajszi",
+   "name": "Kajszibarack",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 48,
+   "p": 1.4,
+   "c": 9,
+   "f": 0.4,
+   "fib": 2,
+   "gi": 34,
+   "u": "db",
+   "ug": 40,
+   "note": ""
+  },
+  {
+   "id": "szilva",
+   "name": "Szilva",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 46,
+   "p": 0.7,
+   "c": 10,
+   "f": 0.3,
+   "fib": 1.4,
+   "gi": 35,
+   "u": "db",
+   "ug": 40,
+   "note": ""
+  },
+  {
+   "id": "kiwi",
+   "name": "Kiwi",
+   "cat": "gyumolcs",
+   "r": "g",
+   "kcal": 61,
+   "p": 1.1,
+   "c": 11,
+   "f": 0.5,
+   "fib": 3,
+   "gi": 50,
+   "u": "db",
+   "ug": 75,
+   "note": ""
+  },
+  {
+   "id": "banan",
+   "name": "Banán",
+   "cat": "gyumolcs",
+   "r": "m",
+   "kcal": 89,
+   "p": 1.1,
+   "c": 20,
+   "f": 0.3,
+   "fib": 2.6,
+   "gi": 51,
+   "u": "db",
+   "ug": 120,
+   "note": "Inkább zöldesen, fél darab."
+  },
+  {
+   "id": "szolo",
+   "name": "Szőlő",
+   "cat": "gyumolcs",
+   "r": "m",
+   "kcal": 69,
+   "p": 0.7,
+   "c": 16,
+   "f": 0.2,
+   "fib": 0.9,
+   "gi": 53,
+   "u": "marék",
+   "ug": 100,
+   "note": "Könnyű túlenni."
+  },
+  {
+   "id": "gorogdinnye",
+   "name": "Görögdinnye",
+   "cat": "gyumolcs",
+   "r": "m",
+   "kcal": 30,
+   "p": 0.6,
+   "c": 7,
+   "f": 0.2,
+   "fib": 0.4,
+   "gi": 72,
+   "u": "szelet",
+   "ug": 300,
+   "note": "Magas GI, de kevés szénhidrát."
+  },
+  {
+   "id": "sargadinnye",
+   "name": "Sárgadinnye",
+   "cat": "gyumolcs",
+   "r": "m",
+   "kcal": 34,
+   "p": 0.8,
+   "c": 7.5,
+   "f": 0.2,
+   "fib": 0.9,
+   "gi": 65,
+   "u": "szelet",
+   "ug": 200,
+   "note": ""
+  },
+  {
+   "id": "ananasz",
+   "name": "Ananász",
+   "cat": "gyumolcs",
+   "r": "m",
+   "kcal": 50,
+   "p": 0.5,
+   "c": 11.5,
+   "f": 0.1,
+   "fib": 1.4,
+   "gi": 59,
+   "u": "szelet",
+   "ug": 100,
+   "note": ""
+  },
+  {
+   "id": "mango",
+   "name": "Mangó",
+   "cat": "gyumolcs",
+   "r": "m",
+   "kcal": 60,
+   "p": 0.8,
+   "c": 13.4,
+   "f": 0.4,
+   "fib": 1.6,
+   "gi": 51,
+   "u": "fél db",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "datolya",
+   "name": "Datolya",
+   "cat": "gyumolcs",
+   "r": "b",
+   "kcal": 282,
+   "p": 2.5,
+   "c": 63,
+   "f": 0.4,
+   "fib": 8,
+   "gi": 42,
+   "u": "db",
+   "ug": 8,
+   "note": "Koncentrált cukor."
+  },
+  {
+   "id": "mazsola",
+   "name": "Mazsola",
+   "cat": "gyumolcs",
+   "r": "b",
+   "kcal": 299,
+   "p": 3,
+   "c": 76,
+   "f": 0.5,
+   "fib": 3.7,
+   "gi": 64,
+   "u": "marék",
+   "ug": 30,
+   "note": ""
+  },
+  {
+   "id": "aszaltszilva",
+   "name": "Aszalt szilva",
+   "cat": "gyumolcs",
+   "r": "b",
+   "kcal": 240,
+   "p": 2.2,
+   "c": 38,
+   "f": 0.4,
+   "fib": 7,
+   "gi": 29,
+   "u": "db",
+   "ug": 8,
+   "note": ""
+  },
+  {
+   "id": "avokado",
+   "name": "Avokádó",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 160,
+   "p": 2,
+   "c": 1.8,
+   "f": 15,
+   "fib": 6.7,
+   "gi": 10,
+   "u": "fél db",
+   "ug": 80,
+   "note": ""
+  },
+  {
+   "id": "dio",
+   "name": "Dió",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 654,
+   "p": 15,
+   "c": 7,
+   "f": 65,
+   "fib": 6.7,
+   "gi": 15,
+   "u": "marék",
+   "ug": 25,
+   "note": ""
+  },
+  {
+   "id": "mandula",
+   "name": "Mandula",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 579,
+   "p": 21,
+   "c": 9,
+   "f": 50,
+   "fib": 12.5,
+   "gi": 15,
+   "u": "marék",
+   "ug": 25,
+   "note": ""
+  },
+  {
+   "id": "mogyoro",
+   "name": "Földimogyoró",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 567,
+   "p": 26,
+   "c": 8,
+   "f": 49,
+   "fib": 8.5,
+   "gi": 14,
+   "u": "marék",
+   "ug": 25,
+   "note": ""
+  },
+  {
+   "id": "mogyorovaj",
+   "name": "Mogyoróvaj, 100%",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 588,
+   "p": 25,
+   "c": 13,
+   "f": 50,
+   "fib": 6,
+   "gi": 14,
+   "u": "evőkanál",
+   "ug": 16,
+   "note": "Cukor és pálmaolaj nélkül."
+  },
+  {
+   "id": "kesu",
+   "name": "Kesudió",
+   "cat": "zsir",
+   "r": "m",
+   "kcal": 553,
+   "p": 18,
+   "c": 27,
+   "f": 44,
+   "fib": 3.3,
+   "gi": 25,
+   "u": "marék",
+   "ug": 25,
+   "note": ""
+  },
+  {
+   "id": "pisztacia",
+   "name": "Pisztácia",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 560,
+   "p": 20,
+   "c": 18,
+   "f": 45,
+   "fib": 10,
+   "gi": 15,
+   "u": "marék",
+   "ug": 25,
+   "note": ""
+  },
+  {
+   "id": "tokmag",
+   "name": "Tökmag",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 559,
+   "p": 30,
+   "c": 5,
+   "f": 49,
+   "fib": 6,
+   "gi": 15,
+   "u": "evőkanál",
+   "ug": 10,
+   "note": ""
+  },
+  {
+   "id": "napraforgo",
+   "name": "Napraforgómag",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 584,
+   "p": 21,
+   "c": 11,
+   "f": 51,
+   "fib": 8.6,
+   "gi": 20,
+   "u": "evőkanál",
+   "ug": 10,
+   "note": ""
+  },
+  {
+   "id": "chia",
+   "name": "Chiamag",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 486,
+   "p": 17,
+   "c": 8,
+   "f": 31,
+   "fib": 34,
+   "gi": 1,
+   "u": "evőkanál",
+   "ug": 12,
+   "note": ""
+  },
+  {
+   "id": "lenmag",
+   "name": "Lenmag, őrölt",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 534,
+   "p": 18,
+   "c": 1.6,
+   "f": 42,
+   "fib": 27,
+   "gi": 1,
+   "u": "evőkanál",
+   "ug": 10,
+   "note": ""
+  },
+  {
+   "id": "kendermag",
+   "name": "Kendermag, hántolt",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 553,
+   "p": 32,
+   "c": 3,
+   "f": 49,
+   "fib": 4,
+   "gi": 1,
+   "u": "evőkanál",
+   "ug": 10,
+   "note": ""
+  },
+  {
+   "id": "tahini",
+   "name": "Tahini",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 595,
+   "p": 17,
+   "c": 9,
+   "f": 54,
+   "fib": 9,
+   "gi": 15,
+   "u": "evőkanál",
+   "ug": 15,
+   "note": ""
+  },
+  {
+   "id": "olivaolaj",
+   "name": "Olívaolaj",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 884,
+   "p": 0,
+   "c": 0,
+   "f": 100,
+   "fib": 0,
+   "gi": 0,
+   "u": "evőkanál",
+   "ug": 10,
+   "note": ""
+  },
+  {
+   "id": "repceolaj",
+   "name": "Repceolaj",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 884,
+   "p": 0,
+   "c": 0,
+   "f": 100,
+   "fib": 0,
+   "gi": 0,
+   "u": "evőkanál",
+   "ug": 10,
+   "note": ""
+  },
+  {
+   "id": "kokuszolaj",
+   "name": "Kókuszolaj",
+   "cat": "zsir",
+   "r": "m",
+   "kcal": 862,
+   "p": 0,
+   "c": 0,
+   "f": 100,
+   "fib": 0,
+   "gi": 0,
+   "u": "evőkanál",
+   "ug": 10,
+   "note": "Sok telített zsír."
+  },
+  {
+   "id": "olajbogyo",
+   "name": "Olajbogyó",
+   "cat": "zsir",
+   "r": "g",
+   "kcal": 115,
+   "p": 0.8,
+   "c": 0.5,
+   "f": 11,
+   "fib": 3,
+   "gi": 0,
+   "u": "marék",
+   "ug": 30,
+   "note": ""
+  },
+  {
+   "id": "etcsoki",
+   "name": "Étcsokoládé, 85%",
+   "cat": "zsir",
+   "r": "m",
+   "kcal": 600,
+   "p": 10,
+   "c": 15,
+   "f": 50,
+   "fib": 12,
+   "gi": 23,
+   "u": "kocka",
+   "ug": 10,
+   "note": "Ha édesség kell, ez a legjobb."
+  },
+  {
+   "id": "kave",
+   "name": "Fekete kávé",
+   "cat": "ital",
+   "r": "g",
+   "kcal": 2,
+   "p": 0.1,
+   "c": 0,
+   "f": 0,
+   "fib": 0,
+   "gi": 0,
+   "u": "csésze",
+   "ug": 200,
+   "note": "Böjtben is mehet."
+  },
+  {
+   "id": "tea",
+   "name": "Tea, cukor nélkül",
+   "cat": "ital",
+   "r": "g",
+   "kcal": 1,
+   "p": 0,
+   "c": 0.2,
+   "f": 0,
+   "fib": 0,
+   "gi": 0,
+   "u": "bögre",
+   "ug": 250,
+   "note": "Böjtben is mehet."
+  },
+  {
+   "id": "viz",
+   "name": "Víz, ásványvíz",
+   "cat": "ital",
+   "r": "g",
+   "kcal": 0,
+   "p": 0,
+   "c": 0,
+   "f": 0,
+   "fib": 0,
+   "gi": 0,
+   "u": "pohár",
+   "ug": 250,
+   "note": ""
+  },
+  {
+   "id": "szojaital",
+   "name": "Szójaital, natúr",
+   "cat": "ital",
+   "r": "g",
+   "kcal": 33,
+   "p": 3,
+   "c": 0.5,
+   "f": 1.8,
+   "fib": 0.5,
+   "gi": 30,
+   "u": "pohár",
+   "ug": 250,
+   "note": "Tej helyett a legtöbb fehérjével."
+  },
+  {
+   "id": "mandulaital",
+   "name": "Mandulaital, cukrozatlan",
+   "cat": "ital",
+   "r": "g",
+   "kcal": 13,
+   "p": 0.4,
+   "c": 0.3,
+   "f": 1.1,
+   "fib": 0.3,
+   "gi": 25,
+   "u": "pohár",
+   "ug": 250,
+   "note": ""
+  },
+  {
+   "id": "zabital",
+   "name": "Zabital",
+   "cat": "ital",
+   "r": "m",
+   "kcal": 40,
+   "p": 0.5,
+   "c": 6.5,
+   "f": 1.5,
+   "fib": 0.8,
+   "gi": 69,
+   "u": "pohár",
+   "ug": 250,
+   "note": "Magas GI, inkább szója- vagy mandulaital."
+  },
+  {
+   "id": "bor",
+   "name": "Bor, száraz",
+   "cat": "ital",
+   "r": "m",
+   "kcal": 85,
+   "p": 0.1,
+   "c": 2.6,
+   "f": 0,
+   "fib": 0,
+   "gi": 0,
+   "u": "pohár",
+   "ug": 150,
+   "note": "Ritkán, étkezéshez."
+  },
+  {
+   "id": "udito",
+   "name": "Cukros üdítő",
+   "cat": "ital",
+   "r": "b",
+   "kcal": 42,
+   "p": 0,
+   "c": 10.6,
+   "f": 0,
+   "fib": 0,
+   "gi": 63,
+   "u": "doboz",
+   "ug": 330,
+   "note": "Folyékony cukor."
+  },
+  {
+   "id": "narancsle",
+   "name": "Narancslé",
+   "cat": "ital",
+   "r": "b",
+   "kcal": 45,
+   "p": 0.7,
+   "c": 10,
+   "f": 0.2,
+   "fib": 0.2,
+   "gi": 50,
+   "u": "pohár",
+   "ug": 250,
+   "note": "Egész narancsra cseréld."
+  },
+  {
+   "id": "energiaital",
+   "name": "Energiaital",
+   "cat": "ital",
+   "r": "b",
+   "kcal": 45,
+   "p": 0,
+   "c": 11,
+   "f": 0,
+   "fib": 0,
+   "gi": 70,
+   "u": "doboz",
+   "ug": 250,
+   "note": ""
+  },
+  {
+   "id": "sor",
+   "name": "Sör",
+   "cat": "ital",
+   "r": "b",
+   "kcal": 43,
+   "p": 0.5,
+   "c": 3.6,
+   "f": 0,
+   "fib": 0,
+   "gi": 66,
+   "u": "korsó",
+   "ug": 500,
+   "note": "Rontja az inzulinérzékenységet."
+  },
+  {
+   "id": "kakao",
+   "name": "Kakaó, cukros",
+   "cat": "ital",
+   "r": "b",
+   "kcal": 75,
+   "p": 3.3,
+   "c": 10,
+   "f": 2,
+   "fib": 0,
+   "gi": 60,
+   "u": "bögre",
+   "ug": 250,
+   "note": ""
+  },
+  {
+   "id": "smoothie",
+   "name": "Bolti smoothie",
+   "cat": "ital",
+   "r": "b",
+   "kcal": 55,
+   "p": 0.6,
+   "c": 12,
+   "f": 0.2,
+   "fib": 1,
+   "gi": 45,
+   "u": "üveg",
+   "ug": 250,
+   "note": ""
+  },
+  {
+   "id": "lencsefozelek",
+   "name": "Lencsefőzelék, rántás nélkül",
+   "cat": "kesz",
+   "r": "g",
+   "kcal": 105,
+   "p": 7,
+   "c": 13,
+   "f": 2.5,
+   "fib": 5,
+   "gi": 30,
+   "u": "tányér",
+   "ug": 300,
+   "note": ""
+  },
+  {
+   "id": "spenotfozelek",
+   "name": "Spenótfőzelék, rántás nélkül",
+   "cat": "kesz",
+   "r": "g",
+   "kcal": 70,
+   "p": 3.5,
+   "c": 5,
+   "f": 4,
+   "fib": 2,
+   "gi": 30,
+   "u": "tányér",
+   "ug": 300,
+   "note": ""
+  },
+  {
+   "id": "borsofozelek",
+   "name": "Zöldborsófőzelék",
+   "cat": "kesz",
+   "r": "m",
+   "kcal": 95,
+   "p": 5,
+   "c": 11,
+   "f": 3,
+   "fib": 4,
+   "gi": 48,
+   "u": "tányér",
+   "ug": 300,
+   "note": ""
+  },
+  {
+   "id": "rantasfozelek",
+   "name": "Főzelék rántással (tök, krumpli)",
+   "cat": "kesz",
+   "r": "b",
+   "kcal": 110,
+   "p": 2,
+   "c": 14,
+   "f": 5,
+   "fib": 2,
+   "gi": 70,
+   "u": "tányér",
+   "ug": 300,
+   "note": "Turmixolt zöldséggel sűrítsd."
+  },
+  {
+   "id": "lecso",
+   "name": "Lecsó tojással",
+   "cat": "kesz",
+   "r": "g",
+   "kcal": 85,
+   "p": 4.5,
+   "c": 5,
+   "f": 5.5,
+   "fib": 1.5,
+   "gi": 20,
+   "u": "tányér",
+   "ug": 300,
+   "note": ""
+  },
+  {
+   "id": "gombapaprikas",
+   "name": "Gombapaprikás (köret nélkül)",
+   "cat": "kesz",
+   "r": "g",
+   "kcal": 90,
+   "p": 3,
+   "c": 5,
+   "f": 6.5,
+   "fib": 1.3,
+   "gi": 20,
+   "u": "tányér",
+   "ug": 300,
+   "note": ""
+  },
+  {
+   "id": "babgulyas",
+   "name": "Vega babgulyás",
+   "cat": "kesz",
+   "r": "g",
+   "kcal": 85,
+   "p": 5,
+   "c": 10,
+   "f": 2,
+   "fib": 4,
+   "gi": 35,
+   "u": "tányér",
+   "ug": 400,
+   "note": ""
+  },
+  {
+   "id": "rakottkrumpli",
+   "name": "Rakott krumpli (tojásos)",
+   "cat": "kesz",
+   "r": "b",
+   "kcal": 150,
+   "p": 6,
+   "c": 13,
+   "f": 8,
+   "fib": 1.5,
+   "gi": 75,
+   "u": "adag",
+   "ug": 300,
+   "note": ""
+  },
+  {
+   "id": "turoscsusza",
+   "name": "Túrós csusza",
+   "cat": "kesz",
+   "r": "b",
+   "kcal": 220,
+   "p": 9,
+   "c": 25,
+   "f": 9,
+   "fib": 1,
+   "gi": 55,
+   "u": "adag",
+   "ug": 300,
+   "note": ""
+  },
+  {
+   "id": "makosguba",
+   "name": "Mákos guba",
+   "cat": "kesz",
+   "r": "b",
+   "kcal": 270,
+   "p": 7,
+   "c": 42,
+   "f": 8,
+   "fib": 2,
+   "gi": 70,
+   "u": "adag",
+   "ug": 250,
+   "note": ""
+  },
+  {
+   "id": "pizza",
+   "name": "Pizza margherita",
+   "cat": "kesz",
+   "r": "b",
+   "kcal": 250,
+   "p": 10,
+   "c": 32,
+   "f": 9,
+   "fib": 2,
+   "gi": 60,
+   "u": "szelet",
+   "ug": 120,
+   "note": ""
+  },
+  {
+   "id": "rantottsajt",
+   "name": "Rántott sajt",
+   "cat": "kesz",
+   "r": "b",
+   "kcal": 330,
+   "p": 17,
+   "c": 20,
+   "f": 20,
+   "fib": 1,
+   "gi": 70,
+   "u": "adag",
+   "ug": 150,
+   "note": "Panír és bő olaj."
+  },
+  {
+   "id": "rantottgomba",
+   "name": "Rántott gomba",
+   "cat": "kesz",
+   "r": "b",
+   "kcal": 220,
+   "p": 6,
+   "c": 18,
+   "f": 13,
+   "fib": 2,
+   "gi": 70,
+   "u": "adag",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "hasab",
+   "name": "Hasábburgonya",
+   "cat": "kesz",
+   "r": "b",
+   "kcal": 312,
+   "p": 3.4,
+   "c": 38,
+   "f": 15,
+   "fib": 3.8,
+   "gi": 75,
+   "u": "adag",
+   "ug": 150,
+   "note": "Olaj és keményítő együtt."
+  },
+  {
+   "id": "pure",
+   "name": "Krumplipüré",
+   "cat": "kesz",
+   "r": "b",
+   "kcal": 106,
+   "p": 2,
+   "c": 15,
+   "f": 4,
+   "fib": 1.5,
+   "gi": 85,
+   "u": "adag",
+   "ug": 200,
+   "note": "Karfiolpürével keverd."
+  },
+  {
+   "id": "langos",
+   "name": "Lángos",
+   "cat": "kesz",
+   "r": "b",
+   "kcal": 330,
+   "p": 7,
+   "c": 40,
+   "f": 16,
+   "fib": 2,
+   "gi": 80,
+   "u": "db",
+   "ug": 200,
+   "note": "Finom liszt és bő olaj."
+  },
+  {
+   "id": "pogacsa",
+   "name": "Sajtos pogácsa",
+   "cat": "kesz",
+   "r": "b",
+   "kcal": 420,
+   "p": 10,
+   "c": 43,
+   "f": 23,
+   "fib": 2,
+   "gi": 70,
+   "u": "db",
+   "ug": 50,
+   "note": ""
+  },
+  {
+   "id": "retes",
+   "name": "Túrós rétes",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 280,
+   "p": 7,
+   "c": 33,
+   "f": 13,
+   "fib": 1.5,
+   "gi": 65,
+   "u": "szelet",
+   "ug": 120,
+   "note": ""
+  },
+  {
+   "id": "palacsinta",
+   "name": "Lekváros palacsinta",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 230,
+   "p": 6,
+   "c": 36,
+   "f": 7,
+   "fib": 1.2,
+   "gi": 65,
+   "u": "db",
+   "ug": 75,
+   "note": "Túrós, cukor nélküli töltelék jobb."
+  },
+  {
+   "id": "turorudi",
+   "name": "Túró Rudi",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 390,
+   "p": 9,
+   "c": 35,
+   "f": 24,
+   "fib": 0.5,
+   "gi": 70,
+   "u": "db",
+   "ug": 30,
+   "note": "Inkább édesség, mint túró."
+  },
+  {
+   "id": "gyjoghurt",
+   "name": "Gyümölcsjoghurt",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 95,
+   "p": 3.5,
+   "c": 14,
+   "f": 2.5,
+   "fib": 0,
+   "gi": 40,
+   "u": "pohár",
+   "ug": 150,
+   "note": "Sok hozzáadott cukor."
+  },
+  {
+   "id": "keksz",
+   "name": "Keksz",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 470,
+   "p": 6,
+   "c": 70,
+   "f": 18,
+   "fib": 2,
+   "gi": 70,
+   "u": "db",
+   "ug": 8,
+   "note": ""
+  },
+  {
+   "id": "csoki",
+   "name": "Tejcsokoládé",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 535,
+   "p": 7.6,
+   "c": 57,
+   "f": 30,
+   "fib": 3.4,
+   "gi": 43,
+   "u": "sor",
+   "ug": 25,
+   "note": ""
+  },
+  {
+   "id": "gumicukor",
+   "name": "Gumicukor",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 340,
+   "p": 6,
+   "c": 77,
+   "f": 0.2,
+   "fib": 0,
+   "gi": 78,
+   "u": "marék",
+   "ug": 30,
+   "note": ""
+  },
+  {
+   "id": "fagyi",
+   "name": "Fagylalt",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 207,
+   "p": 3.5,
+   "c": 24,
+   "f": 11,
+   "fib": 0.7,
+   "gi": 60,
+   "u": "gombóc",
+   "ug": 60,
+   "note": ""
+  },
+  {
+   "id": "mez",
+   "name": "Méz",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 304,
+   "p": 0.3,
+   "c": 82,
+   "f": 0,
+   "fib": 0.2,
+   "gi": 61,
+   "u": "teáskanál",
+   "ug": 7,
+   "note": "Ugyanúgy cukor."
+  },
+  {
+   "id": "cukor",
+   "name": "Cukor",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 400,
+   "p": 0,
+   "c": 100,
+   "f": 0,
+   "fib": 0,
+   "gi": 65,
+   "u": "teáskanál",
+   "ug": 5,
+   "note": ""
+  },
+  {
+   "id": "lekvar",
+   "name": "Lekvár",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 250,
+   "p": 0.4,
+   "c": 60,
+   "f": 0.1,
+   "fib": 1,
+   "gi": 51,
+   "u": "evőkanál",
+   "ug": 20,
+   "note": ""
+  },
+  {
+   "id": "nutella",
+   "name": "Mogyorókrém, cukros",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 539,
+   "p": 6,
+   "c": 57,
+   "f": 31,
+   "fib": 3.4,
+   "gi": 33,
+   "u": "evőkanál",
+   "ug": 15,
+   "note": "Fele cukor."
+  },
+  {
+   "id": "chips",
+   "name": "Chips",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 536,
+   "p": 6.6,
+   "c": 50,
+   "f": 34,
+   "fib": 4.4,
+   "gi": 56,
+   "u": "marék",
+   "ug": 30,
+   "note": ""
+  },
+  {
+   "id": "perec",
+   "name": "Sós perec",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 380,
+   "p": 10,
+   "c": 76,
+   "f": 3,
+   "fib": 3,
+   "gi": 83,
+   "u": "marék",
+   "ug": 30,
+   "note": ""
+  },
+  {
+   "id": "popcorn",
+   "name": "Popcorn, natúr",
+   "cat": "edes",
+   "r": "m",
+   "kcal": 387,
+   "p": 12,
+   "c": 63,
+   "f": 4.5,
+   "fib": 14.5,
+   "gi": 65,
+   "u": "adag",
+   "ug": 25,
+   "note": "Ha nasi kell, ez még elmegy."
+  },
+  {
+   "id": "muzliszelet",
+   "name": "Müzliszelet",
+   "cat": "edes",
+   "r": "b",
+   "kcal": 420,
+   "p": 6,
+   "c": 65,
+   "f": 14,
+   "fib": 4,
+   "gi": 60,
+   "u": "db",
+   "ug": 25,
+   "note": ""
+  }
+ ],
+ "cats": {
+  "tej": "Tejtermék, tojás",
+  "feherje": "Növényi fehérje",
+  "huvelyes": "Hüvelyesek",
+  "zoldseg": "Zöldség",
+  "gabona": "Gabona, kenyér",
+  "gyumolcs": "Gyümölcs",
+  "zsir": "Zsírok, magvak",
+  "ital": "Italok",
+  "kesz": "Készételek",
+  "edes": "Édesség, nasi",
+  "sajat": "Saját ételek",
+  "recept": "Receptek"
+ },
+ "rtxt": {
+  "g": "Jó",
+  "m": "Mértékkel",
+  "b": "Kerülendő"
+ },
+ "meals": [
+  "Böjtzáró",
+  "Ebéd",
+  "Uzsonna",
+  "Vacsora",
+  "Nasi"
+ ],
+ "swaps": {
+  "fehkenyer": [
+   "rozs",
+   "tkkenyer"
+  ],
+  "kifli": [
+   "rozs",
+   "tkkenyer"
+  ],
+  "zsemle": [
+   "rozs",
+   "tkkenyer"
+  ],
+  "kalacs": [
+   "zabpehely",
+   "rozs"
+  ],
+  "fehteszta": [
+   "lencseteszta",
+   "tkteszta",
+   "cukkini"
+  ],
+  "fehrizs": [
+   "quinoa",
+   "hajdina",
+   "karfiol"
+  ],
+  "basmati": [
+   "quinoa",
+   "hajdina"
+  ],
+  "barnarizs": [
+   "quinoa",
+   "hajdina"
+  ],
+  "nokedli": [
+   "hajdina",
+   "bulgur"
+  ],
+  "hasab": [
+   "edesburgonya",
+   "karfiol"
+  ],
+  "pure": [
+   "karfiol",
+   "zeller"
+  ],
+  "burgonya": [
+   "edesburgonya",
+   "karfiol"
+  ],
+  "rakottkrumpli": [
+   "lecso",
+   "gombapaprikas"
+  ],
+  "rantottsajt": [
+   "halloumi",
+   "tofu"
+  ],
+  "rantottgomba": [
+   "gomba",
+   "tofu"
+  ],
+  "turoscsusza": [
+   "turo",
+   "lencseteszta"
+  ],
+  "makosguba": [
+   "zabpehely"
+  ],
+  "pizza": [
+   "lecso",
+   "tortilla"
+  ],
+  "langos": [
+   "rozs",
+   "hummusz"
+  ],
+  "pogacsa": [
+   "dio",
+   "olajbogyo"
+  ],
+  "retes": [
+   "turo",
+   "afonya"
+  ],
+  "palacsinta": [
+   "turo",
+   "zabpehely"
+  ],
+  "turorudi": [
+   "turo",
+   "skyr"
+  ],
+  "gyjoghurt": [
+   "gorog",
+   "skyr"
+  ],
+  "keksz": [
+   "dio",
+   "mandula"
+  ],
+  "csoki": [
+   "etcsoki"
+  ],
+  "gumicukor": [
+   "afonya",
+   "cseresznye"
+  ],
+  "fagyi": [
+   "gorog",
+   "afonya"
+  ],
+  "mez": [
+   "afonya"
+  ],
+  "cukor": [
+   "afonya"
+  ],
+  "lekvar": [
+   "malna",
+   "afonya"
+  ],
+  "nutella": [
+   "mogyorovaj"
+  ],
+  "chips": [
+   "edamame",
+   "mogyoro",
+   "popcorn"
+  ],
+  "perec": [
+   "edamame",
+   "mandula"
+  ],
+  "muzliszelet": [
+   "dio",
+   "alma"
+  ],
+  "udito": [
+   "viz",
+   "tea"
+  ],
+  "narancsle": [
+   "narancs",
+   "viz"
+  ],
+  "energiaital": [
+   "kave"
+  ],
+  "sor": [
+   "viz",
+   "bor"
+  ],
+  "kakao": [
+   "szojaital"
+  ],
+  "smoothie": [
+   "afonya",
+   "gorog"
+  ],
+  "kukoricapehely": [
+   "zabpehely"
+  ],
+  "musli": [
+   "zabpehely"
+  ],
+  "rizsszelet": [
+   "rozs"
+  ],
+  "datolya": [
+   "alma",
+   "afonya"
+  ],
+  "mazsola": [
+   "afonya"
+  ],
+  "aszaltszilva": [
+   "szilva"
+  ],
+  "rantasfozelek": [
+   "lencsefozelek",
+   "spenotfozelek"
+  ],
+  "zabital": [
+   "szojaital",
+   "mandulaital"
+  ],
+  "tej": [
+   "szojaital"
+  ],
+  "banan": [
+   "afonya",
+   "alma"
+  ],
+  "szolo": [
+   "cseresznye",
+   "eper"
+  ],
+  "kuszkusz": [
+   "bulgur",
+   "quinoa"
+  ],
+  "polenta": [
+   "hajdina"
+  ]
+ },
+ "samples": [
+  {
+   "id": "s-lencse",
+   "name": "Lencsefőzelék rántás nélkül",
+   "servings": 4,
+   "items": [
+    {
+     "fid": "lencse",
+     "g": 600
+    },
+    {
+     "fid": "hagyma",
+     "g": 100
+    },
+    {
+     "fid": "sargarepa",
+     "g": 80
+    },
+    {
+     "fid": "fokhagyma",
+     "g": 10
+    },
+    {
+     "fid": "olivaolaj",
+     "g": 20
+    },
+    {
+     "fid": "tejfol",
+     "g": 60
+    }
+   ]
+  },
+  {
+   "id": "s-wok",
+   "name": "Tofus zöldséges wok hajdinával",
+   "servings": 2,
+   "items": [
+    {
+     "fid": "tofu",
+     "g": 400
+    },
+    {
+     "fid": "brokkoli",
+     "g": 300
+    },
+    {
+     "fid": "paprika",
+     "g": 150
+    },
+    {
+     "fid": "gomba",
+     "g": 200
+    },
+    {
+     "fid": "hajdina",
+     "g": 300
+    },
+    {
+     "fid": "repceolaj",
+     "g": 20
+    }
+   ]
+  },
+  {
+   "id": "s-zab",
+   "name": "Túrós-zabos böjtzáró tál",
+   "servings": 1,
+   "items": [
+    {
+     "fid": "turo",
+     "g": 250
+    },
+    {
+     "fid": "zabpehely",
+     "g": 40
+    },
+    {
+     "fid": "afonya",
+     "g": 80
+    },
+    {
+     "fid": "dio",
+     "g": 15
+    }
+   ]
+  },
+  {
+   "id": "s-curry",
+   "name": "Csicseriborsó-spenót curry",
+   "servings": 3,
+   "items": [
+    {
+     "fid": "csicseri",
+     "g": 450
+    },
+    {
+     "fid": "spenot",
+     "g": 200
+    },
+    {
+     "fid": "paradicsom",
+     "g": 300
+    },
+    {
+     "fid": "hagyma",
+     "g": 100
+    },
+    {
+     "fid": "joghurt",
+     "g": 150
+    },
+    {
+     "fid": "olivaolaj",
+     "g": 15
+    }
+   ]
+  },
+  {
+   "id": "s-shak",
+   "name": "Shakshuka fetával",
+   "servings": 2,
+   "items": [
+    {
+     "fid": "tojas",
+     "g": 240
+    },
+    {
+     "fid": "paradicsom",
+     "g": 400
+    },
+    {
+     "fid": "paprika",
+     "g": 150
+    },
+    {
+     "fid": "hagyma",
+     "g": 100
+    },
+    {
+     "fid": "feta",
+     "g": 60
+    },
+    {
+     "fid": "olivaolaj",
+     "g": 15
+    }
+   ]
+  },
+  {
+   "id": "s-tempeh",
+   "name": "Tempeh-quinoa tál",
+   "servings": 2,
+   "items": [
+    {
+     "fid": "tempeh",
+     "g": 200
+    },
+    {
+     "fid": "quinoa",
+     "g": 300
+    },
+    {
+     "fid": "avokado",
+     "g": 80
+    },
+    {
+     "fid": "uborka",
+     "g": 150
+    },
+    {
+     "fid": "rukkola",
+     "g": 60
+    },
+    {
+     "fid": "tahini",
+     "g": 30
+    }
+   ]
+  }
+ ],
+ "meas": {
+  "tanyer": {
+   "l": "tányér",
+   "g": {
+    "kesz": 330,
+    "huvelyes": 300,
+    "gabona": 280,
+    "zoldseg": 250,
+    "recept": 330,
+    "default": 300
+   },
+   "h": "lapos tányér, normál adag"
+  },
+  "meltanyer": {
+   "l": "mély tányér",
+   "g": {
+    "default": 400
+   },
+   "h": "leveses tányér tele"
+  },
+  "tal": {
+   "l": "tál",
+   "g": {
+    "zoldseg": 150,
+    "gyumolcs": 200,
+    "tej": 200,
+    "default": 250
+   },
+   "h": "kisebb müzlis tál"
+  },
+  "merokanal": {
+   "l": "merőkanál",
+   "g": {
+    "default": 150
+   },
+   "h": "egy normál merőkanál"
+  },
+  "okol": {
+   "l": "ököl",
+   "g": {
+    "zoldseg": 100,
+    "gyumolcs": 130,
+    "default": 150
+   },
+   "h": "ökölnyi, kb. 1 bögre térfogat"
+  },
+  "tenyer": {
+   "l": "tenyérnyi",
+   "g": {
+    "default": 100
+   },
+   "h": "tenyér méretű és vastagságú darab"
+  },
+  "marek": {
+   "l": "marék",
+   "g": {
+    "zsir": 25,
+    "zoldseg": 40,
+    "gyumolcs": 80,
+    "edes": 30,
+    "gabona": 30,
+    "feherje": 50,
+    "default": 40
+   },
+   "h": "ami egy marokba fér"
+  },
+  "bogre": {
+   "l": "bögre",
+   "g": {
+    "default": 250
+   },
+   "h": "2,5 dl"
+  },
+  "pohar": {
+   "l": "pohár",
+   "g": {
+    "default": 200
+   },
+   "h": "2 dl"
+  },
+  "ek": {
+   "l": "evőkanál",
+   "g": {
+    "zsir": 12,
+    "gabona": 12,
+    "huvelyes": 20,
+    "kesz": 20,
+    "default": 15
+   },
+   "h": "csapott evőkanál"
+  },
+  "tk": {
+   "l": "teáskanál",
+   "g": {
+    "default": 5
+   },
+   "h": "csapott teáskanál"
+  },
+  "huvelyk": {
+   "l": "hüvelykujjnyi",
+   "g": {
+    "default": 15
+   },
+   "h": "vaj, mogyoróvaj, sajt"
+  },
+  "falat": {
+   "l": "falat",
+   "g": {
+    "default": 20
+   },
+   "h": "egy harapás"
+  },
+  "korty": {
+   "l": "korty",
+   "g": {
+    "default": 25
+   },
+   "h": "egy nagyobb korty"
+  },
+  "szelet": {
+   "l": "szelet",
+   "g": {
+    "gabona": 40,
+    "tej": 25,
+    "default": 60
+   },
+   "h": "közepes szelet"
+  },
+  "db": {
+   "l": "darab",
+   "g": {
+    "gyumolcs": 150,
+    "default": 100
+   },
+   "h": "közepes darab"
+  }
+ },
+ "catMeas": {
+  "zoldseg": [
+   "marek",
+   "okol",
+   "tal",
+   "tanyer",
+   "ek"
+  ],
+  "gabona": [
+   "ek",
+   "okol",
+   "merokanal",
+   "tanyer",
+   "szelet"
+  ],
+  "huvelyes": [
+   "ek",
+   "merokanal",
+   "okol",
+   "tanyer",
+   "meltanyer"
+  ],
+  "tej": [
+   "ek",
+   "tk",
+   "pohar",
+   "bogre",
+   "tal",
+   "tenyer",
+   "szelet",
+   "huvelyk"
+  ],
+  "feherje": [
+   "tenyer",
+   "okol",
+   "marek",
+   "ek",
+   "szelet"
+  ],
+  "gyumolcs": [
+   "marek",
+   "okol",
+   "tal",
+   "db"
+  ],
+  "zsir": [
+   "tk",
+   "ek",
+   "marek",
+   "huvelyk"
+  ],
+  "ital": [
+   "korty",
+   "pohar",
+   "bogre"
+  ],
+  "kesz": [
+   "merokanal",
+   "tal",
+   "tanyer",
+   "meltanyer",
+   "okol",
+   "szelet"
+  ],
+  "edes": [
+   "falat",
+   "marek",
+   "ek",
+   "tk",
+   "szelet"
+  ],
+  "sajat": [
+   "tanyer",
+   "okol",
+   "tenyer",
+   "marek",
+   "ek"
+  ],
+  "recept": [
+   "tanyer",
+   "meltanyer",
+   "merokanal",
+   "okol",
+   "tal"
+  ]
+ },
+ "defProfile": {
+  "sex": "m",
+  "age": 38,
+  "height": 198,
+  "weight": 105,
+  "act": "1.375",
+  "goal": "-500",
+  "winStart": "12:00",
+  "winEnd": "20:00",
+  "target": 95,
+  "water": 3500
+ },
+ "qtyW": {
+  "fel": 0.5,
+  "negyed": 0.25,
+  "egy": 1,
+  "egesz": 1,
+  "masfel": 1.5,
+  "ket": 2,
+  "ketto": 2,
+  "harom": 3,
+  "negy": 4,
+  "ot": 5,
+  "hat": 6,
+  "het": 7,
+  "nyolc": 8,
+  "par": 2,
+  "nehany": 3,
+  "dupla": 2
+ },
+ "sizeW": {
+  "kicsi": 0.7,
+  "kis": 0.7,
+  "kisebb": 0.75,
+  "kiskanal": 0.7,
+  "kozepes": 1,
+  "nagy": 1.4,
+  "nagyobb": 1.3,
+  "hatalmas": 1.8,
+  "oriasi": 1.8,
+  "teli": 1.3,
+  "tele": 1.2,
+  "pupozott": 1.5,
+  "puposs": 1.5,
+  "csapott": 0.8,
+  "joreszt": 1
+ },
+ "unitW": [
+  [
+   "melytanyer",
+   "meltanyer"
+  ],
+  [
+   "tanyer",
+   "tanyer"
+  ],
+  [
+   "talka",
+   "tal"
+  ],
+  [
+   "tal",
+   "tal"
+  ],
+  [
+   "merokanal",
+   "merokanal"
+  ],
+  [
+   "okol",
+   "okol"
+  ],
+  [
+   "tenyer",
+   "tenyer"
+  ],
+  [
+   "marek",
+   "marek"
+  ],
+  [
+   "bogre",
+   "bogre"
+  ],
+  [
+   "pohar",
+   "pohar"
+  ],
+  [
+   "csesze",
+   "bogre"
+  ],
+  [
+   "evokanal",
+   "ek"
+  ],
+  [
+   "ek",
+   "ek"
+  ],
+  [
+   "teaskanal",
+   "tk"
+  ],
+  [
+   "tk",
+   "tk"
+  ],
+  [
+   "kanal",
+   "ek"
+  ],
+  [
+   "huvelyk",
+   "huvelyk"
+  ],
+  [
+   "falat",
+   "falat"
+  ],
+  [
+   "harapas",
+   "falat"
+  ],
+  [
+   "korty",
+   "korty"
+  ],
+  [
+   "szelet",
+   "szelet"
+  ],
+  [
+   "darab",
+   "db"
+  ],
+  [
+   "db",
+   "db"
+  ]
+ ],
+ "stop": [
+  "es",
+  "meg",
+  "a",
+  "az",
+  "is",
+  "kb",
+  "kozel",
+  "nagyjabol",
+  "korulbelul",
+  "egy",
+  "nyi",
+  "adag",
+  "adagnyi",
+  "valami",
+  "egyet",
+  "ettem",
+  "ittam",
+  "plusz"
+ ],
+ "alias": {
+  "krumpli": "burgonya",
+  "sajt": "trappista",
+  "rizs": "fehrizs",
+  "teszta": "fehteszta",
+  "kenyer": "fehkenyer",
+  "zab": "zabpehely",
+  "bab": "vorosbab",
+  "borso": "zoldborso",
+  "olaj": "olivaolaj",
+  "csoki": "csoki",
+  "tojas": "tojas",
+  "joghurt": "joghurt",
+  "salata": "salata",
+  "kave": "kave",
+  "tea": "tea",
+  "viz": "viz",
+  "gorog": "gorog",
+  "narancsle": "narancsle",
+  "pure": "pure",
+  "fozelek": "lencsefozelek",
+  "lencse": "lencse",
+  "turo": "turo",
+  "alma": "alma",
+  "banan": "banan"
+ },
+ "acts": [
+  [
+   "1.2",
+   "Ülőmunka, kevés mozgás"
+  ],
+  [
+   "1.375",
+   "Heti 2–3 edzés"
+  ],
+  [
+   "1.55",
+   "Heti 4–5 edzés"
+  ],
+  [
+   "1.725",
+   "Napi edzés vagy fizikai munka"
+  ]
+ ],
+ "goals": [
+  [
+   "-500",
+   "Fogyás (~0,5 kg/hét)"
+  ],
+  [
+   "-300",
+   "Lassú fogyás (~0,3 kg/hét)"
+  ],
+  [
+   "0",
+   "Súlytartás"
+  ]
+ ],
+ "tips": [
+  {
+   "t": "Böjt és inzulinrezisztencia",
+   "items": [
+    [
+     "Fehérjével és rosttal törd meg a böjtöt.",
+     "Böjt után az első falat hat a legerősebben a vércukorra."
+    ],
+    [
+     "Zöldség, fehérje, a szénhidrát a végére.",
+     "Ez a sorrend ugyanabból az ételből is kisebb vércukorcsúcsot ad."
+    ],
+    [
+     "2–3 rendes étkezés, nem csipegetés.",
+     "Minden nassolás újra megemeli az inzulint."
+    ],
+    [
+     "A böjtben csak víz, fekete kávé, cukrozatlan tea.",
+     "Tej, édesítőszeres üdítő, „csak egy keksz” már megtöri."
+    ],
+    [
+     "Az utolsó étkezés legyen könnyebb.",
+     "A késő esti nagy szénhidrátadag rontja az alvást és a reggeli vércukrot."
+    ]
+   ]
+  },
+  {
+   "t": "Adagbecslés mérleg nélkül",
+   "items": [
+    [
+     "Tenyérnyi ≈ 100 g",
+     "Tofu, tempeh, sajt: akkora és olyan vastag darab, mint a tenyered ujjak nélkül."
+    ],
+    [
+     "Ököl ≈ 1 bögre ≈ 150 g",
+     "Főtt köret, hüvelyes, gabona. Zöldségből kb. 100 g."
+    ],
+    [
+     "Marék ≈ 25–40 g",
+     "Diófélék, magvak kb. 25 g, zöldség kb. 40 g, bogyós gyümölcs kb. 80 g."
+    ],
+    [
+     "Hüvelykujjnyi ≈ 15 g",
+     "Vaj, mogyoróvaj, kemény sajt."
+    ],
+    [
+     "Lapos tányér ≈ 300 g",
+     "Készétel, főzelék. Mély tányér tele kb. 400 g."
+    ]
+   ]
+  },
+  {
+   "t": "Mit jelentenek a számok?",
+   "items": [
+    [
+     "Glikémiás index (GI)",
+     "Milyen gyorsan emel vércukrot az étel szénhidrátja. 55 alatt alacsony, 70 fölött magas."
+    ],
+    [
+     "Glikémiás terhelés (GL)",
+     "A GI és az elfogyasztott szénhidrát mennyisége együtt. Ez a fontosabb. Egy adag: 10 alatt alacsony, 20 fölött magas. Napi összesen 100 alatt érdemes tartani."
+    ],
+    [
+     "Fehérje 100 kcal-ra",
+     "Mennyi fehérjét kapsz a kalóriáért. 10 g fölött kiváló (túró, skyr, tofu)."
+    ],
+    [
+     "Jó ételek aránya",
+     "A napi kalória hány százaléka jött „jó választás” besorolású ételből. 75% fölött jó a nap."
+    ]
+   ]
+  },
+  {
+   "t": "Vegetáriánus csapdák",
+   "items": [
+    [
+     "„Csak köret” étkezés.",
+     "Rántott sajt hasábbal vagy egy tál tészta: sok szénhidrát, kevés fehérje."
+    ],
+    [
+     "Rántással sűrített főzelék.",
+     "Turmixolt zöldséggel vagy joghurt–tejföl keverékkel sűrítsd."
+    ],
+    [
+     "Vega készételek.",
+     "Sok „húspótló” főleg keményítő. Nézd a címkén a fehérje–szénhidrát arányt."
+    ],
+    [
+     "Hiánypótlás.",
+     "Ellenőriztesd a B12-, D-vitamin-, vas- és omega-3-szinted."
+    ]
+   ]
+  },
+  {
+   "t": "Ami legalább annyit számít",
+   "items": [
+    [
+     "Erősítés heti 2–3 alkalommal.",
+     "Az izom a legnagyobb cukorfelhasználó a szervezetben."
+    ],
+    [
+     "10–15 perc séta étkezés után.",
+     "Érezhetően lapítja a vércukorgörbét."
+    ],
+    [
+     "7–8 óra alvás.",
+     "Néhány rossz éjszaka is rontja az inzulinérzékenységet."
+    ],
+    [
+     "Labor 3–6 havonta.",
+     "Éhgyomri vércukor, inzulin, HOMA-index, HbA1c. Gyógyszer mellett a böjtöt beszéld meg az orvosoddal."
+    ]
+   ]
+  }
+ ],
+ "disclaimer": "Általános tájékoztató, nem helyettesíti az orvosi vagy dietetikusi tanácsot. Az értékek átlagos tápanyagadatokon alapuló becslések."
+}

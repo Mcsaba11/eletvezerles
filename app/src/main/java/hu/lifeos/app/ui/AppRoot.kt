@@ -41,6 +41,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import hu.lifeos.app.R
 import hu.lifeos.app.capture.CaptureType
+import hu.lifeos.app.food.FoodViewModel
+import hu.lifeos.app.food.ui.FoodRoot
 import hu.lifeos.app.satori.SatoriViewModel
 import hu.lifeos.app.satori.ui.SatoriRoot
 import hu.lifeos.app.ui.screens.AppsScreen
@@ -65,7 +67,7 @@ private val tabs = listOf(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppRoot(vm: MainViewModel, satori: SatoriViewModel) {
+fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel) {
     val settings by vm.settings.collectAsState()
     val s = settings ?: return
     if (!s.welcomeDone) {
@@ -118,8 +120,9 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel) {
             enterTransition = { fadeIn() }, exitTransition = { fadeOut() },
         ) {
             composable("today") {
-                TodayScreen(vm, satori,
+                TodayScreen(vm, satori, food,
                     onOpenSatori = { openSatori() }, onSos = { openSatori(true) },
+                    onOpenFood = { nav.navigate("food") },
                     onOpenCalendar = { nav.navigate("calendar") { launchSingleTop = true } },
                     onOpenTodos = { nav.navigate("todos") { launchSingleTop = true } },
                     onOpenSettings = { nav.navigate("settings") },
@@ -136,8 +139,9 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel) {
             composable("todos") { TodosScreen(vm) }
             composable("timeline") { TimelineScreen(vm, satori) }
             composable("apps") {
-                AppsScreen(onOpenSatori = { openSatori() }, onOpenSettings = { nav.navigate("settings") })
+                AppsScreen(onOpenSatori = { openSatori() }, onOpenFood = { nav.navigate("food") }, onOpenSettings = { nav.navigate("settings") })
             }
+            composable("food") { FoodRoot(food, onExit = { nav.popBackStack() }) }
             composable("settings") { SettingsScreen(vm, satori, onBack = { nav.popBackStack() }) }
             composable(
                 "event?id={id}&date={date}",

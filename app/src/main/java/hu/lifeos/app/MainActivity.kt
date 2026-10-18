@@ -18,6 +18,7 @@ import androidx.lifecycle.ProcessLifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import hu.lifeos.app.food.FoodViewModel
 import hu.lifeos.app.satori.SatoriViewModel
 import hu.lifeos.app.ui.AppRoot
 import hu.lifeos.app.ui.LockScreen
@@ -50,6 +51,7 @@ class MainActivity : FragmentActivity() {
 
     private lateinit var mainVm: MainViewModel
     private lateinit var satoriVm: SatoriViewModel
+    private lateinit var foodVm: FoodViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +60,12 @@ class MainActivity : FragmentActivity() {
         val factory = viewModelFactory {
             initializer { MainViewModel(c) }
             initializer { SatoriViewModel(c) }
+            initializer { FoodViewModel(c) }
         }
         val provider = ViewModelProvider(this, factory)
         mainVm = provider[MainViewModel::class.java]
         satoriVm = provider[SatoriViewModel::class.java]
+        foodVm = provider[FoodViewModel::class.java]
 
         // Hidegindításkor a zár azonnal él (a beállítás gyorsan, helyben olvasható).
         if (savedInstanceState == null) {
@@ -76,7 +80,7 @@ class MainActivity : FragmentActivity() {
                 if (locked.value) {
                     LockScreen(onUnlock = { authenticate() })
                 } else {
-                    AppRoot(mainVm, satoriVm)
+                    AppRoot(mainVm, satoriVm, foodVm)
                 }
             }
         }

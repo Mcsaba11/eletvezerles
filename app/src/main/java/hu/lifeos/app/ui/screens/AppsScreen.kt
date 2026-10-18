@@ -49,13 +49,13 @@ import hu.lifeos.app.ui.Pill
 private data class MiniApp(val name: Int, val desc: Int, val icon: ImageVector, val ready: Boolean, val onClick: (() -> Unit)? = null)
 
 @Composable
-fun AppsScreen(onOpenSatori: () -> Unit, onOpenSettings: () -> Unit) {
+fun AppsScreen(onOpenSatori: () -> Unit, onOpenFood: () -> Unit, onOpenSettings: () -> Unit) {
     val apps = listOf(
         MiniApp(R.string.satori_name, R.string.app_satori_desc, Icons.Outlined.Spa, true, onOpenSatori),
-        MiniApp(R.string.app_food, R.string.app_food_desc, Icons.Outlined.Restaurant, false),
+        MiniApp(R.string.app_food, R.string.app_food_desc, Icons.Outlined.Restaurant, true, onOpenFood),
         MiniApp(R.string.app_money, R.string.app_money_desc, Icons.Outlined.AccountBalanceWallet, false),
         MiniApp(R.string.app_sleep, R.string.app_sleep_desc, Icons.Outlined.NightsStay, false),
-        MiniApp(R.string.app_weight, R.string.app_weight_desc, Icons.Outlined.Speed, false),
+        
         MiniApp(R.string.app_move, R.string.app_move_desc, Icons.Outlined.FitnessCenter, false),
         MiniApp(R.string.app_people, R.string.app_people_desc, Icons.Outlined.People, false),
         MiniApp(R.string.app_goals, R.string.app_goals_desc, Icons.Outlined.Flag, false),
