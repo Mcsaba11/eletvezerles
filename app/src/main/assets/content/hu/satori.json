@@ -1,0 +1,1596 @@
+{
+ "types": [
+  {
+   "id": "cukor",
+   "label": "Cukormentesség",
+   "icon": "cookie"
+  },
+  {
+   "id": "alkohol",
+   "label": "Alkoholstop",
+   "icon": "liquor"
+  },
+  {
+   "id": "dohanyzas",
+   "label": "Füstmentes út",
+   "icon": "smoking_rooms"
+  },
+  {
+   "id": "social",
+   "label": "Kevesebb telefon",
+   "icon": "smartphone"
+  },
+  {
+   "id": "porno",
+   "label": "Digitális fókusz",
+   "icon": "visibility_off"
+  }
+ ],
+ "stages": [
+  {
+   "days": 0,
+   "title": "Kezdet",
+   "sub": "A talaj előkészítése",
+   "motto": "Minden kert egy üres, megmunkálatlan talajjal kezdődik.",
+   "welcome": "Még az elején jársz — és ez rendben van. Minden út itt kezdődik.",
+   "reward": "Az első sikeres napod megnyitja a Magvető szintet."
+  },
+  {
+   "days": 1,
+   "title": "Magvető",
+   "sub": "A szándék elültetése",
+   "motto": "A szándék elültetése az elme kertjében.",
+   "welcome": "Elültetted az első magot. Ez volt a legnehezebb lépés — a kezdés.",
+   "reward": "Mostantól minden sikeres nap egy csepp víz a gyökereknek."
+  },
+  {
+   "days": 3,
+   "title": "Vándor",
+   "sub": "Az első lépések az úton",
+   "motto": "Rugalmas, miként a szélfútta bambusz.",
+   "welcome": "Három napja úton vagy. Az induláshoz szükséges bizonytalanság elmúlt.",
+   "reward": "A tested lassan megszokja az új ritmust."
+  },
+  {
+   "days": 7,
+   "title": "Tanítvány",
+   "sub": "Figyelem és tanulás",
+   "motto": "Tiszta lámpás az ösvény homályában.",
+   "welcome": "Egy egész hetet végigjártál. Ez már nem véletlen, hanem szándék.",
+   "reward": "Kezded felismerni a saját mintáidat és kiváltó okaidat."
+  },
+  {
+   "days": 14,
+   "title": "Kereső",
+   "sub": "Az ösvény felfedezése",
+   "motto": "Már napok óta öntözöd a belső kertedet — a gyökereid mélyülnek.",
+   "welcome": "Két hét — a régi szokás kezdi elveszíteni az erejét feletted.",
+   "reward": "Az agyad ilyenkor épít új útvonalakat — ez a legfontosabb szakasz."
+  },
+  {
+   "days": 21,
+   "title": "Gyakorló",
+   "sub": "Rendszeresség formálása",
+   "motto": "A kis fegyelem ma a nagy szabadság alapja holnap.",
+   "welcome": "Három hét telt el. Sok kutatás szerint itt kezd valódi szokássá válni, amit csinálsz.",
+   "reward": "A napi rutin lassan már nem erőfeszítés, hanem egyszerű választás."
+  },
+  {
+   "days": 30,
+   "title": "Őrző",
+   "sub": "Az új szokás védelme",
+   "motto": "A szolgálat és hűség mestere önmaga felett.",
+   "welcome": "Egy teljes hónap. Megvédted az elhatározásodat egy teljes holdcikluson át.",
+   "reward": "Innentől a feladatod már nem az építés, hanem az őrzés."
+  },
+  {
+   "days": 60,
+   "title": "Hídépítő",
+   "sub": "Régi minták felülírása",
+   "motto": "A víz nem küzd a sziklával — megkerüli, és mégis ő formálja a követ.",
+   "welcome": "Két hónap — hidat építettél a régi és az új éned között.",
+   "reward": "Kezded érezni, hogy ez már nem \"lemondás\", hanem egyszerűen az életed."
+  },
+  {
+   "days": 90,
+   "title": "Bölcs",
+   "sub": "Belső stabilitás és felismerés",
+   "motto": "A vágyak vihara elült, a tó tükre sima.",
+   "welcome": "Három hónap. A tested és az elméd is új alapállapotot talált.",
+   "reward": "Innentől inkább finomhangolás van hátra, nem harc."
+  },
+  {
+   "days": 180,
+   "title": "Lámpáshordozó",
+   "sub": "Másoknak utat mutató fény",
+   "motto": "A fény, amit magadban meggyújtottál, másoknak is utat mutat.",
+   "welcome": "Fél év. A saját utad mostantól másoknak is példa lehet.",
+   "reward": "Ha szeretnéd, innentől a tapasztalatod valakinek valódi segítség lehet."
+  },
+  {
+   "days": 365,
+   "title": "Mester",
+   "sub": "Természetes tiszta létezés",
+   "motto": "A gyökér mélysége dönti el, meddig áll a fa a viharban.",
+   "welcome": "Egy egész év. Ez már nem cél, hanem az életed része lett.",
+   "reward": "Nincs több szint — csak a folytatás, napról napra."
+  }
+ ],
+ "quotes": [
+  "Nem az a bátor, aki sosem esik el, hanem aki minden alkalommal feláll.",
+  "A víz nem küzd a sziklával — megkerüli, és mégis ő formálja a követ.",
+  "Ami most nehéznek tűnik, holnapra már csak egy lecke lesz, amit megtanultál.",
+  "A csend nem üresség — hely, ahol meghallhatod, mit akarsz valójában.",
+  "Minden lélegzet egy új kezdet — nincs szükség tegnapra ahhoz, hogy ma jól dönts.",
+  "A kard élét nem a düh élesíti, hanem a nyugalom.",
+  "Ha elesel hétszer, kelj fel nyolcszor — nem azért, mert könnyű, hanem mert ez az út.",
+  "A hegy nem siet, mégis mindig eléred, ha lépésről lépésre haladsz.",
+  "A vágy egy hullám — nem te vagy az, csak áthalad rajtad.",
+  "A kis fegyelem ma a nagy szabadság alapja holnap.",
+  "A teáscsésze csak akkor hasznos, ha üres — hagyj helyet magadban a változásnak.",
+  "A szilárd kőszikla nem rendül meg a vihar legvadabb szelétől sem.",
+  "A szamuráj látótere széles, mégis teljesen mozdulatlan.",
+  "A kísértés csak egy futó felhő a tiszta égen. Te magad vagy az égbolt.",
+  "A gyökér mélysége dönti el, meddig áll a fa a viharban.",
+  "Nem az a cél, hogy soha ne inogj meg — hanem hogy mindig visszatérj.",
+  "A bambusz azért nem törik el a viharban, mert hajlik — de gyökeret sosem enged.",
+  "Egy nyugodt elme többet lát, mint ezer nyugtalan gondolat.",
+  "A mester nem az, aki elkerüli az esést, hanem aki ismeri a felállás útját.",
+  "Minden reggel új lap — azt írod rá, amit ma választasz.",
+  "A türelem nem a várakozás, hanem a nyugalom megőrzése közben.",
+  "Ami mélyen gyökerezik, azt a szél nem dönti ki — csak megedzi.",
+  "A csend, amit ma magadban teremtesz, holnap erővé válik.",
+  "Nem kell sietned a béke felé — a béke ott van, ahol most megállsz.",
+  "A harcos fegyvere nem a düh, hanem a figyelem."
+ ],
+ "body_timelines": {
+  "cukor": {
+   "badge": "Cukormentesség",
+   "icon": "cookie",
+   "heading": "Mi történik a testedben?",
+   "cardTitle": "Mi történik most a testemben?",
+   "intro": "A pontos időzítés emberenként eltér, és nincs egységes, szigorúan mért tudományos idővonal minderre — ez a jól dokumentált élettani folyamatok (vércukor/inzulin, dopamin-jutalmazó rendszer, alvás, ízlelés) alapján összeállított, reális tájékoztató kép, nem orvosi tanács.",
+   "safety": null,
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma, az első órák",
+     "icon": "water_drop",
+     "text": "Az utolsó édesség után néhány órával a vércukrod és az inzulinszinted elkezd normalizálódni. Az agyad jutalmazó rendszere viszont még \"várja\" a megszokott dopaminlöketet — innen az első, még enyhe sóvárgás."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 1,
+     "when": "1. nap",
+     "icon": "bolt",
+     "text": "Az energiaszinted hullámzóbb lehet, előfordulhat fejfájás vagy enyhe ingerlékenység — ez a megszokott cukorbevitel hiányának természetes jele, nem gyengeség."
+    },
+    {
+     "minDay": 2,
+     "maxDay": 3,
+     "when": "2–3. nap — az elvonás csúcsa",
+     "icon": "thunderstorm",
+     "text": "Sokaknál ez a legnehezebb szakasz: erősebb sóvárgás, fáradtság, \"ködös fej\", esetleg alvászavar. A kutatások szerint a sóvárgás-hullámok jellemzően 10-15 percen belül lecsengenek — nem kell velük egész nap küzdened, csak hullámonként."
+    },
+    {
+     "minDay": 4,
+     "maxDay": 7,
+     "when": "4–7. nap — az első hét vége",
+     "icon": "trending_down",
+     "text": "A sóvárgások gyakorisága és ereje jellemzően csökkenni kezd. A tested lassan újratanulja, hogyan tartsa stabilan a vércukrot cukor nélkül is."
+    },
+    {
+     "minDay": 8,
+     "maxDay": 14,
+     "when": "2. hét — stabilizálódás",
+     "icon": "balance",
+     "text": "Kiegyensúlyozottabb energia a nap folyamán, kevesebb délutáni \"lezuhanás\". Sokan itt számolnak be tisztább gondolkodásról és jobb koncentrációról."
+    },
+    {
+     "minDay": 15,
+     "maxDay": 21,
+     "when": "3. hét — mélyebb változások",
+     "icon": "bedtime",
+     "text": "Az alvás gyakran mélyebbé, pihentetőbbé válik. Az ízlelésed érzékenyebbé válhat az édes ízekre — egy darab gyümölcs is édesebbnek tűnhet, mint korábban."
+    },
+    {
+     "minDay": 22,
+     "maxDay": 30,
+     "when": "4. hét — közel a teljes alkalmazkodáshoz",
+     "icon": "spa",
+     "text": "A sóvárgás a legtöbb embernél ekkorra jelentősen visszaszorul vagy elmúlik. Az érzelmi hullámzás is csillapodik, ahogy a vércukorszinted stabilabbá válik."
+    },
+    {
+     "minDay": 31,
+     "maxDay": null,
+     "when": "1 hónapon túl — tartós haszon",
+     "icon": "auto_awesome",
+     "text": "A cukormentes szokás egyre inkább automatikussá válik, nem küzdelemmé. Hosszabb távon ez hozzájárul a stabilabb energiaszinthez, és — a szakirodalom szerint — a cukorral összefüggő egészségi kockázatok (pl. 2-es típusú cukorbetegség, szív- és érrendszeri terhelés) csökkenéséhez is."
+    }
+   ]
+  },
+  "alkohol": {
+   "badge": "Alkoholstop",
+   "icon": "liquor",
+   "heading": "Mi történik a testedben?",
+   "cardTitle": "Mi történik most a testemben?",
+   "intro": "A pontos lefolyás nagyban függ attól, mennyit és milyen rendszerességgel ittál korábban — ez a jól dokumentált élettani szakirodalom (megvonási tünettan, máj- és keringési élettan) alapján összeállított, általános tájékoztató kép, nem orvosi tanács vagy diagnózis.",
+   "safety": "Ha korábban rendszeresen, napi szinten és nagyobb mennyiségben ittál, a hirtelen teljes leállás orvosi szempontból veszélyes lehet (pl. görcsroham, súlyos megvonási tünetek 24–72 óra körül). Ha ez rád igaz, ne egyedül vágj bele — kérj orvosi tanácsot vagy felügyeletet az elhagyás előtt.",
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma, az első órák",
+     "icon": "water_drop",
+     "text": "Ha rendszeresen és sokat ittál, az első 6–12 órában jelentkezhetnek a megvonás korai jelei: nyugtalanság, remegő kéz, izzadás, szapora pulzus. Alkalmi ivónál inkább csak a másnapos tünetek csengenek le, és az alvásciklusod kezd helyreállni."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 1,
+     "when": "1. nap — a legkockázatosabb szakasz",
+     "icon": "warning",
+     "text": "Ha korábban napi szinten és nagy mennyiséget ittál, a következő 24–72 óra orvosi szempontból a legkockázatosabb — ilyenkor a legnagyobb a súlyos megvonási tünetek esélye. Ez az a helyzet, amikor tényleg érdemes orvosi felügyelet mellett nekivágni."
+    },
+    {
+     "minDay": 2,
+     "maxDay": 3,
+     "when": "2–3. nap — a fizikai csúcs",
+     "icon": "thunderstorm",
+     "text": "A legtöbb megvonásos tünet (izzadás, remegés, ingerlékenység, alvászavar) ilyenkor a legerősebb azoknál, akik rendszeresen ittak. A szervezeted újra megtanulja, hogyan szabályozza magát alkohol nélkül."
+    },
+    {
+     "minDay": 4,
+     "maxDay": 7,
+     "when": "4–7. nap — a hét vége",
+     "icon": "bedtime",
+     "text": "A fizikai tünetek a legtöbb embernél ezen a ponton érezhetően enyhülnek, bár az alvás minősége (a mély- és REM-alvás aránya) még napokig hullámzó lehet — ez teljesen normális az agy alkalmazkodása közben."
+    },
+    {
+     "minDay": 8,
+     "maxDay": 14,
+     "when": "2. hét",
+     "icon": "trending_down",
+     "text": "A vérnyomás és a pulzus sok embernél ezen a ponton kezd tartósan normalizálódni. A máj méregtelenítő enzimjei (pl. GGT, ALT) is elkezdenek csökkenni, ha korábban emelkedettek voltak."
+    },
+    {
+     "minDay": 15,
+     "maxDay": 30,
+     "when": "3–4. hét",
+     "icon": "balance",
+     "text": "A kutatások szerint már néhány alkoholmentes hét alatt mérhetően csökkenhet a májban felhalmozódott zsír mennyisége, és sokan számolnak be stabilabb hangulatról, jobb koncentrációról."
+    },
+    {
+     "minDay": 31,
+     "maxDay": 90,
+     "when": "1–3 hónap",
+     "icon": "spa",
+     "text": "A máj regenerációja ezen az időtávon már jelentős lehet — tartós absztinencia mellett a legtöbb enyhébb, zsírmáj jellegű károsodás részben visszafordítható. Az alvásarchitektúra is tartósan stabilizálódik."
+    },
+    {
+     "minDay": 91,
+     "maxDay": null,
+     "when": "3 hónapon túl — tartós haszon",
+     "icon": "auto_awesome",
+     "text": "Hosszabb távon az alkoholmentesség mérhetően csökkenti a szív- és érrendszeri terhelést, javítja az immunrendszer működését, és a szakirodalom szerint jelentősen mérsékli a több, alkohollal összefüggő egészségügyi kockázatot."
+    }
+   ]
+  },
+  "dohanyzas": {
+   "badge": "Füstmentes út",
+   "icon": "smoking_rooms",
+   "heading": "Mi történik a testedben?",
+   "cardTitle": "Mi történik most a testemben?",
+   "intro": "Ez az idővonal a nemzetközi dohányzásleszokás-szakirodalom (pl. CDC, WHO) jól dokumentált, általános mintázatait foglalja össze tájékoztató jelleggel — az egyéni ütem eltérhet, ez nem helyettesíti az orvosi tanácsot.",
+   "safety": null,
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma, az első órák",
+     "icon": "favorite",
+     "text": "Már 20 perccel az utolsó cigaretta után csökkenni kezd a pulzusod és a vérnyomásod. 12 óra elteltével a véredben a szén-monoxid-szint a normál tartományba süllyed, és több oxigén jut a szöveteidhez."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 1,
+     "when": "1. nap",
+     "icon": "bolt",
+     "text": "A nikotin nagy része már kiürült a szervezetedből — innen jönnek a klasszikus elvonási tünetek: ingerlékenység, koncentrációs nehézség, erős sóvárgás. Ez élettanilag várható, nem a gyengeség jele."
+    },
+    {
+     "minDay": 2,
+     "maxDay": 3,
+     "when": "2–3. nap — a sóvárgás csúcsa",
+     "icon": "thunderstorm",
+     "text": "A fizikai nikotinéhség a legtöbb embernél ezekben a napokban a legerősebb. A jó hír: egy-egy sóvárgáshullám jellemzően csak néhány percig tart, utána magától alábbhagy."
+    },
+    {
+     "minDay": 4,
+     "maxDay": 14,
+     "when": "4–14. nap",
+     "icon": "air",
+     "text": "A keringésed folyamatosan javul, a tüdőd apró csillói — amik a nyálkát és szennyeződést takarítják — elkezdenek regenerálódni. Sokan tapasztalnak enyhébb köhögést, van, akinél átmenetileg erősebbet — ez a tüdő öntisztulásának jele."
+    },
+    {
+     "minDay": 15,
+     "maxDay": 30,
+     "when": "2–4. hét",
+     "icon": "directions_walk",
+     "text": "A légzésed könnyebbé válhat, a fizikai terhelhetőséged javul. A cigaretta utáni automatikus reflex (pl. kávé mellé, stressz esetén) ezen a ponton kezd leggyakrabban meggyengülni."
+    },
+    {
+     "minDay": 31,
+     "maxDay": 90,
+     "when": "1–3 hónap",
+     "icon": "trending_down",
+     "text": "A tüdőfunkciód mérhetően javul, a köhögés és a légszomj a legtöbb korábbi dohányosnál jelentősen csökken. Ez az az időszak, amikor a szervezet öngyógyító folyamatai a leglátványosabbak."
+    },
+    {
+     "minDay": 91,
+     "maxDay": 365,
+     "when": "3 hónaptól 1 évig",
+     "icon": "spa",
+     "text": "A tüdő csillói jórészt visszanyerik normál működésüket, csökken a légúti fertőzések kockázata. Egy teljes év füstmentesség után a szívkoszorúér-betegség kockázata már körülbelül a felére csökken egy dohányoshoz képest."
+    },
+    {
+     "minDay": 366,
+     "maxDay": null,
+     "when": "1 éven túl — tartós haszon",
+     "icon": "auto_awesome",
+     "text": "Az évek múlásával tovább csökken a stroke, a tüdőrák és a szívbetegségek kockázata — a szakirodalom szerint 10-15 év teljes absztinencia után ezek a kockázatok jelentősen megközelítik a soha nem dohányzókét."
+    }
+   ]
+  },
+  "social": {
+   "badge": "Kevesebb telefon",
+   "icon": "smartphone",
+   "heading": "Mi történik benned?",
+   "cardTitle": "Mi történik most benned?",
+   "intro": "Ezen a területen kevesebb a szigorú élettani mérés, mint a dohányzásnál vagy az alkoholnál — az idővonal viselkedéskutatási és pszichológiai megfigyelésekre (szokás-hurkok, digitális-böjt vizsgálatok) épül, tájékoztató jelleggel, nem orvosi tanácsként.",
+   "safety": null,
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma, az első órák",
+     "icon": "phonelink_off",
+     "text": "Az első óráktól kezdve feltűnhet a \"fantom-rezgés\" érzése, vagy az ösztönös mozdulat a telefon felé — ez egy jól bevésődött szokás-hurok, nem hiányosság nálad."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 2,
+     "when": "1–2. nap",
+     "icon": "bolt",
+     "text": "Gyakori a nyugtalanság és a \"lemaradok valamiről\" (FOMO) érzése — ez az újdonságéhség (novelty-keresés) megvonása, hasonló mintát mutat, mint más ingerfüggő szokásoknál."
+    },
+    {
+     "minDay": 3,
+     "maxDay": 7,
+     "when": "3–7. nap",
+     "icon": "thunderstorm",
+     "text": "Több digitális-böjt vizsgálat (pl. a Bath-i Egyetem 2022-es kutatása) szerint már egy hét visszafogottabb közösségimédia-használat is mérhetően javíthatja a hangulatot és csökkentheti a szorongást sok embernél."
+    },
+    {
+     "minDay": 8,
+     "maxDay": 14,
+     "when": "2. hét",
+     "icon": "balance",
+     "text": "A kényszeres, automatikus telefon-ellenőrzés gyakorisága jellemzően csökkenni kezd. Sokan számolnak be arról, hogy könnyebben tudnak egy feladatra hosszabban koncentrálni."
+    },
+    {
+     "minDay": 15,
+     "maxDay": 30,
+     "when": "3–4. hét",
+     "icon": "bedtime",
+     "text": "A lefekvés előtti képernyőidő csökkenésével gyakran javul az elalvás és az alvás minősége is — a kék fény és az izgalmi állapot csökkenése mindkettőt segíti."
+    },
+    {
+     "minDay": 31,
+     "maxDay": 90,
+     "when": "1–3 hónap",
+     "icon": "psychology",
+     "text": "Az ingerküszöböd lassan visszaáll — kevésbé lesz szükséged folyamatos, apró jutalmakra (like, értesítés) ahhoz, hogy jól érezd magad. Sokan úgy írják le ezt, hogy könnyebben \"unatkoznak\" produktív módon."
+    },
+    {
+     "minDay": 91,
+     "maxDay": null,
+     "when": "3 hónapon túl — tartós haszon",
+     "icon": "auto_awesome",
+     "text": "Hosszabb távon a kutatások a mélyebb figyelemre, jobb alvásra és több, valódi személyes kapcsolatra fordított időre mutatnak rá azoknál, akik tartósan csökkentik a passzív görgetést."
+    }
+   ]
+  },
+  "porno": {
+   "badge": "Digitális fókusz",
+   "icon": "visibility_off",
+   "heading": "Mi történik benned?",
+   "cardTitle": "Mi történik most benned?",
+   "intro": "Ezen a területen a tudományos bizonyítékok gyengébbek és vitatottabbak, mint pl. a dohányzásnál — sok elterjedt állítás (pl. \"dopamin-reset\") inkább közösségi beszámolókon alapul. Ami alább áll, viselkedési mintákra és a rendelkezésre álló kutatásokra épülő, óvatos, tájékoztató jellegű kép — nem orvosi vagy pszichológiai diagnózis.",
+   "safety": null,
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma, az első órák",
+     "icon": "meeting_room",
+     "text": "Az első órákban-napokban gyakoriak a tolakodó gondolatok és erős sóvárgáshullámok — ez a megszokott inger-válasz kör (cue-reactivity) természetes velejárója, nem akarathiba."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 3,
+     "when": "1–3. nap",
+     "icon": "thunderstorm",
+     "text": "A sóvárgás ezekben a napokban lehet a legerősebb, főleg megszokott helyzetekben (pl. lefekvés előtt, egyedül). A kiváltó helyzet felismerése és tudatos elkerülése sokat segít."
+    },
+    {
+     "minDay": 4,
+     "maxDay": 14,
+     "when": "4–14. nap",
+     "icon": "bedtime",
+     "text": "Ha korábban az esti/éjszakai használat rontotta az alvásodat, ezen a ponton sokan tapasztalnak jobb elalvást és kevesebb éjszakai ébredést."
+    },
+    {
+     "minDay": 15,
+     "maxDay": 30,
+     "when": "2–4. hét",
+     "icon": "psychology",
+     "text": "Fontos tudni: az ún. \"flatline\" vagy \"dopamin-reset\" jelenség inkább közösségi beszámolókon alapul, mint szigorú tudományos bizonyítékon — a valódi lefolyás emberenként nagyon eltérő. Amit biztosabban lehet állítani: a kiváltó helyzetek tudatosítása ezen a ponton már kézzelfoghatóan könnyebbé válik."
+    },
+    {
+     "minDay": 31,
+     "maxDay": 90,
+     "when": "1–3 hónap",
+     "icon": "balance",
+     "text": "A megszokott inger-válasz minták fokozatosan gyengülnek, ahogy egyre több alkalommal sikerül másképp reagálnod a kiváltó helyzetekre. Sokan számolnak be jobb koncentrációról és magabiztosságról, bár ez egyénenként nagyon változó."
+    },
+    {
+     "minDay": 91,
+     "maxDay": null,
+     "when": "3 hónapon túl — tartós haszon",
+     "icon": "auto_awesome",
+     "text": "Hosszabb távon a legtöbb ember számára a legnagyobb nyereség nem egy mérhető \"élettani reset\", hanem a viselkedés feletti kontroll visszaszerzése és az önbizalom erősödése — ezt a kutatás is leginkább alá tudja támasztani."
+    }
+   ]
+  }
+ },
+ "messages": {
+  "nyugodt": [
+   "A nyugodt nap nem véletlen — a gyakorlás gyümölcse. Jegyezd meg, mi segített ma.",
+   "Ma könnyű volt az út. Ez is a gyakorlás része, nem csak a nehéz napok."
+  ],
+  "kisertes": [
+   "A vágy olyan, mint a szél a bambuszban — jön, meghajlít, majd elmúlik.",
+   "Enyhe hullám ez, nem vihar. Egy pár lélegzet, és tovább vonul."
+  ],
+  "kuzdelem": [
+   "A harcos nem az, aki nem fél, hanem aki a félelemmel együtt is megáll.",
+   "Ez most nehéz. Egy lélegzet, aztán még egy — nem kell egyszerre mindent megoldani."
+  ],
+  "megbotlas": [
+   "Becsúszott — a kő is megbotlik, mielőtt megtalálja a helyét.",
+   "Egy lépés vissza nem törli az utat, amit eddig jártál."
+  ]
+ },
+ "state_defs": [
+  {
+   "id": "nyugodt",
+   "label": "Nyugodt és tiszta",
+   "sub": "Könnyű nap",
+   "icon": "spa"
+  },
+  {
+   "id": "kisertes",
+   "label": "Enyhe kísértés",
+   "sub": "Hullámzás",
+   "icon": "air"
+  },
+  {
+   "id": "kuzdelem",
+   "label": "Kemény küzdelem",
+   "sub": "Próbatétel",
+   "icon": "sports_martial_arts"
+  },
+  {
+   "id": "megbotlas",
+   "label": "Megbotlás / reset",
+   "sub": "Újraindulás",
+   "icon": "restart_alt"
+  }
+ ],
+ "defusion_lines": [
+  "Most van egy gondolatom, hogy meg kellene ennem valami édeset. Ez csak egy gondolat — nem parancs, és nem én vagyok.",
+  "A sóvárgás egy jelzés az agyamtól, nem egy utasítás, amit követnem kell.",
+  "Megfigyelem a vágyat, mint egy felhőt az égen — jön, és tovább is fog vonulni.",
+  "Nem nekem kell legyőznöm ezt az érzést — csak hagynom kell, hogy átvonuljon."
+ ],
+ "type_tips": {
+  "cukor": [
+   {
+    "icon": "water_drop",
+    "text": "Igyál meg egy nagy pohár vizet, és várj 10 percet — a szomjúság gyakran sóvárgásnak álcázza magát."
+   },
+   {
+    "icon": "egg",
+    "text": "Egyél valami fehérjében gazdagot (natúr joghurt, egy marék dió, egy tojás) — stabilizálja a vércukrot."
+   },
+   {
+    "icon": "nutrition",
+    "text": "Egy darab gyümölcs vagy rostban gazdag snack lassabban emeli a vércukrot, mint a finomított cukor."
+   }
+  ],
+  "alkohol": [
+   {
+    "icon": "water_drop",
+    "text": "Tölts magadnak egy pohár szénsavas vizet citrommal — a kéz és a száj elfoglalása sokat segít."
+   },
+   {
+    "icon": "timer",
+    "text": "Mondd magadnak: „15 perc, aztán újra döntök.\" A legtöbb sóvárgáshullám ennyi idő alatt megtörik."
+   },
+   {
+    "icon": "call",
+    "text": "Hívd fel a bizalmi segítődet, vagy csak írj neki pár szót — a kimondás önmagában csökkenti a nyomást."
+   }
+  ],
+  "dohanyzas": [
+   {
+    "icon": "air",
+    "text": "Lélegezz be mélyen 4 másodpercig, tartsd 4-ig, fújd ki lassan 6-ig — ismételd ötször."
+   },
+   {
+    "icon": "water_drop",
+    "text": "Igyál egy korty hideg vizet, és öblítsd át vele a szád — megváltoztatja az ízérzetet."
+   },
+   {
+    "icon": "directions_walk",
+    "text": "Menj ki pár percre — a mozgás és a friss levegő gyakran gyorsabban oldja a vágyat, mint bármi más."
+   }
+  ],
+  "social": [
+   {
+    "icon": "phonelink_off",
+    "text": "Tedd a telefont egy másik szobába 10 percre — a fizikai távolság megtöri az automatizmust."
+   },
+   {
+    "icon": "edit_note",
+    "text": "Írd le egy mondatban, mit kerestél volna most a telefonon — sokszor semmi konkrét."
+   },
+   {
+    "icon": "task_alt",
+    "text": "Válassz egy apró, kézzelfogható feladatot (mosogatás, rendrakás), és csináld meg most, telefon nélkül."
+   }
+  ],
+  "porno": [
+   {
+    "icon": "meeting_room",
+    "text": "Hagyd el a helyiséget, ahol most vagy — a környezetváltás önmagában megtöri a mintát."
+   },
+   {
+    "icon": "water_drop",
+    "text": "Fröcskölj hideg vizet az arcodra — élettanilag is megszakítja a felfokozott állapotot."
+   },
+   {
+    "icon": "call",
+    "text": "Hívd fel a bizalmi segítődet, vagy menj oda valakihez, akivel most beszélgethetsz."
+   }
+  ]
+ },
+ "micro_tasks": [
+  "Igyál meg egy nagy pohár vizet, kortyonként, lassan.",
+  "Menj ki 3 percre friss levegőre, akkor is, ha csak az erkélyre vagy a lépcsőházba.",
+  "Mosogass el vagy pakolj el 5 tárgyat magad körül.",
+  "Küldj egy hangüzenetet vagy üzenetet valakinek, akit szeretsz.",
+  "Nyújtózz vagy mozogj 60 másodpercig, teljes erőből.",
+  "Mosd meg az arcod hideg vízzel.",
+  "Írj le egy mondatban, mit érzel most, ítélkezés nélkül.",
+  "Rendezz el egy kis felületet magad körül — egy asztalsarkot, egy fiókot.",
+  "Sétálj le és fel egyszer a lépcsőn, vagy tégy meg 20 lépést és gyere vissza.",
+  "Nézz ki az ablakon 60 másodpercig, és számolj meg 5 dolgot, ami mozog."
+ ],
+ "outcome_meta": {
+  "siker": {
+   "label": "Sikerült",
+   "icon": "check_circle",
+   "color": "var(--ok)",
+   "journalState": "nyugodt"
+  },
+  "megingas": {
+   "label": "Apró megingás",
+   "icon": "air",
+   "color": "var(--warn)",
+   "journalState": "kisertes"
+  },
+  "sikertelen": {
+   "label": "Nem sikerült",
+   "icon": "restart_alt",
+   "color": "var(--bad)",
+   "journalState": "megbotlas"
+  },
+  "grace": {
+   "label": "Kihagyott nap (szabadnap)",
+   "icon": "beach_access",
+   "color": "var(--warn)",
+   "journalState": "kisertes"
+  }
+ },
+ "modes": {
+  "strict": {
+   "id": "strict",
+   "name": "Szigorú",
+   "icon": "shield",
+   "short": "Nincs szabadnap, nincs könnyítés",
+   "desc": "Egyetlen botlás is nullázza a számlálót, és előről kezdesz. Tiszta lap, nulla alku.",
+   "dayDesc": "Szigorú mód: csak a teljesen sikeres nap viszi tovább. Bármi más újrakezdést jelent.",
+   "labels": {
+    "siker": "Sikerült",
+    "megingas": "",
+    "sikertelen": "Nem sikerült"
+   }
+  },
+  "balanced": {
+   "id": "balanced",
+   "name": "Kiegyensúlyozott",
+   "icon": "balance",
+   "short": "Heti 1 szabadnap + apró megingás",
+   "desc": "Heti egy szabadnap, és az apró megingás nem töri meg a sorozatot, csak megállítja egy napra.",
+   "dayDesc": "Ez dönti el, halad-e a szinted — csak egy teljesen sikeres nap engedi tovább. \"Nem sikerült\" a heti szabadnapon belül nem töri meg a sorozatot.",
+   "labels": {
+    "siker": "Sikerült",
+    "megingas": "Apró megingás",
+    "sikertelen": "Nem sikerült"
+   }
+  },
+  "gentle": {
+   "id": "gentle",
+   "name": "Megengedő",
+   "icon": "spa",
+   "short": "Napi kis adag belefér",
+   "desc": "Ha naponta kis mennyiséget viszel be, az belefér, nem megingás és a sorozat megy tovább. Csak a kereted túllépése számít.",
+   "dayDesc": "Megengedő mód: a napi kis adag belefér, a sorozatod halad. Csak akkor kezdődik elölről, ha túllépted a saját keretedet.",
+   "labels": {
+    "siker": "Teljesen tiszta",
+    "megingas": "Kis adag, belefér",
+    "sikertelen": "Túlléptem a keretet"
+   }
+  }
+ },
+ "comfort_messages": [
+  [
+   "Új lap",
+   "Nem a nulláról indulsz: ott van mögötted minden, amit eddig megtanultál magadról. Az, hogy ma újra nekiállsz, erő, nem kudarc."
+  ],
+  [
+   "Még itt vagy",
+   "A botlás nem húzza ki azt, ami eddig megvolt. Az újrakezdés bátorság, és ehhez most is elég erőd van."
+  ],
+  [
+   "Semmi szégyen",
+   "Aki újra nekiindul, többet tud, mint aki először próbálta. Légy kedves magadhoz, ma ez a feladat."
+  ],
+  [
+   "Egy nap, megint",
+   "Nem kell a hosszú útra gondolnod, csak a mai napra. Egyetlen nap most is elég ahhoz, hogy elinduljon valami."
+  ]
+ ],
+ "land": {
+  "zen": [
+   "Moha és fű borítja a köveket",
+   "Bambuszliget nő az út szélén",
+   "Kivirágzik a szakura",
+   "Megjelenik az első torii kapu",
+   "Vörös juharfa nő az ösvény mellett",
+   "A második torii kapu is felépül",
+   "Kőlámpások világítják meg az utat",
+   "Koi-tó nyílik a fák alatt",
+   "Pagoda emelkedik az erdő fölé",
+   "Lampionfüzér ég az ösvény felett",
+   "A kapukon túl: felhők fölé értél, a hegytetői szentélyhez"
+  ],
+  "harcos": [
+   "Sziklák és száraz fű a part mentén",
+   "Olajfacsemete hajt a talajból",
+   "Sas kezd köröztetni az égen",
+   "Spártai zászló lobog a parton",
+   "Terebélyes olajfa nő",
+   "Ciprusok sorakoznak",
+   "Hadihajó jelenik meg a tengeren",
+   "Kőlépcső vezet a magasba",
+   "Oszlopos templom épül a dombon",
+   "Tűzedények lobognak",
+   "Az Olümposz felhői fölé emelkedtél: a templom a csúcson áll"
+  ],
+  "joga": [
+   "Lótuszlevelek úsznak a tavon",
+   "Nádas nő a parton",
+   "Kinyílik az első lótusz",
+   "Kőtorony áll a víz fölött",
+   "Fűzfa hajlik a víz fölé, szitakötő jelenik meg",
+   "Bambusz nő a parton",
+   "Lámpások úsznak a tavon",
+   "Móló épül, rajta egy meditáló alak",
+   "Mandala-glória ragyog a hegyek mögött",
+   "Hatalmas lótusz nyílik a tó közepén",
+   "Felhők fölé emelkedtél: lebegő szigetek és a végtelen lótusz"
+  ],
+  "sportolo": [
+   "Pad és virágtartó a sétányon",
+   "Lámpák világítják meg a partot",
+   "Híd épül, rajta mozgó autófényekkel",
+   "Húzódzkodó rúd áll a sétányon",
+   "Felhőkarcolók nőnek a láthatáron",
+   "Fák zöldellnek a sétányon",
+   "Futó jelenik meg a futósávon",
+   "Kosárpalánk áll a parton",
+   "Aréna emelkedik a városban",
+   "Pulzusvonal villog a toronyon",
+   "Tűzijáték a város fölött"
+  ],
+  "felfedezo": [
+   "Kövek és vadvirágok",
+   "Fű és páfrány nő",
+   "Madarak jelennek meg",
+   "Sátor és tábortűz a partnál (és egy kenu a tavon)",
+   "Magas fenyők nőnek",
+   "Sarki fény gyúl az égen",
+   "Faház épül a parton",
+   "Ösvény vezet a faházhoz",
+   "Zászló lobog a csúcson",
+   "Útjelző áll az ösvénynél",
+   "Felhők fölé értél: a csúcson áll a zászlód a végtelen hegyek fölött"
+  ]
+ },
+ "grounding": [
+  {
+   "n": 5,
+   "icon": "visibility",
+   "text": "Nevezz meg 5 dolgot, amit most látsz magad körül."
+  },
+  {
+   "n": 4,
+   "icon": "back_hand",
+   "text": "Érints meg 4 felületet — egy hideget, egy meleget, egy simát, egy durvát."
+  },
+  {
+   "n": 3,
+   "icon": "hearing",
+   "text": "Figyelj meg 3 hangot a környezetedben."
+  },
+  {
+   "n": 2,
+   "icon": "air",
+   "text": "Vegyél észre 2 illatot magad körül."
+  },
+  {
+   "n": 1,
+   "icon": "water_drop",
+   "text": "Figyeld meg 1 ízt a szádban, vagy igyál egy korty vizet."
+  }
+ ],
+ "techniques": {
+  "box": [
+   {
+    "n": "Beszívás",
+    "d": 4,
+    "k": "in"
+   },
+   {
+    "n": "Tartás",
+    "d": 4,
+    "k": "hold"
+   },
+   {
+    "n": "Kifújás",
+    "d": 4,
+    "k": "out"
+   },
+   {
+    "n": "Üresség",
+    "d": 4,
+    "k": "empty"
+   }
+  ],
+  "relax": [
+   {
+    "n": "Beszívás",
+    "d": 4,
+    "k": "in"
+   },
+   {
+    "n": "Tartás",
+    "d": 7,
+    "k": "hold"
+   },
+   {
+    "n": "Kifújás",
+    "d": 8,
+    "k": "out"
+   }
+  ],
+  "surf": [
+   {
+    "n": "Hullám emelkedése",
+    "d": 5,
+    "k": "in"
+   },
+   {
+    "n": "Elengedés",
+    "d": 6,
+    "k": "out"
+   }
+  ]
+ },
+ "craving_triggers": [
+  "Stressz",
+  "Unalom",
+  "Szomorúság",
+  "Fáradtság",
+  "Társasági helyzet",
+  "Szokás, rutin",
+  "Öröm, ünneplés",
+  "Más"
+ ],
+ "mz_steps": [
+  {
+   "a": 0,
+   "w": [
+    0,
+    0
+   ],
+   "t": "Alapállapot: egyensúly",
+   "x": "Az agyban az öröm- és a fájdalom-folyamatok egyetlen, önszabályozó rendszerként működnek, mint egy mérleghinta (Lembke: pleasure–pain balance). Nyugalomban a hinta kb. vízszintes."
+  },
+  {
+   "a": -16,
+   "w": [
+    1,
+    0
+   ],
+   "t": "Öröm-löket: a hinta az öröm felé billen",
+   "x": "A cukor, alkohol, nikotin vagy a végtelen görgetés gyors dopamin-csúcsot ad. A hinta az öröm oldalra dől. Ez jó érzés, de az agy a változást érzékeli, és mindjárt ellensúlyt kezd rakni."
+  },
+  {
+   "a": 12,
+   "w": [
+    0,
+    1
+   ],
+   "t": "Visszabillenés: a homeosztázis ellensúlya",
+   "x": "Az agy nem áll meg az egyensúlynál: a fájdalom oldal ellensúlya túllendül (ellen-folyamat, Solomon és Corbit, 1974). Ez a sóvárgás, nyugtalanság, kedvetlenség. Gyakori ismétlésnél az alapvonal is lejjebb csúszik, ezt hívjuk toleranciának."
+  },
+  {
+   "a": 14,
+   "w": [
+    0,
+    1
+   ],
+   "t": "Fordítva: a fájdalom oldal tudatos terhelése",
+   "x": "Ha a hintát szándékosan, röviden a fájdalom oldal felé nyomjuk (hideg víz, erőfeszítés, hő, lassú légzés), az agy a saját kompenzációjával az öröm oldal felé billent. A hormézis elve: kis, rövid, ártalmatlan inger után jobb állapot jön. A hatás egyéni és mérsékelt."
+  },
+  {
+   "a": -8,
+   "w": [
+    1,
+    0
+   ],
+   "t": "Utána: nyugodt, természetes öröm",
+   "x": "Az eredmény nem drog-csúcs, hanem lassabb, tovább tartó nyugalom és jó érzés, ráadásul az alapvonal is idővel feljebb tolódik. Ezért érdemes a tudatos kellemetlenséget rendszeresen és kis adagban használni, a nagy dopamin-löketek helyett."
+  }
+ ],
+ "mz_tools": [
+  {
+   "id": "mozgas",
+   "ic": "directions_run",
+   "n": "Mozgás: erőteljes séta, futás, edzés",
+   "ev": [
+    "e1",
+    "Erős"
+   ],
+   "time": "2–30 perc",
+   "quick": true,
+   "daily": true,
+   "how": "Azonnali sóvárgásnál 2–5 perc intenzív mozgás (guggolás, fekvőtámasz, lépcső). Napi rutinként 20–30 perc mérsékelt vagy erős edzés.",
+   "sci": "Az erőfeszítés a „fájdalom\" oldalt terheli, utána endorfin és endokannabinoid, dopamin- és noradrenalin-válasz jön, és javul a hangulat. Egy edzés után a sóvárgás rövid távon csökkenhet (főleg dohányzásnál mérték). Az abstinencia hosszú távú javítására a Cochrane-áttekintés (Ussher 2019) alacsony bizonyosságot talált.",
+   "warn": "Fokozatosan terhelj. Szívproblémánál előbb orvos."
+  },
+  {
+   "id": "hideg",
+   "ic": "shower",
+   "n": "Hideg zuhany / hideg víz",
+   "ev": [
+    "e3",
+    "Korai"
+   ],
+   "time": "30–90 mp",
+   "quick": true,
+   "daily": true,
+   "how": "A zuhany végén 30–90 másodperc hideg víz (kellemetlen, de nem fagyos), közben lassú, hosszú kilégzések. Ne tarts vissza levegőt, és előtte ne hiperventillálj.",
+   "sci": "Šrámek és mtsai (2000): 6 férfi, 14 °C-os víz, 1 óra merülés: a dopamin kb. 250%-kal, a noradrenalin kb. 530%-kal nőtt, fokozatosan, nem hirtelen csúcsként. Ez egy óra volt, nem egy rövid zuhany, és a hosszú távú hangulati hatásról kevés, korai adat van.",
+   "warn": "Szív-, vérnyomás-, Raynaud-betegségnél és várandósan előbb orvos. Nyílt vízben soha ne légy egyedül, és ne használd alkohol után."
+  },
+  {
+   "id": "szauna",
+   "ic": "hot_tub",
+   "n": "Szauna / forró fürdő",
+   "ev": [
+    "e2",
+    "Közepes"
+   ],
+   "time": "10–20 perc",
+   "quick": false,
+   "daily": true,
+   "how": "10–20 perc 70–90 °C-os szauna vagy 38–40 °C-os forró fürdő, sok víz, utána lassú lehűlés. Ne tölts el hosszabb időt, mint amennyi kellemes.",
+   "sci": "A hőstressz a „fájdalom\" oldalt terheli, utána nyugalom és jó közérzet jön. Gyakori szaunázás alacsonyabb szív-érrendszeri halálozással járt együtt (Laukkanen 2015), de ez megfigyeléses adat, nem bizonyít ok-okozatot. A pszichés hatásról a kutatás még korai.",
+   "warn": "Alkohollal soha. Szív-, vérnyomás-problémánál, láznál, várandósan előbb orvos. Szédülésnél azonnal ki."
+  },
+  {
+   "id": "legzes",
+   "ic": "air",
+   "n": "Lassú, hosszú kilégzésű légzés",
+   "ev": [
+    "e2",
+    "Közepes"
+   ],
+   "time": "3–5 perc",
+   "quick": true,
+   "daily": true,
+   "how": "4 másodperc be, 6–8 másodperc ki, 3–5 percig. Az SOS-ban a vezetett légzés ugyanezt csinálja.",
+   "sci": "A hosszú kilégzés a paraszimpatikus idegrendszert (vagus) aktiválja, nő a pulzusszám-variabilitás, csökken a feszültség. Szorongásnál és stressznél jól dokumentált, sóvárgásnál a támogató adatok korlátozottak.",
+   "warn": "Szédülésnél lassíts, és lélegezz természetesen."
+  },
+  {
+   "id": "akupresszura",
+   "ic": "touch_app",
+   "n": "Akupresszúra / önmasszázs",
+   "ev": [
+    "e4",
+    "Gyenge"
+   ],
+   "time": "1–3 perc",
+   "quick": true,
+   "daily": false,
+   "how": "A hüvelyk- és mutatóujj közötti pont (LI4) vagy a csukló belső oldala (PC6): 1–2 perc határozott, kényelmes nyomás, lassú kör, közben légzés.",
+   "sci": "Kis, vegyes minőségű vizsgálatok jeleztek némi csökkenést sóvárgásnál és szorongásnál, de a bizonyíték gyenge. A hatás nagy része a figyelem, a nyugvás és a rituálé hatása lehet. A kockázata alacsony, ezért kipróbálható, de ne erre építs.",
+   "warn": "Várandósan az LI4 pontot kerüld. Ne nyomd erősen vagy fájdalmasan."
+  },
+  {
+   "id": "izom",
+   "ic": "self_improvement",
+   "n": "Feszítés és engedés (izomrelaxáció)",
+   "ev": [
+    "e2",
+    "Közepes"
+   ],
+   "time": "5–10 perc",
+   "quick": true,
+   "daily": true,
+   "how": "Izomcsoportonként 5 másodperc erős feszítés, 10 másodperc teljes engedés, a lábfejtől az arcig.",
+   "sci": "A progresszív izomrelaxáció (Jacobson) szorongást és feszültséget csökkentő hatású, jobb alvással is járhat. A feszítés rövid „terhelés\", az engedés a visszabillenés.",
+   "warn": "Fájdalmas vagy sérült területet finoman, vagy hagyd ki."
+  },
+  {
+   "id": "fenyalvas",
+   "ic": "wb_sunny",
+   "n": "Reggeli fény és rendszeres alvás",
+   "ev": [
+    "e1",
+    "Erős"
+   ],
+   "time": "10–20 perc",
+   "quick": false,
+   "daily": true,
+   "how": "Ébredés után 10–20 perc kinti fény, fix lefekvés és ébredés. Az alváshiány megnöveli a jutalom iránti vágyat és a sóvárgást.",
+   "sci": "A cirkadián ritmus és az alvás a dopamin-rendszer alapvonalát is befolyásolja. Alvásmegvonás után erősebb a jutalom- és ételvágy, gyengébb az impulzuskontroll.",
+   "warn": "Ne nézz közvetlenül a napba."
+  },
+  {
+   "id": "termeszet",
+   "ic": "park",
+   "n": "Séta a természetben",
+   "ev": [
+    "e2",
+    "Közepes"
+   ],
+   "time": "20–30 perc",
+   "quick": false,
+   "daily": true,
+   "how": "20–30 perc zöldben, telefon nélkül, a lépteidre és a környezetre figyelve.",
+   "sci": "Természetben töltött idő mérsékelten csökkenti a stresszt (kortizol) és javítja a hangulatot. A fizikai erőfeszítés és a figyelem-váltás együtt hat.",
+   "warn": ""
+  },
+  {
+   "id": "tarsas",
+   "ic": "diversity_1",
+   "n": "Társas kapcsolat: hívás, ölelés",
+   "ev": [
+    "e1",
+    "Erős"
+   ],
+   "time": "5–30 perc",
+   "quick": true,
+   "daily": true,
+   "how": "Hívj fel valakit, aki támogat, vagy kérj egy ölelést. Egy mondat is elég: „Most nehéz, kérlek, légy velem pár percig.\"",
+   "sci": "A szociális támogatás a felépülés egyik legerősebb, legkövetkezetesebb tényezője. A fizikai közelség oxitocint szabadít fel, ami csillapítja a stresszválaszt.",
+   "warn": "Olyan embert válassz, akinél biztonságban érzed magad."
+  },
+  {
+   "id": "nehez",
+   "ic": "checklist",
+   "n": "Szándékos nehézség: egy kellemetlen, hasznos feladat",
+   "ev": [
+    "e2",
+    "Közepes"
+   ],
+   "time": "10–25 perc",
+   "quick": true,
+   "daily": true,
+   "how": "Válassz egy kis nehéz, de hasznos dolgot: rendrakás, nehéz üzenet, 25 perc fókusz. A jutalom nem az élvezet, hanem a megkönnyebbülés és az „megcsináltam\" érzés.",
+   "sci": "Lembke szerint a tudatos erőfeszítés a fájdalom oldalt tolja, utána a természetes jutalmazás erősödik. Az erőfeszítés utáni megkönnyebbülés és az önhatékonyság-élmény a motivációs kutatás régi eredménye, de a függőségben erre közvetlen vizsgálat kevés.",
+   "warn": "Kis, kezelhető feladat legyen, ne túlterhelés."
+  }
+ ],
+ "mz_myths": [
+  [
+   "A „dopamin-böjt\" nullázza a dopamint.",
+   "Nem. A dopamint nem lehet „kiüríteni\". Amit a gyakorlat ért alatta (Lembke): 4 hétig kerülni a problémás ingert, hogy az alapvonal helyreálljon. Ez klinikai tapasztalat, és nem minden esetben bizonyított randomizált vizsgálattal."
+  ],
+  [
+   "A hideg zuhany csodaszer.",
+   "Nem. A hatás egyéni és mérsékelt, a legerősebb adat egy kis, 1 órás vizsgálatból jön. Kiegészítő eszköz, nem kezelés."
+  ],
+  [
+   "Minél nagyobb a fájdalom, annál jobb.",
+   "Nem. A túlzott terhelés stressz, nem gyógyulás. A cél a rövid, szabályozható, ártalmatlan kellemetlenség."
+  ],
+  [
+   "Az öröm rossz.",
+   "Nem. A természetes örömök (étel, mozgás, kapcsolat, alkotás) kiegészítik a rendszert. A cél az arány, és hogy ne a legerősebb, mesterséges csúcsok vezessenek."
+  ]
+ ],
+ "mentor_open": {
+  "zen": {
+   "feszultseg": "Engedd a vállad lazára — a tó is attól tiszta, hogy hagyod leülepedni.",
+   "fokusz": "Egy ecsetvonás, egy lélegzet. Ne többet, mint amennyi most van.",
+   "hullam": "A hullám nem te vagy. Állj a parton, és nézd, ahogy elvonul.",
+   "nehez": "Nehéz napon is lehet gyakorolni: ma elég, ha nem harcolsz — csak jelen vagy."
+  },
+  "harcos": {
+   "feszultseg": "A feszültség erő — te döntöd el, hova irányítod. Most: lassú légzés, egyenes tartás.",
+   "fokusz": "A falanx nem nézi az egész csatateret — csak a pajzsát és a mellette állóét. Egy feladat, most.",
+   "hullam": "A roham 10–15 percig tart. Tartsd a vonalat, és át fog törni rajtad — nem rajtad keresztül.",
+   "nehez": "A legkeményebb harcosok is kapnak rossz napot. A vonal tartása ma is győzelem."
+  },
+  "joga": {
+   "feszultseg": "Figyeld meg, hol szorít — és küldj oda egy lélegzetet. Nem kell megoldani, elég észrevenni.",
+   "fokusz": "Térj vissza a talpadhoz, a légzésedhez. A figyelem olyan, mint egy kedves kiskutya: finoman visszahívjuk.",
+   "hullam": "Szörfözd meg: figyeld, hol érzed a testedben, és hagyd, hogy változzon.",
+   "nehez": "Légy kedves magadhoz. Egy nehéz nap nem vesz el semmit abból, amit eddig építettél."
+  },
+  "sportolo": {
+   "feszultseg": "Ez csak extra energia. Mozgasd ki: 20 guggolás vagy egy gyors séta, és újra te irányítasz.",
+   "fokusz": "Rövid sprint: 5 perc, egyetlen cél, telefon félre. Aztán jöhet a következő kör.",
+   "hullam": "A sóvárgás olyan, mint az utolsó kilométer: ott fáj a legjobban, és ott dől el. Tarts ki még pár percet.",
+   "nehez": "Egy rossz edzés után sem adod fel az évadot. Ma pihenj, holnap ugyanott folytatjuk."
+  },
+  "felfedezo": {
+   "feszultseg": "Ülj le egy kőre a hegyoldalon. Nézz körül: mit látsz, hallasz, érzel? Hagyd, hogy a táj lassítson.",
+   "fokusz": "Nézz a következő jelre az ösvényen — nem az egész hegyet kell megmásznod, csak a következő kanyart.",
+   "hullam": "A vihar elvonul, mindig. Húzódj sátorba, igyál meleg teát, és figyeld, ahogy kisüt a nap.",
+   "nehez": "Minden felfedezőnek vannak nehéz szakaszai. A térkép nem veszett el — csak ma lassabban haladunk."
+  }
+ },
+ "mentor_steps": {
+  "feszultseg": [
+   "Állj meg egy pillanatra, és érezd a talpad a talajon.",
+   "Lélegezz: 4 másodperc be, 6 másodperc ki — ötször.",
+   "Nevezd meg magadban: „feszültséget érzek\", és mozgasd át 2 percnyi sétával vagy nyújtással."
+  ],
+  "fokusz": [
+   "Válassz egyetlen apró feladatot, amit 5 perc alatt meg tudsz csinálni.",
+   "5-4-3-2-1: nevezz meg 5 dolgot, amit látsz, 4-et, amit hallasz, 3-at, amit érintesz…",
+   "Tedd távolabb, ami elvonja a figyelmed, és indíts egy 5 perces időzítőt."
+  ],
+  "hullam": [
+   "Mondd ki: „ez egy hullám, és el fog múlni.\" A csúcsa általában 10–15 perc.",
+   "Értékeld 0–10-ig, és figyeld, ahogy percenként változik.",
+   "Igyál egy pohár vizet, állj fel, csinálj valamit a kezeddel. Ha nagyon erős, indítsd az SOS-t."
+  ],
+  "nehez": [
+   "Írd le egy mondatban, mi a legnehezebb most — a leírás már enyhít.",
+   "Tedd a legkisebb jót, ami most lehetséges: víz, zuhany, levegő, egy üzenet valakinek.",
+   "Ma elég, ha túléled a napot a szabályaid mellett. Nem kell tökéletesnek lennie."
+  ]
+ },
+ "mentor_tasks": [
+  "Ma egyszer lassan, figyelemmel egyél vagy igyál meg valamit.",
+  "Ma tegyél egy 10 perces sétát telefon nélkül.",
+  "Írj le egy dolgot, amiért ma hálás vagy.",
+  "Ma igyál meg 2 pohár vizet plusz a megszokottnál.",
+  "Ma 3-szor állj meg 3 mély lélegzetre.",
+  "Ma dicsérd meg magad valamiért, ami sikerült.",
+  "Ma tedd rendbe a környezeted egy kis szegletét."
+ ],
+ "daypart_label": {
+  "reggel": "reggelente (5–11 óra)",
+  "delutan": "kora délután (11–17 óra)",
+  "este": "esténként (17–22 óra)",
+  "ejszaka": "éjszaka (22–5 óra)"
+ },
+ "themes": [
+  {
+   "id": "zen",
+   "label": "Zen — Szamuráj útja",
+   "icon": "spa",
+   "tagline": "A csendes fegyelem útja.",
+   "colors": {
+    "primary": "#ffb4a8",
+    "primaryContainer": "#8f2a20",
+    "onPrimaryContainer": "#ffe0da",
+    "secondary": "#88d7ad",
+    "secondaryContainer": "#08512f",
+    "onSecondaryContainer": "#a4f3c8",
+    "tertiary": "#e9c349",
+    "tertiaryContainer": "#8a6a12",
+    "onTertiaryContainer": "#ffe088",
+    "outline": "#8f7a76",
+    "outlineVariant": "#4a3a37"
+   },
+   "stageTitles": [
+    "Kezdet",
+    "Magvető",
+    "Vándor",
+    "Tanítvány",
+    "Kereső",
+    "Gyakorló",
+    "Őrző",
+    "Hídépítő",
+    "Bölcs",
+    "Lámpáshordozó",
+    "Mester"
+   ],
+   "quotes": [
+    "Nem az a bátor, aki sosem esik el, hanem aki minden alkalommal feláll.",
+    "A víz nem küzd a sziklával — megkerüli, és mégis ő formálja a követ.",
+    "Ami most nehéznek tűnik, holnapra már csak egy lecke lesz, amit megtanultál.",
+    "A csend nem üresség — hely, ahol meghallhatod, mit akarsz valójában.",
+    "Minden lélegzet egy új kezdet — nincs szükség tegnapra ahhoz, hogy ma jól dönts.",
+    "A kard élét nem a düh élesíti, hanem a nyugalom.",
+    "Ha elesel hétszer, kelj fel nyolcszor — nem azért, mert könnyű, hanem mert ez az út.",
+    "A hegy nem siet, mégis mindig eléred, ha lépésről lépésre haladsz.",
+    "A vágy egy hullám — nem te vagy az, csak áthalad rajtad.",
+    "A kis fegyelem ma a nagy szabadság alapja holnap.",
+    "A teáscsésze csak akkor hasznos, ha üres — hagyj helyet magadban a változásnak.",
+    "A szilárd kőszikla nem rendül meg a vihar legvadabb szelétől sem.",
+    "A szamuráj látótere széles, mégis teljesen mozdulatlan.",
+    "A kísértés csak egy futó felhő a tiszta égen. Te magad vagy az égbolt.",
+    "A gyökér mélysége dönti el, meddig áll a fa a viharban.",
+    "Nem az a cél, hogy soha ne inogj meg — hanem hogy mindig visszatérj.",
+    "A bambusz azért nem törik el a viharban, mert hajlik — de gyökeret sosem enged.",
+    "Egy nyugodt elme többet lát, mint ezer nyugtalan gondolat.",
+    "A mester nem az, aki elkerüli az esést, hanem aki ismeri a felállás útját.",
+    "Minden reggel új lap — azt írod rá, amit ma választasz.",
+    "A türelem nem a várakozás, hanem a nyugalom megőrzése közben.",
+    "Ami mélyen gyökerezik, azt a szél nem dönti ki — csak megedzi.",
+    "A csend, amit ma magadban teremtesz, holnap erővé válik.",
+    "Nem kell sietned a béke felé — a béke ott van, ahol most megállsz.",
+    "A harcos fegyvere nem a düh, hanem a figyelem."
+   ],
+   "pledgeText": "Nem legyőznöm kell önmagam, hanem táplálnom azt, ami éltet. Ma is gondozom a belső békémet.",
+   "quoteCaption": "régi zen bölcsesség",
+   "rankLabel": "A harcos útja",
+   "mentorName": "Sensei",
+   "journalTitle": "Belső szikla & napló",
+   "addressTerm": "szamuráj",
+   "mentorSubtitle": "Belső csend kísérője • nem terapeuta, hanem bölcs útitárs",
+   "mentorGreeting": "Itt vagyok, harcos. Mi jár most a fejedben?",
+   "mentorHeading": "Sensei • Napi Zen Mentor"
+  },
+  {
+   "id": "harcos",
+   "label": "Harcos — Spártai fegyelem",
+   "icon": "shield",
+   "tagline": "A fájdalom ideiglenes. A fegyelem örök.",
+   "colors": {
+    "primary": "#ff6b5b",
+    "primaryContainer": "#7a1f14",
+    "onPrimaryContainer": "#ffd9d0",
+    "secondary": "#e0a458",
+    "secondaryContainer": "#5c3a12",
+    "onSecondaryContainer": "#ffd9a0",
+    "tertiary": "#c9c9c9",
+    "tertiaryContainer": "#3a3a3a",
+    "onTertiaryContainer": "#eaeaea",
+    "outline": "#8a746a",
+    "outlineVariant": "#4a3a30"
+   },
+   "stageTitles": [
+    "Toborzás",
+    "Kiképzés kezdete",
+    "Első próba",
+    "Falanx tagja",
+    "Edzett harcos",
+    "Rendíthetetlen",
+    "Bajnok",
+    "Veterán",
+    "Hadvezér",
+    "Legenda",
+    "Halhatatlan"
+   ],
+   "stageSubs": [
+    "A döntés megszületik",
+    "Az első fegyelmezett lépés",
+    "A kitartás első próbája",
+    "Társak a sorban melletted",
+    "A test és elme összhangja",
+    "A napi fegyelem rutinná válik",
+    "A győzelmek sorozata",
+    "Régi gyengeségek legyőzve",
+    "Belső nyugalom a csatában",
+    "Példa mások számára",
+    "Örök fegyelem, örök szabadság"
+   ],
+   "stageMottos": [
+    "Minden legenda egy elhatározással kezdődik.",
+    "A fegyelem az első fegyver, amit megélesítesz.",
+    "Az első csata mindig önmagad ellen zajlik.",
+    "A pajzsfal csak együtt tart — de az elhatározás egyéni.",
+    "A test emlékszik arra, amit az akarat ismételt.",
+    "A rutin a legcsendesebb, legerősebb fegyver.",
+    "A győzelmet nem a mezőn, hanem előtte döntik el.",
+    "A heg nem gyengeség — bizonyíték, hogy túlélted.",
+    "A hadvezér nyugalma a legjobb fegyver a seregnek.",
+    "A legenda azért él tovább, mert másokat is felemel.",
+    "A fegyelem, amit örökre magadba építettél, sosem hagy el."
+   ],
+   "stageRewards": [
+    "Az első sikeresen tartott napod nyitja meg a Kiképzés kezdete szintet.",
+    "Mostantól minden fegyelmezett nap egy tégla a falban, amit építesz.",
+    "A tested lassan alkalmazkodik az új, szigorúbb rendhez.",
+    "Kezded felismerni, mely helyzetek törik meg leginkább a sorodat.",
+    "Az elméd ilyenkor épít új, erősebb utakat a régi gyengeségek helyett.",
+    "A napi fegyelem lassan már nem erőfeszítés, hanem egyszerű választás.",
+    "Innentől a feladatod már nem a harc, hanem az őrállás.",
+    "Kezded érezni, hogy ez már nem „lemondás\", hanem egyszerűen az életed.",
+    "Innentől inkább finomhangolás van hátra, nem küzdelem.",
+    "Ha szeretnéd, innentől a tapasztalatod valakinek valódi erőt adhat.",
+    "Nincs több szint — csak a folytatás, napról napra, örökre."
+   ],
+   "quotes": [
+    "A fájdalom ideiglenes, a feladás örök.",
+    "A fegyelem a szabadság másik neve.",
+    "Nem a legerősebb győz, hanem aki nem áll meg.",
+    "A pajzsod ma a saját eltökéltséged.",
+    "Minden nehéz nap egy edzés a lelkednek.",
+    "A csata nem kint zajlik — idebent dől el.",
+    "A veterán nem az, aki sosem gyengült — hanem aki mindig visszaállt sorba.",
+    "A kiképzés nem büntetés — az a folyamat, ami erőssé tesz.",
+    "Egy elesés nem vereség, csak egy szünet a menetelésben.",
+    "A fegyelem ma a szabadságod holnapi ára — és megéri."
+   ],
+   "pledgeText": "Ma is helytállok. Nem a könnyű utat választom, hanem az erőset.",
+   "quoteCaption": "ősi spártai tanítás",
+   "rankLabel": "A spártai út",
+   "mentorName": "Kiképző",
+   "journalTitle": "Belső páncél & napló",
+   "addressTerm": "harcos",
+   "mentorSubtitle": "Belső fegyelem edzője • nem terapeuta, hanem kemény, de hűséges társ",
+   "mentorGreeting": "Itt vagyok, harcos. Mi jár most a fejedben?",
+   "mentorHeading": "Kiképző • Napi Spártai Mentor"
+  },
+  {
+   "id": "joga",
+   "label": "Jóga — Mindfulness",
+   "icon": "self_improvement",
+   "tagline": "Ne küzdj ellene — engedd át magadon.",
+   "colors": {
+    "primary": "#f4a99b",
+    "primaryContainer": "#5c3229",
+    "onPrimaryContainer": "#ffe0d6",
+    "secondary": "#a8c99f",
+    "secondaryContainer": "#2f4a2a",
+    "onSecondaryContainer": "#d7ecd0",
+    "tertiary": "#f0cf8a",
+    "tertiaryContainer": "#5c4a1f",
+    "onTertiaryContainer": "#ffe9b8",
+    "outline": "#a89a8f",
+    "outlineVariant": "#4a4038"
+   },
+   "stageTitles": [
+    "Beérkezés",
+    "Első lélegzet",
+    "Gyökerezés",
+    "Egyensúly keresése",
+    "Nyitott szív",
+    "Csendes elme",
+    "Mély jelenlét",
+    "Belső fény",
+    "Teljes elengedés",
+    "Harmónia",
+    "Megvilágosodás"
+   ],
+   "stageSubs": [
+    "Megérkezés a jelen pillanatba",
+    "A tudatos légzés felfedezése",
+    "Stabil alap a talajban",
+    "A test és elme összhangja",
+    "Elengedve az ítélkezést",
+    "A gondolatok elcsitulnak",
+    "Teljesen itt és most",
+    "A saját erőd felismerése",
+    "Nincs több görcsös kapaszkodás",
+    "Béke önmagaddal és a világgal",
+    "Természetes, tiszta létezés"
+   ],
+   "stageMottos": [
+    "Minden gyakorlás egyetlen belégzéssel kezdődik.",
+    "A légzésed mindig hazavezet.",
+    "A gyökér, amit ma eresztesz, holnap tart meg.",
+    "Az egyensúly nem állapot — folyamatos, gyengéd korrekció.",
+    "Amit elengedsz, az elmúlik — amit szorongatsz, az megmarad.",
+    "A csendes elme mindent tisztábban lát.",
+    "A jelen pillanat az egyetlen hely, ahol változás történhet.",
+    "A fény, amit keresel, mindig is benned volt.",
+    "Az elengedés nem feladás — hazaengedés.",
+    "A harmónia nem a küzdelem hiánya, hanem a vele való béke.",
+    "A megvilágosodás nem cél — hanem az út maga."
+   ],
+   "stageRewards": [
+    "Az első nyugodt napod megnyitja az Első lélegzet szakaszt.",
+    "Minden tudatos légzés mélyíti a jelenlétedet.",
+    "A tested lassan megtanulja, hogyan maradjon stabil vihar közben is.",
+    "Kezded felismerni, mi billenti ki az egyensúlyodat.",
+    "A szíved nyitottabbá válik — az ítélkezés helyét kíváncsiság veszi át.",
+    "A gondolataid zaja fokozatosan elcsendesedik.",
+    "Egyre ritkábban visz el a múlt vagy a jövő.",
+    "Kezded felismerni a saját belső erődet, ítélkezés nélkül.",
+    "A görcsös kapaszkodás helyét gyengéd elengedés veszi át.",
+    "Innentől inkább finomhangolás van hátra, nem küzdelem.",
+    "Nincs több szint — csak a jelenlét, lélegzetről lélegzetre."
+   ],
+   "quotes": [
+    "Nem kell legyőznöd a hullámot — csak megtanulnod lovagolni rajta.",
+    "A légzésed mindig hazavezet.",
+    "Amit ellenállsz, az megmarad. Amit elengedsz, az elmúlik.",
+    "A jelen pillanat az egyetlen hely, ahol változás történhet.",
+    "A tested tudja az utat — csak figyelj rá.",
+    "A csend nem hiány — hely a növekedésre.",
+    "Nem kell tökéletesnek lenned ahhoz, hogy jelen legyél.",
+    "Minden kilégzéssel egy kicsit jobban elengedheted, amit szorongatsz.",
+    "A gyakorlás nem a hibátlanságról szól, hanem a visszatérésről a szőnyegre.",
+    "Amit ma gyengéden kezelsz magadban, azt holnap könnyebb lesz vinni."
+   ],
+   "pledgeText": "Ma nem küzdök önmagam ellen — együtt lélegzem azzal, ami van.",
+   "quoteCaption": "csendes tanítás",
+   "rankLabel": "A jelenlét útja",
+   "mentorName": "Tanító",
+   "journalTitle": "Belső forrás & napló",
+   "addressTerm": "gyakorló",
+   "mentorSubtitle": "Belső egyensúly kísérője • nem terapeuta, hanem csendes tanító társ",
+   "mentorGreeting": "Itt vagyok, gyakorló. Mi jár most benned?",
+   "mentorHeading": "Tanító • Napi Jóga Mentor"
+  },
+  {
+   "id": "sportolo",
+   "label": "Sportoló — Fitness mentalitás",
+   "icon": "fitness_center",
+   "tagline": "Minden nap egy edzés az akaraterődnek.",
+   "colors": {
+    "primary": "#ff5c39",
+    "primaryContainer": "#7a2410",
+    "onPrimaryContainer": "#ffdccf",
+    "secondary": "#3ddc84",
+    "secondaryContainer": "#0d4a29",
+    "onSecondaryContainer": "#b8f5d1",
+    "tertiary": "#3ba9ff",
+    "tertiaryContainer": "#0d3a5c",
+    "onTertiaryContainer": "#c7e6ff",
+    "outline": "#8f8880",
+    "outlineVariant": "#403f3c"
+   },
+   "stageTitles": [
+    "Bemelegítés",
+    "Első kör",
+    "Ritmusban",
+    "Áttörés",
+    "Új rekord",
+    "Kitartás próbája",
+    "Csúcsforma",
+    "Bajnoki szint",
+    "Elit szint",
+    "Legenda szint",
+    "MVP"
+   ],
+   "stageSubs": [
+    "A cél kitűzése",
+    "Az első teljesített nap",
+    "A szokás lendületbe jön",
+    "A régi határok tágulnak",
+    "Túl a korábbi legjobbon",
+    "A motiváció helyét a fegyelem veszi át",
+    "Stabil, magabiztos teljesítmény",
+    "Kiegyensúlyozott, erős rutin",
+    "A legjobbak közt",
+    "Példakép mások számára",
+    "A saját játékod mestere"
+   ],
+   "stageMottos": [
+    "A motiváció indít el, a szokás visz célba.",
+    "Az első kör sosem a leggyorsabb — csak a legfontosabb.",
+    "A ritmus akkor erős, ha már nem kell rá gondolnod.",
+    "Minden áttörés egy sor észrevétlen ismétlésből épül.",
+    "A rekord nem a tegnapi énedet veri meg — a mait dicséri.",
+    "Amikor a motiváció elfogy, a fegyelem viszi tovább a testet.",
+    "A csúcsforma nem véletlen — szokások eredménye.",
+    "A bajnok azon a napon is edz, amikor nincs kedve.",
+    "Az elit szintet nem a tehetség, hanem az ismételt fegyelem építi fel.",
+    "A legenda azért marad, mert mást is elindít.",
+    "Az MVP nem másokat győz le — önmagát múlja felül."
+   ],
+   "stageRewards": [
+    "Az első teljesített napod megnyitja az Első kör szintet.",
+    "Minden újabb nap erősíti a lendületet, amit elindítottál.",
+    "A tested lassan magától keresi a megszokott ritmust.",
+    "Kezded felismerni, mi löki ki a régi komfortzónádból.",
+    "Az agyad új, erősebb szokás-útvonalakat épít.",
+    "A napi rutin lassan már nem erőfeszítés, hanem egyszerű választás.",
+    "Innentől a feladatod már nem az építés, hanem a szinten tartás.",
+    "Kezded érezni, hogy ez már nem „kihívás\" — egyszerűen az életed.",
+    "Innentől inkább finomhangolás van hátra, nem küzdelem.",
+    "Ha szeretnéd, innentől a tapasztalatod valakinek valódi motivációt adhat.",
+    "Nincs több szint — csak a folytatás, edzésről edzésre."
+   ],
+   "quotes": [
+    "A motiváció indít el, a szokás visz célba.",
+    "Nem az számít, milyen gyorsan — hanem hogy nem álltál meg.",
+    "Minden „nem\", amit ma kimondasz, egy „igen\" a jövőd formájára.",
+    "A fejlődés nem egyenes vonal — de mindig felfelé tart.",
+    "Amit ma megedzel, holnap már erő lesz benned.",
+    "A komfortzóna a leglassabb út — sehova.",
+    "A kudarc nem az ellenfeled — az edződ.",
+    "Nem attól leszel bajnok, hogy sosem esel el, hanem hogy mindig visszaállsz a rajthoz.",
+    "Az izom a szünetben nő — a fejlődésed is a nehéz napok után erősödik.",
+    "A forma múlandó, a szokás marad."
+   ],
+   "pledgeText": "Ma is beteszem ezt az egy ismétlést — a győzelem apró döntésekből épül.",
+   "quoteCaption": "edzői bölcsesség",
+   "rankLabel": "A bajnok útja",
+   "mentorName": "Edző",
+   "journalTitle": "Belső erő & napló",
+   "addressTerm": "bajnok",
+   "mentorSubtitle": "Belső teljesítmény edzője • nem terapeuta, hanem motiváló csapattárs",
+   "mentorGreeting": "Itt vagyok, bajnok. Mi jár most a fejedben?",
+   "mentorHeading": "Edző • Napi Bajnok Mentor"
+  },
+  {
+   "id": "felfedezo",
+   "label": "Felfedező — Vadon",
+   "icon": "terrain",
+   "tagline": "Minden nap egy új terep, amit meghódítasz.",
+   "colors": {
+    "primary": "#c9a15a",
+    "primaryContainer": "#4a3a18",
+    "onPrimaryContainer": "#ffe6b8",
+    "secondary": "#7fae6e",
+    "secondaryContainer": "#25401f",
+    "onSecondaryContainer": "#c9e8bd",
+    "tertiary": "#6fb8c9",
+    "tertiaryContainer": "#1f3f47",
+    "onTertiaryContainer": "#c3ebf2",
+    "outline": "#8a7d68",
+    "outlineVariant": "#3f3a2e"
+   },
+   "stageTitles": [
+    "Indulás a vadonba",
+    "Első tábor",
+    "Ösvényen",
+    "Folyóátkelés",
+    "Hegyi túra",
+    "Viharban",
+    "Csúcs közelében",
+    "Csúcshódítás",
+    "Új terep",
+    "Térkép szélén",
+    "Felfedező mester"
+   ],
+   "stageSubs": [
+    "Az első lépés az ismeretlenbe",
+    "Biztos pont az úton",
+    "A haladás megtalálja a ritmusát",
+    "Túl az első komoly akadályon",
+    "Emelkedő, de erősödő lépések",
+    "Kitartás a nehéz szakaszban",
+    "Már látszik a cél",
+    "A kilátás, amiért érdemes volt",
+    "Ismeretlen, de már magabiztos táj",
+    "Túl azon, amit eddig ismertél",
+    "Az út vezetőjévé váltál"
+   ],
+   "stageMottos": [
+    "A térkép nem az út — csak te tudod bejárni.",
+    "Az első tábor nem a megérkezés — csak egy biztos pont, ahonnan tovább indulsz.",
+    "Az ösvényt nem siettetni kell, hanem követni.",
+    "Minden folyó, amit átkelsz, elmossa a kétséget, hogy képes vagy rá.",
+    "A legszebb kilátás mindig egy nehéz emelkedő után jön.",
+    "A vihar nem az utad vége — csak egy szakasza.",
+    "A csúcs közelében a legnehezebb megállni és nem feladni.",
+    "A hódítás nem a helyről szól, hanem arról, ki lettél az úton.",
+    "Az új terep ijesztő — amíg fel nem ismered, hogy már tudsz tájékozódni.",
+    "A térkép szélén kezdődik az igazi felfedezés.",
+    "Az igazi felfedező nem helyet, hanem önmagát találja meg."
+   ],
+   "stageRewards": [
+    "Az első sikeresen megtett napod megnyitja az Első tábor szintet.",
+    "Minden újabb nap egy biztosabb tábor a hosszú úton.",
+    "A lépteid lassan megtalálják a saját ritmusukat.",
+    "Kezded felismerni, mely akadályok szoktak megállítani.",
+    "Az elméd új, erősebb ösvényeket épít a régi zsákutcák helyett.",
+    "A nehéz napok gyakorisága és ereje lassan csökkenni kezd.",
+    "Már majdnem elérted azt, amiért elindultál.",
+    "Innentől a feladatod már nem a mászás, hanem a kilátás megőrzése.",
+    "Kezded érezni, hogy ez már nem „kihívás\", hanem egyszerűen az utad.",
+    "Innentől inkább finomhangolás van hátra, nem küzdelem.",
+    "Nincs több csúcs — csak a folytatás, lépésről lépésre."
+   ],
+   "quotes": [
+    "A térkép nem az út — csak te tudod bejárni.",
+    "Minden akadály egy új ösvény kezdete.",
+    "A vadon nem ellenség — tanító.",
+    "A legszebb kilátás mindig egy nehéz emelkedő után jön.",
+    "Nem a cél számít igazán, hanem hogy ki lettél az úton.",
+    "Az igazi felfedezés nem helyet, hanem önmagadat találja meg.",
+    "Az eltévedés is a térkép része — onnan tanulod meg, merre van az út.",
+    "Egy vihar után mindig letisztul a táj.",
+    "A jó felfedező nem siet — figyeli a jeleket, és bízik a lépéseiben.",
+    "Minden tábortűz, amit ma meggyújtasz, világít a holnapi utadon is."
+   ],
+   "pledgeText": "Ma is egy lépéssel tovább megyek a térképem szélén.",
+   "quoteCaption": "vándorok tanítása",
+   "rankLabel": "A felfedező útja",
+   "mentorName": "Vezető",
+   "journalTitle": "Belső iránytű & napló",
+   "addressTerm": "vándor",
+   "mentorSubtitle": "Belső út kísérője • nem terapeuta, hanem tapasztalt vezető társ",
+   "mentorGreeting": "Itt vagyok, vándor. Merre jár most a gondolatod?",
+   "mentorHeading": "Vezető • Napi Felfedező Mentor"
+  }
+ ],
+ "technique_defs": [
+  {
+   "id": "box",
+   "title": "4-4-4-4",
+   "sub": "Dobozlégzés"
+  },
+  {
+   "id": "relax",
+   "title": "4-7-8",
+   "sub": "Nyugtató"
+  },
+  {
+   "id": "surf",
+   "title": "Hullámzás",
+   "sub": "Sóvárgás-szörf"
+  }
+ ],
+ "mentor_topics": [
+  {
+   "id": "feszultseg",
+   "label": "Belső feszültség elengedése",
+   "icon": "air"
+  },
+  {
+   "id": "fokusz",
+   "label": "Fókusz visszahívása",
+   "icon": "center_focus_strong"
+  },
+  {
+   "id": "hullam",
+   "label": "Sóvárgási hullám szörfözése",
+   "icon": "surfing"
+  },
+  {
+   "id": "nehez",
+   "label": "Nehéz napom van",
+   "icon": "favorite"
+  }
+ ]
+}

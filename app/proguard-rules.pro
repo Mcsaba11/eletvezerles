@@ -1,0 +1,5 @@
+-keepattributes *Annotation*, InnerClasses
+-keepclassmembers class kotlinx.serialization.json.** { *** Companion; }
+-keepclasseswithmembers class hu.lifeos.app.** { kotlinx.serialization.KSerializer serializer(...); }
+-keep,includedescriptorclasses class hu.lifeos.app.**$$serializer { *; }
+-keepclassmembers class hu.lifeos.app.** { *** Companion; }
