@@ -116,7 +116,7 @@ fun SosOverlay(vm: SatoriViewModel, onClose: () -> Unit, onBreath: () -> Unit) {
     val pct = SatoriLogic.urgeIntensity(elapsed)
     val phase = SatoriLogic.urgePhase(elapsed, pct)
     val quote = rememberSaveable { c.quotes.random() }
-    val reason = rememberSaveable { d.reasons.randomOrNull() }
+    val reason = rememberSaveable { d.reasons.randomOrNull() ?: "" }.ifBlank { null }
     var microTask by rememberSaveable { mutableStateOf<String?>(null) }
     var editPlan by rememberSaveable { mutableStateOf(d.ifThenPlan.isBlank()) }
     var plan by rememberSaveable { mutableStateOf(d.ifThenPlan) }
