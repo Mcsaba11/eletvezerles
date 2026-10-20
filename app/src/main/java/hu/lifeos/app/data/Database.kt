@@ -78,6 +78,13 @@ interface EntryDao {
     @Query("SELECT * FROM entries")
     suspend fun all(): List<EntryEntity>
 
+    /** Pénzmozgások egy időszakban (yyyy-MM-dd, zárt intervallum). */
+    @Query("SELECT * FROM entries WHERE kind IN ('expense', 'income') AND date >= :from AND date <= :to ORDER BY date DESC, ts DESC")
+    fun observeMoney(from: String, to: String): Flow<List<EntryEntity>>
+
+    @Update
+    suspend fun update(e: EntryEntity)
+
     @Insert
     suspend fun insert(e: EntryEntity): Long
 

@@ -27,6 +27,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.School
+import androidx.compose.material.icons.outlined.DirectionsRun
+import androidx.compose.material.icons.outlined.Bedtime
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.AttachMoney
@@ -92,7 +95,11 @@ private data class TItem(
 fun TimelineScreen(
     vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, contentPadding: PaddingValues,
     onOpenSatori: () -> Unit, onOpenFood: () -> Unit, onEditEvent: (Long) -> Unit,
+    mods: hu.lifeos.app.mods.ModsViewModel? = null, onOpenModule: (String) -> Unit = {},
 ) {
+    val sleepDoc = mods?.sleep?.state?.collectAsState()?.value
+    val moveDoc = mods?.move?.state?.collectAsState()?.value
+    val learnDoc = mods?.learn?.state?.collectAsState()?.value
     val selected by vm.selectedDay.collectAsState()
     val agenda by vm.monthAgenda.collectAsState()
     val entries by vm.recentEntries.collectAsState()
@@ -119,6 +126,8 @@ fun TimelineScreen(
     val tagHealth = stringResource(R.string.tag_health); val tagMoney = stringResource(R.string.filter_money)
     val tagCal = stringResource(R.string.tab_calendar); val tagTodo = stringResource(R.string.type_todo); val tagNote = stringResource(R.string.type_note)
     val dayCloseLabel = stringResource(R.string.satori_dayclose)
+    val sleepTitle = stringResource(R.string.mod_sleep); val moveTitle = stringResource(R.string.mod_move)
+    val learnTitle = stringResource(R.string.mod_learn); val minShort = stringResource(R.string.min_short)
     val windowOpen = stringResource(R.string.window_open_title); val windowClose = stringResource(R.string.window_close_title)
 
     val items = buildList {
@@ -156,6 +165,19 @@ fun TimelineScreen(
         if (foodOn && packs.fast && fs.setupDone) {
             add(TItem(hm(fs.profile.winStart), fs.profile.winStart, Icons.Outlined.Timer, Noc.cyan, windowOpen, null, listOf(tagHealth), "health"))
             add(TItem(hm(fs.profile.winEnd), fs.profile.winEnd, Icons.Outlined.Timer, Noc.cyan, windowClose, null, listOf(tagHealth), "health"))
+        }
+        if (settingsS?.moduleOn(hu.lifeos.app.data.Modules.SLEEP) != false) sleepDoc?.nights?.firstOrNull { it.date == dk }?.let { n ->
+            add(TItem(hm(n.wake), n.wake, Icons.Outlined.Bedtime, Noc.violet, sleepTitle + " · " + hu.lifeos.app.mods.ui.hm(n.minutes()),
+                n.note.ifBlank { null }, listOf(tagHealth), "health", onTap = { onOpenModule("sleep") }))
+        }
+        if (settingsS?.moduleOn(hu.lifeos.app.data.Modules.MOVE) != false) moveDoc?.items?.filter { it.date == dk }?.forEach { r ->
+            add(TItem(hm(r.t.ifBlank { "18:00" }), r.t, Icons.Outlined.DirectionsRun, Noc.good, moveTitle + " · " + r.minutes + " " + minShort,
+                r.note.ifBlank { null }, listOf(tagHealth), "health", onTap = { onOpenModule("move") }))
+        }
+        if (settingsS?.moduleOn(hu.lifeos.app.data.Modules.LEARN) != false) learnDoc?.sessions?.filter { it.date == dk }?.forEach { ls ->
+            val item = learnDoc.items.firstOrNull { it.id == ls.item }
+            add(TItem(hm("20:00"), "", Icons.Outlined.School, Noc.ice, (item?.title ?: learnTitle) + " · " + ls.minutes + " " + minShort,
+                null, listOf(learnTitle), "note", onTap = { onOpenModule("learn") }))
         }
         moods.firstOrNull { it.date == dk }?.let { m ->
             if (m.mood != null) add(TItem(Instant.ofEpochMilli(m.updatedAt).atZone(zone).toLocalTime().let { it.hour * 60 + it.minute }, "", Icons.Outlined.Mood, Noc.violet,

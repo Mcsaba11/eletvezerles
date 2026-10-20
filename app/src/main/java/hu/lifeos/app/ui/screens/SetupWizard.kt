@@ -30,6 +30,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
+import androidx.compose.material.icons.outlined.Bedtime
+import androidx.compose.material.icons.outlined.DirectionsRun
+import androidx.compose.material.icons.outlined.People
+import androidx.compose.material.icons.outlined.Flag
+import androidx.compose.material.icons.outlined.School
+import androidx.compose.material.icons.outlined.CleaningServices
+import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Mood
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
@@ -77,6 +84,13 @@ val MODULE_INFO = listOf(
     ModuleInfo(Modules.MIND, Icons.Outlined.Mood, { Noc.violet }, R.string.mod_mind, R.string.mod_mind_desc),
     ModuleInfo(Modules.MONEY, Icons.Outlined.AccountBalanceWallet, { Noc.sapphire }, R.string.mod_money, R.string.mod_money_desc),
     ModuleInfo(Modules.TASKS, Icons.Outlined.TaskAlt, { Noc.cyan }, R.string.mod_tasks, R.string.mod_tasks_desc),
+    ModuleInfo(Modules.SLEEP, Icons.Outlined.Bedtime, { Noc.violet }, R.string.mod_sleep, R.string.mod_sleep_desc),
+    ModuleInfo(Modules.MOVE, Icons.Outlined.DirectionsRun, { Noc.good }, R.string.mod_move, R.string.mod_move_desc),
+    ModuleInfo(Modules.PEOPLE, Icons.Outlined.People, { Noc.coral }, R.string.mod_people, R.string.mod_people_desc),
+    ModuleInfo(Modules.GOALS, Icons.Outlined.Flag, { Noc.amber }, R.string.mod_goals, R.string.mod_goals_desc),
+    ModuleInfo(Modules.LEARN, Icons.Outlined.School, { Noc.ice }, R.string.mod_learn, R.string.mod_learn_desc),
+    ModuleInfo(Modules.HOUSE, Icons.Outlined.CleaningServices, { Noc.cyan }, R.string.mod_house, R.string.mod_house_desc),
+    ModuleInfo(Modules.TRACKERS, Icons.Outlined.Widgets, { Noc.cyan }, R.string.mod_trackers, R.string.mod_trackers_desc),
     ModuleInfo(Modules.WHEEL, Icons.Outlined.Tune, { Noc.ice }, R.string.mod_wheel, R.string.mod_wheel_desc),
 )
 

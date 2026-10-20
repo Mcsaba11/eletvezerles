@@ -46,7 +46,14 @@ object Modules {
     const val MONEY = "money"
     const val TASKS = "tasks"
     const val WHEEL = "wheel"
-    val ALL = listOf(FOOD, SATORI, MIND, MONEY, TASKS, WHEEL)
+    const val SLEEP = "sleep"
+    const val MOVE = "move"
+    const val PEOPLE = "people"
+    const val GOALS = "goals"
+    const val LEARN = "learn"
+    const val HOUSE = "house"
+    const val TRACKERS = "trackers"
+    val ALL = listOf(FOOD, SATORI, MIND, MONEY, TASKS, SLEEP, MOVE, PEOPLE, GOALS, LEARN, HOUSE, TRACKERS, WHEEL)
 }
 
 /** A kezdőlap kártyái és a modul, amelyhez tartoznak (null = mindig elérhető). */
@@ -54,7 +61,9 @@ object HomeCards {
     val ALL: List<Pair<String, String?>> = listOf(
         "capture" to null, "insight" to null, "food" to Modules.FOOD, "satori" to Modules.SATORI,
         "breath" to Modules.MIND, "mood" to Modules.MIND, "money" to Modules.MONEY,
-        "focus" to Modules.TASKS, "wheel" to Modules.WHEEL, "quote" to null,
+        "focus" to Modules.TASKS, "trackers" to Modules.TRACKERS, "sleep" to Modules.SLEEP, "move" to Modules.MOVE,
+        "goals" to Modules.GOALS, "people" to Modules.PEOPLE, "learn" to Modules.LEARN, "house" to Modules.HOUSE,
+        "wheel" to Modules.WHEEL, "quote" to null,
     )
     fun module(id: String): String? = ALL.firstOrNull { it.first == id }?.second
 

@@ -55,7 +55,7 @@ private data class MiniApp(val name: Int, val desc: Int, val icon: ImageVector, 
 
 @Composable
 fun AppsScreen(
-    contentPadding: PaddingValues, settings: AppSettings, onToggleModule: (String) -> Unit,
+    contentPadding: PaddingValues, settings: AppSettings, onToggleModule: (String) -> Unit, onOpenModule: (String) -> Unit,
     onOpenSatori: () -> Unit, onOpenFood: () -> Unit, onOpenCalendar: () -> Unit, onOpenTodos: () -> Unit, onOpenSettings: () -> Unit,
 ) {
     val active = listOfNotNull(
@@ -63,17 +63,9 @@ fun AppsScreen(
         if (settings.moduleOn(Modules.FOOD)) MiniApp(R.string.app_food, R.string.app_food_desc, Icons.Outlined.Restaurant, { Noc.good }, onOpenFood) else null,
         if (settings.moduleOn(Modules.TASKS)) MiniApp(R.string.tab_calendar, R.string.app_calendar_desc, Icons.Outlined.CalendarToday, { Noc.sapphire }, onOpenCalendar) else null,
         if (settings.moduleOn(Modules.TASKS)) MiniApp(R.string.tab_todos, R.string.app_todos_desc, Icons.Outlined.CheckCircle, { Noc.cyan }, onOpenTodos) else null,
-    )
-    val soon = listOf(
-        MiniApp(R.string.app_money, R.string.app_money_desc, Icons.Outlined.AccountBalanceWallet, { Noc.sapphire }),
-        MiniApp(R.string.app_sleep, R.string.app_sleep_desc, Icons.Outlined.NightsStay, { Noc.violet }),
-        MiniApp(R.string.app_move, R.string.app_move_desc, Icons.Outlined.FitnessCenter, { Noc.good }),
-        MiniApp(R.string.app_people, R.string.app_people_desc, Icons.Outlined.People, { Noc.coral }),
-        MiniApp(R.string.app_goals, R.string.app_goals_desc, Icons.Outlined.Flag, { Noc.amber }),
-        MiniApp(R.string.app_learn, R.string.app_learn_desc, Icons.Outlined.School, { Noc.ice }),
-        MiniApp(R.string.app_home, R.string.app_home_desc, Icons.Outlined.Home, { Noc.cyan }),
-        MiniApp(R.string.app_builder, R.string.app_builder_desc, Icons.Outlined.Widgets, { Noc.cyan }),
-    )
+    ) + MODULE_INFO.filter { it.id in APP_ROUTES && settings.moduleOn(it.id) }.map { m ->
+        MiniApp(m.title, m.desc, m.icon, m.color, { onOpenModule(m.id) })
+    }
     LazyVerticalGrid(
         columns = GridCells.Fixed(2), modifier = Modifier.fillMaxSize(), contentPadding = contentPadding,
         horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -93,8 +85,6 @@ fun AppsScreen(
                 MODULE_INFO.forEach { m -> ModuleTile(m, settings.moduleOn(m.id)) { onToggleModule(m.id) } }
             }
         }
-        item(span = { GridItemSpan(2) }) { SectionLabel(stringResource(R.string.apps_soon)) }
-        items(soon) { a -> Tile(a, ready = false) }
         item(span = { GridItemSpan(2) }) {
             AppCard(onClick = onOpenSettings, padding = PaddingValues(14.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -123,3 +113,6 @@ private fun Tile(a: MiniApp, ready: Boolean) {
         Text(stringResource(a.desc), style = MaterialTheme.typography.bodySmall, color = Noc.text2, maxLines = 2, overflow = TextOverflow.Ellipsis)
     }
 }
+
+/** A saját képernyővel rendelkező új modulok (a modul azonosítója egyben az útvonal is). */
+val APP_ROUTES = setOf("money", "sleep", "move", "people", "goals", "learn", "house", "trackers")

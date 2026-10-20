@@ -62,6 +62,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import hu.lifeos.app.R
+import hu.lifeos.app.mods.ModsViewModel
+import hu.lifeos.app.mods.ui.*
 import hu.lifeos.app.data.AppSettings
 import hu.lifeos.app.data.HomeCards
 import hu.lifeos.app.data.Modules
@@ -108,6 +110,8 @@ fun TodayScreen(
     onBreath: () -> Unit,
     onCapture: () -> Unit,
     onVoice: () -> Unit,
+    mods: ModsViewModel,
+    onOpenModule: (String) -> Unit,
 ) {
     val settings by vm.settings.collectAsState()
     val today by vm.today.collectAsState()
@@ -263,7 +267,7 @@ fun TodayScreen(
                     val month = today.withDayOfMonth(1)
                     val spent = entries.filter { it.kind == EntryKind.EXPENSE && runCatching { !LocalDate.parse(it.date).isBefore(month) }.getOrDefault(false) }.sumOf { it.amount ?: 0.0 }
                     val budget = settings?.monthlyBudget ?: 0.0
-                    AppCard(onClick = if (budget > 0) null else onOpenSettings) {
+                    AppCard(onClick = { onOpenModule("money") }) {
                         CardHeader(Icons.Outlined.AccountBalanceWallet, stringResource(R.string.card_money), tint = Noc.sapphire) {
                             if (budget > 0) Text("${Fmt.monthYear(today).substringAfter(". ")} (${(spent * 100 / budget).toInt()}%)", style = MaterialTheme.typography.labelLarge, color = Noc.sapphire)
                         }
@@ -346,6 +350,13 @@ fun TodayScreen(
                     }
                 }
                 }
+                "sleep" -> item { SleepHomeCard(mods) { onOpenModule("sleep") } }
+                "move" -> item { MoveHomeCard(mods) { onOpenModule("move") } }
+                "people" -> item { PeopleHomeCard(mods) { onOpenModule("people") } }
+                "goals" -> item { GoalsHomeCard(mods) { onOpenModule("goals") } }
+                "learn" -> item { LearnHomeCard(mods) { onOpenModule("learn") } }
+                "house" -> item { HouseHomeCard(mods) { onOpenModule("house") } }
+                "trackers" -> item { TrackersHomeCards(mods) { onOpenModule("trackers") } }
                 "quote" -> {
                 item {
                     val qs = SatoriLogic.themeQuotes(c, st)

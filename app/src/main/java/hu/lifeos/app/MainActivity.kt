@@ -56,6 +56,7 @@ class MainActivity : FragmentActivity() {
     private lateinit var mainVm: MainViewModel
     private lateinit var satoriVm: SatoriViewModel
     private lateinit var foodVm: FoodViewModel
+    private lateinit var modsVm: hu.lifeos.app.mods.ModsViewModel
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -77,11 +78,13 @@ class MainActivity : FragmentActivity() {
             initializer { MainViewModel(c) }
             initializer { SatoriViewModel(c) }
             initializer { FoodViewModel(c) }
+            initializer { hu.lifeos.app.mods.ModsViewModel(c) }
         }
         val provider = ViewModelProvider(this, factory)
         mainVm = provider[MainViewModel::class.java]
         satoriVm = provider[SatoriViewModel::class.java]
         foodVm = provider[FoodViewModel::class.java]
+        modsVm = provider[hu.lifeos.app.mods.ModsViewModel::class.java]
 
         // Hidegindításkor a zár azonnal él (a beállítás gyorsan, helyben olvasható).
         if (savedInstanceState == null) {
@@ -96,7 +99,7 @@ class MainActivity : FragmentActivity() {
                 if (locked.value) {
                     LockScreen(onUnlock = { authenticate() })
                 } else {
-                    AppRoot(mainVm, satoriVm, foodVm, pendingAction, consumeAction = { pendingAction.value = null })
+                    AppRoot(mainVm, satoriVm, foodVm, modsVm, pendingAction, consumeAction = { pendingAction.value = null })
                 }
             }
         }

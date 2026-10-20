@@ -51,6 +51,29 @@ import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material.icons.outlined.SportsEsports
 import androidx.compose.material.icons.outlined.Eco
 import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.outlined.Book
+import androidx.compose.material.icons.outlined.Brush
+import androidx.compose.material.icons.outlined.Build
+import androidx.compose.material.icons.outlined.CardGiftcard
+import androidx.compose.material.icons.outlined.Checkroom
+import androidx.compose.material.icons.outlined.CleaningServices
+import androidx.compose.material.icons.outlined.DirectionsBike
+import androidx.compose.material.icons.outlined.DirectionsCar
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.LocalDrink
+import androidx.compose.material.icons.outlined.Medication
+import androidx.compose.material.icons.outlined.MenuBook
+import androidx.compose.material.icons.outlined.MoreHoriz
+import androidx.compose.material.icons.outlined.MusicNote
+import androidx.compose.material.icons.outlined.NoDrinks
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Pets
+import androidx.compose.material.icons.outlined.Pool
+import androidx.compose.material.icons.outlined.Savings
+import androidx.compose.material.icons.outlined.School
+import androidx.compose.material.icons.outlined.SportsSoccer
+import androidx.compose.material.icons.outlined.Translate
+import androidx.compose.material.icons.outlined.Work
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
@@ -111,8 +134,36 @@ fun iconFor(name: String): ImageVector = when (name) {
     "eco" -> Icons.Outlined.Eco
     "star" -> Icons.Outlined.Star
     "restaurant" -> Icons.Outlined.Restaurant
+    "car" -> Icons.Outlined.DirectionsCar
+    "home" -> Icons.Outlined.Home
+    "checkroom" -> Icons.Outlined.Checkroom
+    "gift" -> Icons.Outlined.CardGiftcard
+    "more" -> Icons.Outlined.MoreHoriz
+    "work" -> Icons.Outlined.Work
+    "savings" -> Icons.Outlined.Savings
+    "bike" -> Icons.Outlined.DirectionsBike
+    "pool" -> Icons.Outlined.Pool
+    "sports" -> Icons.Outlined.SportsSoccer
+    "menu_book" -> Icons.Outlined.MenuBook
+    "school" -> Icons.Outlined.School
+    "translate" -> Icons.Outlined.Translate
+    "build" -> Icons.Outlined.Build
+    "water" -> Icons.Outlined.LocalDrink
+    "book" -> Icons.Outlined.Book
+    "pets" -> Icons.Outlined.Pets
+    "music" -> Icons.Outlined.MusicNote
+    "brush" -> Icons.Outlined.Brush
+    "medication" -> Icons.Outlined.Medication
+    "sun" -> Icons.Outlined.WbSunny
+    "no_drinks" -> Icons.Outlined.NoDrinks
+    "cleaning" -> Icons.Outlined.CleaningServices
+    "person" -> Icons.Outlined.Person
+    "cake" -> Icons.Outlined.Cake
     else -> Icons.Outlined.Spa
 }
 
 /** A saját szokásokhoz választható ikonok. */
+/** A saját követőkhöz választható ikonok. */
+val TRACKER_ICONS = listOf("star", "water", "book", "medication", "self_improvement", "directions_walk", "bedtime", "favorite", "music", "brush", "pets", "sun", "no_drinks", "bolt")
+
 val CUSTOM_HABIT_ICONS = listOf("star", "favorite", "bolt", "coffee", "fastfood", "smartphone", "casino", "shopping_cart", "sports_esports", "eco", "liquor", "fitness_center")

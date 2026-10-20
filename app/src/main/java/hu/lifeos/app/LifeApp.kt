@@ -23,6 +23,7 @@ class AppContainer(context: Context) {
     val phoneCalendar = PhoneCalendar(context)
     val satori = SatoriRepository(db, SatoriContent.load(context), scope)
     val food = FoodRepository(db, FoodContent.load(context), scope)
+    val mods = hu.lifeos.app.mods.ModStores(db, scope)
 }
 
 class LifeApp : Application() {
@@ -32,7 +33,7 @@ class LifeApp : Application() {
     override fun onCreate() {
         super.onCreate()
         container = AppContainer(this)
-        container.scope.launch { container.satori.load(); container.food.load() }
+        container.scope.launch { container.satori.load(); container.food.load(); container.mods.loadAll() }
     }
 }
 

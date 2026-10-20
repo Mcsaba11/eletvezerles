@@ -19,6 +19,8 @@ data class BackupFile(
     val moods: List<MoodEntity> = emptyList(),
     val satori: JsonElement? = null,
     val food: JsonElement? = null,
+    /** Az új modulok (pénz, alvás, mozgás…) dokumentumai kulcs szerint. */
+    val mods: Map<String, JsonElement>? = null,
 )
 
 enum class ImportKind { FULL, SATORI_LEGACY, FOOD_LEGACY }
@@ -35,7 +37,7 @@ class Backup(private val c: AppContainer) {
             BackupFile.serializer(),
             BackupFile(
                 events = db.events().all(), todos = db.todos().all(), entries = db.entries().all(),
-                moods = db.moods().all(), satori = satori, food = food,
+                moods = db.moods().all(), satori = satori, food = food, mods = c.mods.exportAll(),
             )
         )
     }
@@ -62,6 +64,7 @@ class Backup(private val c: AppContainer) {
         }
         b.satori?.let { c.satori.replaceFromBackup(SatoriRepository.json.encodeToString(JsonElement.serializer(), it)) }
         b.food?.let { c.food.replaceFromBackup(SatoriRepository.json.encodeToString(JsonElement.serializer(), it)) }
+        b.mods?.let { c.mods.importAll(it) }
         return ImportKind.FULL
     }
 }

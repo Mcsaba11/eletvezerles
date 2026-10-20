@@ -71,7 +71,7 @@ object Actions {
 }
 
 @Composable
-fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, action: StateFlow<String?>, consumeAction: () -> Unit) {
+fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, mods: hu.lifeos.app.mods.ModsViewModel, action: StateFlow<String?>, consumeAction: () -> Unit) {
     val settings by vm.settings.collectAsState()
     val s = settings ?: return
     if (!s.welcomeDone) {
@@ -148,15 +148,17 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, act
                         onOpenSensei = { go("sensei") }, onOpenPatterns = { go("patterns") },
                         onOpenSettings = { nav.navigate("settings") }, onBreath = { breathOpen = true },
                         onCapture = { captureInitial = ""; captureOpen = true }, onVoice = voice,
+                        mods = mods, onOpenModule = { r -> nav.navigate(r) { launchSingleTop = true } },
                     )
                 }
                 composable("timeline") {
                     TimelineScreen(vm, satori, food, tabPadding, onOpenSatori = { openSatori() }, onOpenFood = { nav.navigate("food") },
+                        mods = mods, onOpenModule = { r -> nav.navigate(r) { launchSingleTop = true } },
                         onEditEvent = { id -> nav.navigate("event?id=$id&date=") })
                 }
                 composable("apps") {
                     AppsScreen(
-                        tabPadding, s, onToggleModule = { id -> vm.updateSettings { st -> val cur = st.modules ?: hu.lifeos.app.data.Modules.ALL; st.copy(modules = if (id in cur) cur - id else cur + id) } },
+                        tabPadding, s, onOpenModule = { r -> nav.navigate(r) { launchSingleTop = true } }, onToggleModule = { id -> vm.updateSettings { st -> val cur = st.modules ?: hu.lifeos.app.data.Modules.ALL; st.copy(modules = if (id in cur) cur - id else cur + id) } },
                         onOpenSatori = { openSatori() }, onOpenFood = { nav.navigate("food") },
                         onOpenCalendar = { nav.navigate("calendar") }, onOpenTodos = { nav.navigate("todos") },
                         onOpenSettings = { nav.navigate("settings") },
@@ -172,6 +174,19 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, act
                         onBack = { nav.popBackStack() },
                     )
                 }
+                composable("money") {
+                    val sst by satori.state.collectAsState()
+                    val saved = if (s.moduleOn(hu.lifeos.app.data.Modules.SATORI) && sst.onboardingDone == true)
+                        sst.followedIds().sumOf { id -> sst.data[id]?.let { it.dailyCost * it.streak } ?: 0.0 } else null
+                    hu.lifeos.app.mods.ui.MoneyScreen(mods, s.monthlyBudget, onSetBudget = { v -> vm.updateSettings { it.copy(monthlyBudget = v) } }, satoriSaved = saved, onBack = { nav.popBackStack() })
+                }
+                composable("sleep") { hu.lifeos.app.mods.ui.SleepScreen(mods, onBack = { nav.popBackStack() }) }
+                composable("move") { hu.lifeos.app.mods.ui.MoveScreen(mods, onBack = { nav.popBackStack() }) }
+                composable("people") { hu.lifeos.app.mods.ui.PeopleScreen(mods, onBack = { nav.popBackStack() }) }
+                composable("goals") { hu.lifeos.app.mods.ui.GoalsScreen(mods, onBack = { nav.popBackStack() }) }
+                composable("learn") { hu.lifeos.app.mods.ui.LearnScreen(mods, onBack = { nav.popBackStack() }) }
+                composable("house") { hu.lifeos.app.mods.ui.HouseScreen(mods, onBack = { nav.popBackStack() }) }
+                composable("trackers") { hu.lifeos.app.mods.ui.TrackersScreen(mods, onBack = { nav.popBackStack() }) }
                 composable("todos") { TodosScreen(vm, onBack = { nav.popBackStack() }) }
                 composable("food") { FoodRoot(food, onExit = { nav.popBackStack() }) }
                 composable("settings") { SettingsScreen(vm, satori, onBack = { nav.popBackStack() }) }
