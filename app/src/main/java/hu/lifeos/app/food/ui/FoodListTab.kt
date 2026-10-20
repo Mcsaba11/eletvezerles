@@ -43,6 +43,7 @@ import hu.lifeos.app.R
 import hu.lifeos.app.food.Food
 import hu.lifeos.app.food.FoodLogic
 import hu.lifeos.app.food.FoodViewModel
+import hu.lifeos.app.food.LocalPacks
 import hu.lifeos.app.ui.AppCard
 import hu.lifeos.app.ui.VSpace
 
@@ -83,7 +84,7 @@ fun FoodListTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit, 
             VSpace(6)
             Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 FilterChip(rate == "all", { rate = "all" }, label = { Text(stringResource(R.string.filter_all)) })
-                listOf("g", "m", "b").forEach { r -> FilterChip(rate == r, { rate = r }, label = { Text(c.rtxt[r] ?: r) }) }
+                if (LocalPacks.current.rating) listOf("g", "m", "b").forEach { r -> FilterChip(rate == r, { rate = r }, label = { Text(c.rtxt[r] ?: r) }) }
                 FilterChip(rate == "fav", { rate = "fav" }, label = { Text(stringResource(R.string.food_favs)) })
             }
             Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -123,7 +124,7 @@ private fun FoodCard(vm: FoodViewModel, f: Food, fav: Boolean, toast: (String) -
             TextButton(onClick = {
                 val gg = g.replace(',', '.').toDoubleOrNull() ?: 0.0
                 if (gg > 0) {
-                    vm.addEntry(f, gg, vm.logic.defaultMeal(s.profile), vm.nowHM(), vm.today())
+                    vm.addEntry(f, gg, vm.logic.defaultMeal(s), vm.nowHM(), vm.today())
                     toast(ctx.getString(R.string.food_added, f.name, fmt(vm.logic.nutr(f, gg).kcal)))
                 }
             }) { Text(stringResource(R.string.food_to_log)) }

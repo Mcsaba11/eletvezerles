@@ -59,15 +59,22 @@ data class SatoriState(
     val moodLog: List<MoodRec> = emptyList(),
     val cravingLog: List<CravingRec> = emptyList(),
     val merleg: Map<String, List<String>> = emptyMap(),
+    /** A felhasználó által létrehozott saját szokások. */
+    val custom: List<TypeDef> = emptyList(),
+    /** A követett szokások sorrendben; null = régi mentés, ilyenkor az eddig használt szokások. */
+    val followed: List<String>? = null,
 ) {
+    /** A követett szokások azonosítói (régi mentésnél az aktivitással rendelkezők + az aktuális). */
+    fun followedIds(): List<String> = followed ?: (data.filter { (_, td) -> td.streak > 0 || td.journal.isNotEmpty() || td.pledgeDate != null }.keys.toList() + type).distinct()
+
     fun cur(): TypeData = data[type] ?: TypeData()
 
     /** Kiegészíti a hiányzó kategóriákat, ahogy a régi app loadState() függvénye is tette. */
     fun normalized(typeIds: List<String>): SatoriState {
-        val filled = typeIds.associateWith { id ->
+        val filled = (typeIds + custom.map { it.id }).associateWith { id ->
             data[id] ?: TypeData(weeklyAllowance = if (id == "cukor") 1 else 0)
         } + data.filterKeys { it !in typeIds }
-        val done = onboardingDone ?: typeIds.any { id ->
+        val done = onboardingDone ?: (typeIds + custom.map { it.id }).any { id ->
             val td = filled.getValue(id); td.streak > 0 || td.journal.isNotEmpty() || td.pledgeDate != null
         }
         return copy(data = filled, onboardingDone = done)

@@ -62,6 +62,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import hu.lifeos.app.R
+import hu.lifeos.app.data.AppSettings
+import hu.lifeos.app.data.HomeCards
+import hu.lifeos.app.data.Modules
 import hu.lifeos.app.data.EntryKind
 import hu.lifeos.app.data.TodoEntity
 import hu.lifeos.app.food.FoodViewModel
@@ -152,243 +155,227 @@ fun TodayScreen(
             }
         }
 
-        // ---------- Beviteli mező ----------
-        item {
-            AppCard(onClick = onCapture, padding = PaddingValues(12.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Box(Modifier.size(34.dp).clip(RoundedCornerShape(10.dp)).background(Noc.cyan.copy(alpha = 0.12f)), contentAlignment = Alignment.Center) {
-                        Icon(Icons.Outlined.AutoAwesome, null, Modifier.size(18.dp), tint = Noc.cyan)
-                    }
-                    Spacer(Modifier.width(10.dp))
-                    Text(stringResource(R.string.capture_prompt), style = MaterialTheme.typography.bodyLarge, color = Noc.text2, modifier = Modifier.weight(1f), maxLines = 1, overflow = TextOverflow.Ellipsis)
-                    Box(
-                        Modifier.size(34.dp).clip(CircleShape).background(Noc.amber.copy(alpha = 0.12f)).border(1.dp, Noc.amber.copy(alpha = 0.35f), CircleShape)
-                            .clickable { tick(); onVoice() },
-                        contentAlignment = Alignment.Center,
-                    ) { Icon(Icons.Outlined.Mic, stringResource(R.string.voice_input), Modifier.size(18.dp), tint = Noc.amber) }
-                }
-                VSpace(8)
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(stringResource(R.string.example) + "  ", style = MaterialTheme.typography.bodySmall, color = Noc.text3)
-                    Text(stringResource(R.string.capture_example), style = MaterialTheme.typography.bodySmall, color = Noc.text2, maxLines = 1, overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.clip(RoundedCornerShape(8.dp)).background(Noc.well).padding(horizontal = 8.dp, vertical = 3.dp))
-                }
+        val cards = HomeCards.visible(settings ?: AppSettings())
+        if (cards.none { it != "capture" && it != "insight" && it != "quote" }) item {
+            AppCard(onClick = onOpenSettings) {
+                Text(stringResource(R.string.home_empty_title), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.home_empty_text), style = MaterialTheme.typography.bodyMedium, color = Noc.text2)
             }
         }
-
-        // ---------- Sensei meglátás ----------
-        if (settings?.insightDismissed != todayStr) item {
-            val text = Insights.dailyInsight(fs, food.logic, st, c, mood, todos, nextLabel, now)
-            AppCard(glow = Noc.cyan) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Noc.cyan.copy(alpha = 0.12f)).border(1.dp, Noc.cyan.copy(alpha = 0.3f), RoundedCornerShape(12.dp)), contentAlignment = Alignment.Center) {
-                        Icon(Icons.Outlined.Psychology, null, Modifier.size(20.dp), tint = Noc.cyan)
-                    }
-                    Spacer(Modifier.width(10.dp))
-                    Text(stringResource(R.string.sensei_insight), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-                    Pill(stringResource(when (now.hour) { in 5..10 -> R.string.sync_morning; in 11..17 -> R.string.sync_day; else -> R.string.sync_evening }))
-                }
-                VSpace(8)
-                Text(text, style = MaterialTheme.typography.bodyLarge, color = Noc.text)
-                VSpace(12)
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    PrimaryButton(stringResource(R.string.ok_got_it), onClick = { vm.updateSettings { it.copy(insightDismissed = todayStr) } })
-                    TonalButton(stringResource(R.string.details), onClick = onOpenSensei)
-                }
-            }
-        }
-
-        // ---------- Test és IR ----------
-        item {
-            val f = Insights.fast(fs, food.logic, now)
-            val r = food.logic.targets(fs.profile)
-            val t = food.logic.totals(fs.day(todayStr).items)
-            AppCard(onClick = onOpenFood) {
-                CardHeader(Icons.Outlined.Timer, stringResource(R.string.card_body_ir), tint = Noc.cyan) {
-                    Pill(stringResource(if (f.eating) R.string.food_can_eat else if (f.minutesIn >= 12 * 60) R.string.phase_autophagy else R.string.food_fasting),
-                        textColor = if (f.eating) Noc.good else Noc.amber)
-                }
-                VSpace(10)
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Column(Modifier.weight(1f)) {
-                        Row(verticalAlignment = Alignment.Bottom) {
-                            Text("%d:%02d".format(f.minutesIn / 60, f.minutesIn % 60), style = MaterialTheme.typography.displaySmall.copy(fontFeatureSettings = "tnum"), color = Noc.text)
-                            Text(" / " + (if (f.eating) (24 * 60 - f.fastLength) / 60 else f.fastLength / 60) + "h", style = MaterialTheme.typography.titleSmall, color = Noc.text2, modifier = Modifier.padding(bottom = 6.dp))
-                        }
-                        Text(stringResource(if (f.eating) R.string.hours_in_window else R.string.hours_in_fast), style = MaterialTheme.typography.bodyMedium, color = if (f.eating) Noc.good else Noc.cyan)
-                        VSpace(4)
+        cards.forEach { card ->
+            when (card) {
+                "capture" -> {
+                // ---------- Beviteli mező ----------
+                item {
+                    AppCard(onClick = onCapture, padding = PaddingValues(12.dp)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Icon(Icons.Outlined.Restaurant, null, Modifier.size(15.dp), tint = Noc.text2)
-                            Spacer(Modifier.width(6.dp))
-                            Text(stringResource(if (f.eating) R.string.window_closes else R.string.window_opens, if (f.eating) f.closes else f.opens), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
+                            Box(Modifier.size(34.dp).clip(RoundedCornerShape(10.dp)).background(Noc.cyan.copy(alpha = 0.12f)), contentAlignment = Alignment.Center) {
+                                Icon(Icons.Outlined.AutoAwesome, null, Modifier.size(18.dp), tint = Noc.cyan)
+                            }
+                            Spacer(Modifier.width(10.dp))
+                            Text(stringResource(R.string.capture_prompt), style = MaterialTheme.typography.bodyLarge, color = Noc.text2, modifier = Modifier.weight(1f), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                            Box(
+                                Modifier.size(34.dp).clip(CircleShape).background(Noc.amber.copy(alpha = 0.12f)).border(1.dp, Noc.amber.copy(alpha = 0.35f), CircleShape)
+                                    .clickable { tick(); onVoice() },
+                                contentAlignment = Alignment.Center,
+                            ) { Icon(Icons.Outlined.Mic, stringResource(R.string.voice_input), Modifier.size(18.dp), tint = Noc.amber) }
                         }
-                    }
-                    val total = if (f.eating) 24 * 60 - f.fastLength else f.fastLength
-                    MetricRing(if (total > 0) f.minutesIn.toFloat() / total else 0f, if (f.eating) Noc.good else Noc.cyan, Modifier.size(86.dp)) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Text("${if (total > 0) (f.minutesIn * 100 / total).coerceAtMost(100) else 0}%", style = MaterialTheme.typography.titleMedium, color = Noc.text)
-                            Text(stringResource(R.string.goal_short), style = MaterialTheme.typography.labelSmall, color = Noc.text2)
-                        }
-                    }
-                }
-                VSpace(10)
-                Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Noc.well).padding(horizontal = 12.dp, vertical = 9.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Text(stringResource(R.string.kcal_today), style = MaterialTheme.typography.bodySmall, color = Noc.text2, modifier = Modifier.weight(1f))
-                    Text("${food.logic.let { hu.lifeos.app.food.FoodLogic.fmt(t.kcal) }} / ${hu.lifeos.app.food.FoodLogic.fmt(r.target)} kcal", style = MaterialTheme.typography.labelLarge, color = Noc.text)
-                }
-                VSpace(6)
-                Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp)).background(Noc.well).padding(horizontal = 12.dp, vertical = 9.dp), verticalAlignment = Alignment.CenterVertically) {
-                    Text(stringResource(R.string.food_gl), style = MaterialTheme.typography.bodySmall, color = Noc.text2, modifier = Modifier.weight(1f))
-                    val glTxt = stringResource(if (t.gl < 80) R.string.gl_low_stable else if (t.gl < 120) R.string.gl_mid else R.string.gl_high)
-                    Text(glTxt, style = MaterialTheme.typography.labelLarge, color = if (t.gl < 80) Noc.good else if (t.gl < 120) Noc.amber else Noc.coral)
-                }
-            }
-        }
-
-        // ---------- Satori + légzés ----------
-        item {
-            val d = st.cur()
-            val qs = SatoriLogic.themeQuotes(c, st)
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                AppCard(Modifier.weight(1f).height(170.dp), onClick = onOpenSatori, padding = PaddingValues(14.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(iconFor(c.type(st.type).icon), null, Modifier.size(18.dp), tint = Noc.cyan)
-                        Spacer(Modifier.weight(1f))
-                        Text("SATORI", style = MaterialTheme.typography.labelSmall, color = Noc.text2)
-                    }
-                    Spacer(Modifier.weight(1f))
-                    Row(verticalAlignment = Alignment.Bottom) {
-                        Text("${d.streak}", style = MaterialTheme.typography.headlineLarge.copy(fontFeatureSettings = "tnum"), color = Noc.text)
-                        Text(" " + stringResource(R.string.satori_day_word), style = MaterialTheme.typography.titleSmall, color = Noc.text, modifier = Modifier.padding(bottom = 4.dp))
-                    }
-                    Text(c.type(st.type).label, style = MaterialTheme.typography.bodySmall, color = Noc.cyan, maxLines = 1)
-                    VSpace(6)
-                    Text("„${qs[SatoriLogic.dayIndex(qs.size)]}”", style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic, color = Noc.text3, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                }
-                AppCard(Modifier.weight(1f).height(170.dp), onClick = onBreath, padding = PaddingValues(14.dp), glow = Noc.amber) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Box(Modifier.size(28.dp).clip(RoundedCornerShape(8.dp)).background(Noc.amber.copy(alpha = 0.14f)), contentAlignment = Alignment.Center) {
-                            Icon(Icons.Outlined.Spa, null, Modifier.size(16.dp), tint = Noc.amber)
-                        }
-                        Spacer(Modifier.weight(1f))
-                        Box(Modifier.size(7.dp).clip(CircleShape).background(Noc.amber))
-                    }
-                    Spacer(Modifier.weight(1f))
-                    Text("4-7-8", style = MaterialTheme.typography.headlineMedium, color = Noc.text)
-                    Text(stringResource(R.string.breath_card_sub), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
-                    VSpace(8)
-                    Row(
-                        Modifier.fillMaxWidth().height(34.dp).clip(RoundedCornerShape(10.dp)).background(Noc.amber.copy(alpha = 0.14f)).border(1.dp, Noc.amber.copy(alpha = 0.5f), RoundedCornerShape(10.dp)),
-                        horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically,
-                    ) { Text(stringResource(R.string.start_arrow), style = MaterialTheme.typography.labelLarge, color = Noc.amber) }
-                }
-            }
-        }
-
-        // ---------- Hangulat ----------
-        item {
-            AppCard(padding = PaddingValues(14.dp)) {
-                CardHeader(Icons.Outlined.Mood, stringResource(R.string.mood_title), tint = Noc.violet) {
-                    if (mood?.mood != null) Text("${mood?.mood}/5", style = MaterialTheme.typography.labelLarge, color = Noc.violet)
-                }
-                VSpace(10)
-                MoodRow(selected = mood?.mood, onSelect = { vm.setMood(it, null) }, tint = Noc.violet)
-                VSpace(8)
-                EnergyRow(selected = mood?.energy, onSelect = { vm.setMood(null, it) }, tint = Noc.violet)
-            }
-        }
-
-        // ---------- Pénz ----------
-        item {
-            val month = today.withDayOfMonth(1)
-            val spent = entries.filter { it.kind == EntryKind.EXPENSE && runCatching { !LocalDate.parse(it.date).isBefore(month) }.getOrDefault(false) }.sumOf { it.amount ?: 0.0 }
-            val budget = settings?.monthlyBudget ?: 0.0
-            AppCard(onClick = if (budget > 0) null else onOpenSettings) {
-                CardHeader(Icons.Outlined.AccountBalanceWallet, stringResource(R.string.card_money), tint = Noc.sapphire) {
-                    if (budget > 0) Text("${Fmt.monthYear(today).substringAfter(". ")} (${(spent * 100 / budget).toInt()}%)", style = MaterialTheme.typography.labelLarge, color = Noc.sapphire)
-                }
-                VSpace(10)
-                if (budget > 0) {
-                    val daysLeft = today.lengthOfMonth() - today.dayOfMonth + 1
-                    val remain = budget - spent
-                    Row(verticalAlignment = Alignment.Bottom) {
-                        Column(Modifier.weight(1f)) {
-                            Text(stringResource(R.string.budget_left), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
-                            Text(Fmt.money(remain), style = MaterialTheme.typography.headlineMedium.copy(fontFeatureSettings = "tnum"), color = if (remain >= 0) Noc.text else Noc.coral)
-                        }
-                        Column(horizontalAlignment = Alignment.End) {
-                            Text(stringResource(R.string.budget_daily), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
-                            Text(Fmt.money(maxOf(0.0, remain / daysLeft)), style = MaterialTheme.typography.titleLarge, color = Noc.good)
-                        }
-                    }
-                    VSpace(10)
-                    Meter((spent / budget).toFloat(), if (spent <= budget * today.dayOfMonth / today.lengthOfMonth()) Noc.cyan else Noc.amber)
-                    VSpace(8)
-                    val onTrack = spent <= budget * today.dayOfMonth / today.lengthOfMonth()
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(stringResource(R.string.budget_spent, Fmt.money(spent)), style = MaterialTheme.typography.bodySmall, color = Noc.text2, modifier = Modifier.weight(1f))
-                        Icon(Icons.Outlined.CheckCircle, null, Modifier.size(14.dp), tint = if (onTrack) Noc.good else Noc.amber)
-                        Text(" " + stringResource(if (onTrack) R.string.budget_on_track else R.string.budget_over_pace), style = MaterialTheme.typography.labelMedium, color = if (onTrack) Noc.good else Noc.amber)
-                    }
-                } else {
-                    Text(stringResource(R.string.budget_spent, Fmt.money(spent)), style = MaterialTheme.typography.titleMedium, color = Noc.text)
-                    Text(stringResource(R.string.budget_set_hint), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
-                }
-            }
-        }
-
-        // ---------- Mai fókusz és idővonal ----------
-        item {
-            val due = todos.filter { !it.done && ((it.dueDate != null && it.dueDate <= todayStr) || (it.dueDate == null && it.important)) }
-            AppCard(onClick = onOpenCalendar) {
-                CardHeader(Icons.Outlined.EventNote, stringResource(R.string.card_focus), tint = Noc.sapphire) {
-                    Text(stringResource(R.string.todos_today_n, due.size), style = MaterialTheme.typography.labelMedium, color = Noc.text2)
-                }
-                VSpace(10)
-                if (agenda.isEmpty() && due.isEmpty()) Text(stringResource(R.string.focus_empty), style = MaterialTheme.typography.bodyMedium, color = Noc.text2)
-                agenda.take(5).forEach { a -> FocusRow(a, a == nextEvent, nowMs) }
-                due.take(5).forEach { t -> TodoMini(t, today) { vm.toggleTodo(t) } }
-                if (due.size > 5) Text(stringResource(R.string.and_more, due.size - 5), style = MaterialTheme.typography.bodySmall, color = Noc.cyan, modifier = Modifier.clickable(onClick = onOpenTodos))
-            }
-        }
-
-        // ---------- Életkerék ----------
-        item {
-            val mk = today.toString().take(7)
-            val cur = wheel[mk]
-            AppCard(onClick = onOpenPatterns, padding = PaddingValues(14.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Box(Modifier.size(44.dp).clip(RoundedCornerShape(14.dp)).background(Noc.well).border(1.dp, Noc.stroke, RoundedCornerShape(14.dp)), contentAlignment = Alignment.Center) {
-                        Icon(Icons.Outlined.Tune, null, tint = Noc.cyan)
-                    }
-                    Spacer(Modifier.width(12.dp))
-                    Column(Modifier.weight(1f)) {
+                        VSpace(8)
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(stringResource(R.string.wheel_title), style = MaterialTheme.typography.titleMedium)
-                            Spacer(Modifier.width(6.dp))
-                            Box(Modifier.size(7.dp).clip(CircleShape).background(if (cur != null) Noc.good else Noc.text3))
+                            Text(stringResource(R.string.example) + "  ", style = MaterialTheme.typography.bodySmall, color = Noc.text3)
+                            Text(stringResource(R.string.capture_example), style = MaterialTheme.typography.bodySmall, color = Noc.text2, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.clip(RoundedCornerShape(8.dp)).background(Noc.well).padding(horizontal = 8.dp, vertical = 3.dp))
                         }
-                        Text(
-                            if (cur != null) stringResource(R.string.wheel_best, cur.maxByOrNull { it.value }?.key.orEmpty(), cur.minByOrNull { it.value }?.key.orEmpty())
-                            else stringResource(R.string.wheel_rate_hint),
-                            style = MaterialTheme.typography.bodySmall, color = Noc.text2, maxLines = 1, overflow = TextOverflow.Ellipsis,
-                        )
                     }
-                    if (cur != null) Column(horizontalAlignment = Alignment.End) {
-                        Text(buildAnnotatedString {
-                            withStyle(SpanStyle(color = Noc.amber, fontWeight = FontWeight.Bold)) { append(String.format(Fmt.hu, "%.1f", cur.values.average())) }
-                            withStyle(SpanStyle(color = Noc.text2)) { append(" /10") }
-                        }, style = MaterialTheme.typography.titleLarge)
+                }
+                }
+                "insight" -> {
+                // ---------- Sensei meglátás ----------
+                if (settings?.insightDismissed != todayStr) item {
+                    val text = Insights.dailyInsight(fs, food.logic, st, c, mood, todos, nextLabel, now, foodOn = settings?.moduleOn(Modules.FOOD) ?: true, satoriOn = settings?.moduleOn(Modules.SATORI) ?: true)
+                    AppCard(glow = Noc.cyan) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(Modifier.size(38.dp).clip(RoundedCornerShape(12.dp)).background(Noc.cyan.copy(alpha = 0.12f)).border(1.dp, Noc.cyan.copy(alpha = 0.3f), RoundedCornerShape(12.dp)), contentAlignment = Alignment.Center) {
+                                Icon(Icons.Outlined.Psychology, null, Modifier.size(20.dp), tint = Noc.cyan)
+                            }
+                            Spacer(Modifier.width(10.dp))
+                            Text(stringResource(R.string.sensei_insight), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+                            Pill(stringResource(when (now.hour) { in 5..10 -> R.string.sync_morning; in 11..17 -> R.string.sync_day; else -> R.string.sync_evening }))
+                        }
+                        VSpace(8)
+                        Text(text, style = MaterialTheme.typography.bodyLarge, color = Noc.text)
+                        VSpace(12)
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            PrimaryButton(stringResource(R.string.ok_got_it), onClick = { vm.updateSettings { it.copy(insightDismissed = todayStr) } })
+                            TonalButton(stringResource(R.string.details), onClick = onOpenSensei)
+                        }
                     }
+                }
+                }
+                "food" -> {
+                // ---------- Étkezés ----------
+                item { FoodHomeCard(food, fs, now, onOpenFood) }
+                }
+                "breath" -> if ("satori" !in cards) item { Row { BreathTile(Modifier.fillMaxWidth(), onBreath) } }
+                "satori" -> {
+                    val withBreath = "breath" in cards
+                // ---------- Satori + légzés ----------
+                item {
+                    val d = st.cur()
+                    val qs = SatoriLogic.themeQuotes(c, st)
+                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        AppCard(Modifier.weight(1f).height(170.dp), onClick = onOpenSatori, padding = PaddingValues(14.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(iconFor(c.type(st.type).icon), null, Modifier.size(18.dp), tint = Noc.cyan)
+                                Spacer(Modifier.weight(1f))
+                                Text("SATORI", style = MaterialTheme.typography.labelSmall, color = Noc.text2)
+                            }
+                            Spacer(Modifier.weight(1f))
+                            Row(verticalAlignment = Alignment.Bottom) {
+                                Text("${d.streak}", style = MaterialTheme.typography.headlineLarge.copy(fontFeatureSettings = "tnum"), color = Noc.text)
+                                Text(" " + stringResource(R.string.satori_day_word), style = MaterialTheme.typography.titleSmall, color = Noc.text, modifier = Modifier.padding(bottom = 4.dp))
+                            }
+                            Text(if (st.onboardingDone == true) c.type(st.type).label else stringResource(R.string.satori_setup_hint), style = MaterialTheme.typography.bodySmall, color = Noc.cyan, maxLines = 2)
+                            VSpace(6)
+                            Text("„${qs[SatoriLogic.dayIndex(qs.size)]}”", style = MaterialTheme.typography.bodySmall, fontStyle = FontStyle.Italic, color = Noc.text3, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                        }
+                        if (withBreath) BreathTile(Modifier.weight(1f), onBreath)
+                    }
+                }
+                }
+                "mood" -> {
+                // ---------- Hangulat ----------
+                item {
+                    AppCard(padding = PaddingValues(14.dp)) {
+                        CardHeader(Icons.Outlined.Mood, stringResource(R.string.mood_title), tint = Noc.violet) {
+                            if (mood?.mood != null) Text("${mood?.mood}/5", style = MaterialTheme.typography.labelLarge, color = Noc.violet)
+                        }
+                        VSpace(10)
+                        MoodRow(selected = mood?.mood, onSelect = { vm.setMood(it, null) }, tint = Noc.violet)
+                        VSpace(8)
+                        EnergyRow(selected = mood?.energy, onSelect = { vm.setMood(null, it) }, tint = Noc.violet)
+                    }
+                }
+                }
+                "money" -> {
+                // ---------- Pénz ----------
+                item {
+                    val month = today.withDayOfMonth(1)
+                    val spent = entries.filter { it.kind == EntryKind.EXPENSE && runCatching { !LocalDate.parse(it.date).isBefore(month) }.getOrDefault(false) }.sumOf { it.amount ?: 0.0 }
+                    val budget = settings?.monthlyBudget ?: 0.0
+                    AppCard(onClick = if (budget > 0) null else onOpenSettings) {
+                        CardHeader(Icons.Outlined.AccountBalanceWallet, stringResource(R.string.card_money), tint = Noc.sapphire) {
+                            if (budget > 0) Text("${Fmt.monthYear(today).substringAfter(". ")} (${(spent * 100 / budget).toInt()}%)", style = MaterialTheme.typography.labelLarge, color = Noc.sapphire)
+                        }
+                        VSpace(10)
+                        if (budget > 0) {
+                            val daysLeft = today.lengthOfMonth() - today.dayOfMonth + 1
+                            val remain = budget - spent
+                            Row(verticalAlignment = Alignment.Bottom) {
+                                Column(Modifier.weight(1f)) {
+                                    Text(stringResource(R.string.budget_left), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
+                                    Text(Fmt.money(remain), style = MaterialTheme.typography.headlineMedium.copy(fontFeatureSettings = "tnum"), color = if (remain >= 0) Noc.text else Noc.coral)
+                                }
+                                Column(horizontalAlignment = Alignment.End) {
+                                    Text(stringResource(R.string.budget_daily), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
+                                    Text(Fmt.money(maxOf(0.0, remain / daysLeft)), style = MaterialTheme.typography.titleLarge, color = Noc.good)
+                                }
+                            }
+                            VSpace(10)
+                            Meter((spent / budget).toFloat(), if (spent <= budget * today.dayOfMonth / today.lengthOfMonth()) Noc.cyan else Noc.amber)
+                            VSpace(8)
+                            val onTrack = spent <= budget * today.dayOfMonth / today.lengthOfMonth()
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Text(stringResource(R.string.budget_spent, Fmt.money(spent)), style = MaterialTheme.typography.bodySmall, color = Noc.text2, modifier = Modifier.weight(1f))
+                                Icon(Icons.Outlined.CheckCircle, null, Modifier.size(14.dp), tint = if (onTrack) Noc.good else Noc.amber)
+                                Text(" " + stringResource(if (onTrack) R.string.budget_on_track else R.string.budget_over_pace), style = MaterialTheme.typography.labelMedium, color = if (onTrack) Noc.good else Noc.amber)
+                            }
+                        } else {
+                            Text(stringResource(R.string.budget_spent, Fmt.money(spent)), style = MaterialTheme.typography.titleMedium, color = Noc.text)
+                            Text(stringResource(R.string.budget_set_hint), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
+                        }
+                    }
+                }
+                }
+                "focus" -> {
+                // ---------- Mai fókusz és idővonal ----------
+                item {
+                    val due = todos.filter { !it.done && ((it.dueDate != null && it.dueDate <= todayStr) || (it.dueDate == null && it.important)) }
+                    AppCard(onClick = onOpenCalendar) {
+                        CardHeader(Icons.Outlined.EventNote, stringResource(R.string.card_focus), tint = Noc.sapphire) {
+                            Text(stringResource(R.string.todos_today_n, due.size), style = MaterialTheme.typography.labelMedium, color = Noc.text2)
+                        }
+                        VSpace(10)
+                        if (agenda.isEmpty() && due.isEmpty()) Text(stringResource(R.string.focus_empty), style = MaterialTheme.typography.bodyMedium, color = Noc.text2)
+                        agenda.take(5).forEach { a -> FocusRow(a, a == nextEvent, nowMs) }
+                        due.take(5).forEach { t -> TodoMini(t, today) { vm.toggleTodo(t) } }
+                        if (due.size > 5) Text(stringResource(R.string.and_more, due.size - 5), style = MaterialTheme.typography.bodySmall, color = Noc.cyan, modifier = Modifier.clickable(onClick = onOpenTodos))
+                    }
+                }
+                }
+                "wheel" -> {
+                // ---------- Életkerék ----------
+                item {
+                    val mk = today.toString().take(7)
+                    val cur = wheel[mk]
+                    AppCard(onClick = onOpenPatterns, padding = PaddingValues(14.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Box(Modifier.size(44.dp).clip(RoundedCornerShape(14.dp)).background(Noc.well).border(1.dp, Noc.stroke, RoundedCornerShape(14.dp)), contentAlignment = Alignment.Center) {
+                                Icon(Icons.Outlined.Tune, null, tint = Noc.cyan)
+                            }
+                            Spacer(Modifier.width(12.dp))
+                            Column(Modifier.weight(1f)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Text(stringResource(R.string.wheel_title), style = MaterialTheme.typography.titleMedium)
+                                    Spacer(Modifier.width(6.dp))
+                                    Box(Modifier.size(7.dp).clip(CircleShape).background(if (cur != null) Noc.good else Noc.text3))
+                                }
+                                Text(
+                                    if (cur != null) stringResource(R.string.wheel_best, cur.maxByOrNull { it.value }?.key.orEmpty(), cur.minByOrNull { it.value }?.key.orEmpty())
+                                    else stringResource(R.string.wheel_rate_hint),
+                                    style = MaterialTheme.typography.bodySmall, color = Noc.text2, maxLines = 1, overflow = TextOverflow.Ellipsis,
+                                )
+                            }
+                            if (cur != null) Column(horizontalAlignment = Alignment.End) {
+                                Text(buildAnnotatedString {
+                                    withStyle(SpanStyle(color = Noc.amber, fontWeight = FontWeight.Bold)) { append(String.format(Fmt.hu, "%.1f", cur.values.average())) }
+                                    withStyle(SpanStyle(color = Noc.text2)) { append(" /10") }
+                                }, style = MaterialTheme.typography.titleLarge)
+                            }
+                        }
+                    }
+                }
+                }
+                "quote" -> {
+                item {
+                    val qs = SatoriLogic.themeQuotes(c, st)
+                    Text("„${qs[(SatoriLogic.dayIndex(qs.size) + 3) % qs.size]}”", style = MaterialTheme.typography.bodyMedium, fontStyle = FontStyle.Italic, color = Noc.text2,
+                        modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+                }
                 }
             }
         }
+    }
+}
 
-        item {
-            val qs = SatoriLogic.themeQuotes(c, st)
-            Text("„${qs[(SatoriLogic.dayIndex(qs.size) + 3) % qs.size]}”", style = MaterialTheme.typography.bodyMedium, fontStyle = FontStyle.Italic, color = Noc.text2,
-                modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp), textAlign = androidx.compose.ui.text.style.TextAlign.Center)
+@Composable
+private fun BreathTile(modifier: Modifier, onBreath: () -> Unit) {
+    AppCard(modifier.height(170.dp), onClick = onBreath, padding = PaddingValues(14.dp), glow = Noc.amber) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(Modifier.size(28.dp).clip(RoundedCornerShape(8.dp)).background(Noc.amber.copy(alpha = 0.14f)), contentAlignment = Alignment.Center) {
+                Icon(Icons.Outlined.Spa, null, Modifier.size(16.dp), tint = Noc.amber)
+            }
+            Spacer(Modifier.weight(1f))
+            Box(Modifier.size(7.dp).clip(CircleShape).background(Noc.amber))
         }
+        Spacer(Modifier.weight(1f))
+        Text("4-7-8", style = MaterialTheme.typography.headlineMedium, color = Noc.text)
+        Text(stringResource(R.string.breath_card_sub), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
+        VSpace(8)
+        Row(
+            Modifier.fillMaxWidth().height(34.dp).clip(RoundedCornerShape(10.dp)).background(Noc.amber.copy(alpha = 0.14f)).border(1.dp, Noc.amber.copy(alpha = 0.5f), RoundedCornerShape(10.dp)),
+            horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically,
+        ) { Text(stringResource(R.string.start_arrow), style = MaterialTheme.typography.labelLarge, color = Noc.amber) }
     }
 }
 

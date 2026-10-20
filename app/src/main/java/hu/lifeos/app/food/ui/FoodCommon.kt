@@ -51,7 +51,7 @@ fun rateColor(r: String): Color = when (r) {
 
 @Composable
 fun RatePill(r: String, label: String?) {
-    if (label.isNullOrBlank()) return
+    if (label.isNullOrBlank() || !hu.lifeos.app.food.LocalPacks.current.rating) return
     val c = rateColor(r)
     Text(
         label, style = MaterialTheme.typography.labelSmall, color = c,

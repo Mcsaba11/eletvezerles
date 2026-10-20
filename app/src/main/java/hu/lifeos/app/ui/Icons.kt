@@ -44,6 +44,13 @@ import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material.icons.outlined.Waves
 import androidx.compose.material.icons.outlined.WbSunny
+import androidx.compose.material.icons.outlined.LocalCafe
+import androidx.compose.material.icons.outlined.Fastfood
+import androidx.compose.material.icons.outlined.Casino
+import androidx.compose.material.icons.outlined.ShoppingCart
+import androidx.compose.material.icons.outlined.SportsEsports
+import androidx.compose.material.icons.outlined.Eco
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.ui.graphics.vector.ImageVector
 
 /**
@@ -96,5 +103,16 @@ fun iconFor(name: String): ImageVector = when (name) {
     "warning" -> Icons.Outlined.Warning
     "water_drop" -> Icons.Outlined.Opacity
     "wb_sunny" -> Icons.Outlined.WbSunny
+    "coffee" -> Icons.Outlined.LocalCafe
+    "fastfood" -> Icons.Outlined.Fastfood
+    "casino" -> Icons.Outlined.Casino
+    "shopping_cart" -> Icons.Outlined.ShoppingCart
+    "sports_esports" -> Icons.Outlined.SportsEsports
+    "eco" -> Icons.Outlined.Eco
+    "star" -> Icons.Outlined.Star
+    "restaurant" -> Icons.Outlined.Restaurant
     else -> Icons.Outlined.Spa
 }
+
+/** A saját szokásokhoz választható ikonok. */
+val CUSTOM_HABIT_ICONS = listOf("star", "favorite", "bolt", "coffee", "fastfood", "smartphone", "casino", "shopping_cart", "sports_esports", "eco", "liquor", "fitness_center")

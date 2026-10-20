@@ -36,6 +36,7 @@ import hu.lifeos.app.R
 import hu.lifeos.app.food.Food
 import hu.lifeos.app.food.FoodLogic
 import hu.lifeos.app.food.FoodViewModel
+import hu.lifeos.app.food.LocalPacks
 import hu.lifeos.app.food.Recipe
 import hu.lifeos.app.food.RecipeItem
 import hu.lifeos.app.ui.AppCard
@@ -101,7 +102,7 @@ fun FoodRecipesTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Uni
                         Text(stringResource(R.string.food_per_portion, fmt(tot.kcal / sv), fmt(w / sv)), style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
                         RatePill(rate, c.rtxt[rate])
                     }
-                    Text("F ${fmt(tot.p / sv, 1)} g · Sz ${fmt(tot.c / sv, 1)} g · Zs ${fmt(tot.f / sv, 1)} g · Rost ${fmt(tot.fib / sv, 1)} g · GL ${fmt(tot.gl / sv, 1)} (${FoodLogic.glTxt(tot.gl / sv)})",
+                    Text("F ${fmt(tot.p / sv, 1)} g · Sz ${fmt(tot.c / sv, 1)} g · Zs ${fmt(tot.f / sv, 1)} g · Rost ${fmt(tot.fib / sv, 1)} g" + (if (LocalPacks.current.ir) " · GL ${fmt(tot.gl / sv, 1)} (${FoodLogic.glTxt(tot.gl / sv)})" else ""),
                         style = MaterialTheme.typography.bodySmall)
                     VSpace(10)
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -120,7 +121,7 @@ fun FoodRecipesTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Uni
                         OutlinedButton(onClick = {
                             val rf = logic.recipeCalc(s, cur.copy(name = cur.name.ifBlank { ctx.getString(R.string.food_recipe) })).food
                             val pc = portions.replace(',', '.').toDoubleOrNull() ?: 1.0
-                            vm.addEntry(rf, rf.ug * pc, logic.defaultMeal(s.profile), vm.nowHM(), vm.today())
+                            vm.addEntry(rf, rf.ug * pc, logic.defaultMeal(s), vm.nowHM(), vm.today())
                             toast(ctx.getString(R.string.food_added, rf.name, fmt(logic.nutr(rf, rf.ug * pc).kcal)))
                         }) { Text(stringResource(R.string.food_log_recipe)) }
                     }

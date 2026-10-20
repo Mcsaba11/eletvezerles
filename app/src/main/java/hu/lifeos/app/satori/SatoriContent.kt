@@ -105,9 +105,16 @@ import java.util.Locale
     val themes: List<ThemeDef>,
 ) {
     fun theme(id: String): ThemeDef = themes.firstOrNull { it.id == id } ?: themes.first()
-    fun type(id: String): TypeDef = types.firstOrNull { it.id == id } ?: types.first()
+    /** A felhasználó saját szokásai; a tároló frissíti az állapot változásakor. */
+    var custom: List<TypeDef> = emptyList()
+
+    /** Az összes választható szokás: a beépítettek és a sajátok. */
+    fun allTypes(): List<TypeDef> = types + custom
+    fun type(id: String): TypeDef = allTypes().firstOrNull { it.id == id } ?: types.first()
+    fun isCustom(id: String): Boolean = custom.any { it.id == id }
     fun mode(id: String): ModeDef = modes[id] ?: modes.getValue("balanced")
-    fun body(type: String): BodyTimeline = bodyTimelines[type] ?: bodyTimelines.getValue("cukor")
+    fun body(type: String): BodyTimeline = bodyTimelines[type] ?: bodyTimelines["altalanos"] ?: bodyTimelines.getValue("cukor")
+    fun tips(type: String): List<Tip> = typeTips[type] ?: typeTips["altalanos"].orEmpty()
 
     companion object {
         private val json = Json { ignoreUnknownKeys = true; isLenient = true; coerceInputValues = true }

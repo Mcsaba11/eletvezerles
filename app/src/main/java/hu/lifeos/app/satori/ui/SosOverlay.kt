@@ -202,7 +202,7 @@ fun SosOverlay(vm: SatoriViewModel, onClose: () -> Unit, onBreath: () -> Unit) {
                     Text("  " + stringResource(R.string.sos_quick), style = MaterialTheme.typography.titleMedium, color = white)
                 }
                 VSpace(8)
-                c.typeTips[st.type].orEmpty().forEach { tip ->
+                c.tips(st.type).forEach { tip ->
                     Row(Modifier.padding(bottom = 8.dp)) {
                         Icon(iconFor(tip.icon), null, tint = accent, modifier = Modifier.size(18.dp).padding(top = 2.dp))
                         Text("  " + tip.text, style = MaterialTheme.typography.bodyMedium, color = white)

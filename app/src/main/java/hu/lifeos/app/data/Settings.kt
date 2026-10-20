@@ -28,7 +28,42 @@ data class AppSettings(
     val insightDismissed: String = "",
     val name: String = "",
     val welcomeDone: Boolean = false,
-)
+    /** Bekapcsolt modulok (Modules); null = régi telepítés, ilyenkor minden be van kapcsolva. */
+    val modules: List<String>? = null,
+    /** A kezdőlap kártyáinak sorrendje (HomeCards); üres = alapsorrend. */
+    val homeOrder: List<String> = emptyList(),
+    /** Elrejtett kezdőlap-kártyák. */
+    val homeHidden: Set<String> = emptySet(),
+) {
+    fun moduleOn(id: String): Boolean = modules?.contains(id) ?: true
+}
+
+/** A bekapcsolható modulok azonosítói. */
+object Modules {
+    const val FOOD = "food"
+    const val SATORI = "satori"
+    const val MIND = "mind"
+    const val MONEY = "money"
+    const val TASKS = "tasks"
+    const val WHEEL = "wheel"
+    val ALL = listOf(FOOD, SATORI, MIND, MONEY, TASKS, WHEEL)
+}
+
+/** A kezdőlap kártyái és a modul, amelyhez tartoznak (null = mindig elérhető). */
+object HomeCards {
+    val ALL: List<Pair<String, String?>> = listOf(
+        "capture" to null, "insight" to null, "food" to Modules.FOOD, "satori" to Modules.SATORI,
+        "breath" to Modules.MIND, "mood" to Modules.MIND, "money" to Modules.MONEY,
+        "focus" to Modules.TASKS, "wheel" to Modules.WHEEL, "quote" to null,
+    )
+    fun module(id: String): String? = ALL.firstOrNull { it.first == id }?.second
+
+    /** A felhasználó sorrendje, kiegészítve az új kártyákkal. */
+    fun ordered(s: AppSettings): List<String> = (s.homeOrder.filter { id -> ALL.any { it.first == id } } + ALL.map { it.first }).distinct()
+
+    /** A megjelenítendő kártyák sorrendben. */
+    fun visible(s: AppSettings): List<String> = ordered(s).filter { id -> id !in s.homeHidden && (module(id)?.let(s::moduleOn) ?: true) }
+}
 
 class SettingsStore(private val context: Context) {
     private object K {
@@ -43,6 +78,9 @@ class SettingsStore(private val context: Context) {
         val welcome = booleanPreferencesKey("welcome")
         val budget = stringPreferencesKey("budget")
         val insight = stringPreferencesKey("insight")
+        val modules = stringPreferencesKey("modules")
+        val homeOrder = stringPreferencesKey("home_order")
+        val homeHidden = stringPreferencesKey("home_hidden")
     }
 
     val flow: Flow<AppSettings> = context.dataStore.data.map { p -> read(p) }
@@ -59,6 +97,9 @@ class SettingsStore(private val context: Context) {
         insightDismissed = p[K.insight] ?: "",
         name = p[K.name] ?: "",
         welcomeDone = p[K.welcome] ?: false,
+        modules = p[K.modules]?.split(',')?.filter { it.isNotBlank() },
+        homeOrder = p[K.homeOrder]?.split(',')?.filter { it.isNotBlank() }.orEmpty(),
+        homeHidden = p[K.homeHidden]?.split(',')?.filter { it.isNotBlank() }?.toSet().orEmpty(),
     )
 
     suspend fun update(fn: (AppSettings) -> AppSettings) {
@@ -75,6 +116,9 @@ class SettingsStore(private val context: Context) {
             p[K.welcome] = n.welcomeDone
             p[K.budget] = n.monthlyBudget.toString()
             p[K.insight] = n.insightDismissed
+            if (n.modules == null) p.remove(K.modules) else p[K.modules] = n.modules.joinToString(",")
+            p[K.homeOrder] = n.homeOrder.joinToString(",")
+            p[K.homeHidden] = n.homeHidden.joinToString(",")
         }
     }
 }

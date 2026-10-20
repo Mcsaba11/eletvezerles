@@ -22,6 +22,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.EmojiEvents
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.SelfImprovement
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -215,7 +216,8 @@ fun AffirmationDialog(onClose: () -> Unit) {
 fun Onboarding(vm: SatoriViewModel, onCancel: () -> Unit) {
     val c = vm.content
     var step by rememberSaveable { mutableIntStateOf(0) }
-    var type by rememberSaveable { mutableStateOf("cukor") }
+    var picked by rememberSaveable { mutableStateOf(listOf<String>()) }
+    var customOpen by rememberSaveable { mutableStateOf(false) }
     var theme by rememberSaveable { mutableStateOf("zen") }
     var mode by rememberSaveable { mutableStateOf("balanced") }
     val photo = if (step < 2) R.drawable.photo_splash else themePhoto(theme)
@@ -238,8 +240,12 @@ fun Onboarding(vm: SatoriViewModel, onCancel: () -> Unit) {
                 }
                 1 -> {
                     Text(stringResource(R.string.ob_type), style = MaterialTheme.typography.headlineSmall, color = Color.White)
-                    c.types.forEach { t -> ChoiceRow(iconFor(t.icon), t.label, null, t.id == type) { type = t.id } }
-                    Button(onClick = { step = 2 }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.next)) }
+                    Text(stringResource(R.string.ob_type_multi), style = MaterialTheme.typography.bodyMedium, color = Color.White.copy(alpha = 0.8f))
+                    c.allTypes().forEach { t ->
+                        ChoiceRow(iconFor(t.icon), t.label, null, t.id in picked) { picked = if (t.id in picked) picked - t.id else picked + t.id }
+                    }
+                    ChoiceRow(Icons.Outlined.Add, stringResource(R.string.habit_custom_new), stringResource(R.string.habit_custom_sub), false) { customOpen = true }
+                    Button(onClick = { step = 2 }, enabled = picked.isNotEmpty(), modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.next)) }
                 }
                 2 -> {
                     Text(stringResource(R.string.ob_theme), style = MaterialTheme.typography.headlineSmall, color = Color.White)
@@ -259,11 +265,16 @@ fun Onboarding(vm: SatoriViewModel, onCancel: () -> Unit) {
                     Text("„${th.tagline}”", style = MaterialTheme.typography.headlineSmall, color = Color.White)
                     Text(th.pledgeText, style = MaterialTheme.typography.bodyLarge, color = Color.White.copy(alpha = 0.85f), fontStyle = FontStyle.Italic)
                     VSpace(16)
-                    Button(onClick = { vm.finishOnboarding(type, theme, mode) }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ob_go)) }
+                    Button(onClick = { vm.finishOnboarding(picked, theme, mode) }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.ob_go)) }
                     TextButton(onClick = onCancel) { Text(stringResource(R.string.ob_import_hint), color = Color.White.copy(alpha = 0.8f)) }
                 }
             }
         }
+    }
+    if (customOpen) CustomHabitDialog(onDismiss = { customOpen = false }) { l, i, cost ->
+        val id = vm.addCustomHabit(l, i, cost)
+        picked = picked + id
+        customOpen = false
     }
 }
 

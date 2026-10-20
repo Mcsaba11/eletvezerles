@@ -2759,6 +2759,336 @@
    "u": "db",
    "ug": 25,
    "note": ""
+  },
+  {
+   "id": "csirkemell",
+   "name": "Csirkemell, grillezett",
+   "cat": "hus",
+   "r": "g",
+   "kcal": 165,
+   "p": 31,
+   "c": 0,
+   "f": 3.6,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 150,
+   "note": "Sovány fehérjeforrás."
+  },
+  {
+   "id": "csirkecomb",
+   "name": "Csirkecomb, sült, bőr nélkül",
+   "cat": "hus",
+   "r": "g",
+   "kcal": 209,
+   "p": 26,
+   "c": 0,
+   "f": 10.9,
+   "fib": 0,
+   "gi": 0,
+   "u": "db",
+   "ug": 120,
+   "note": ""
+  },
+  {
+   "id": "pulykamell",
+   "name": "Pulykamell, sült",
+   "cat": "hus",
+   "r": "g",
+   "kcal": 147,
+   "p": 30,
+   "c": 0,
+   "f": 2.1,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 150,
+   "note": "Sovány fehérjeforrás."
+  },
+  {
+   "id": "serteskaraj",
+   "name": "Sertéskaraj, sült",
+   "cat": "hus",
+   "r": "g",
+   "kcal": 196,
+   "p": 27,
+   "c": 0,
+   "f": 9,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 120,
+   "note": ""
+  },
+  {
+   "id": "sertestarja",
+   "name": "Sertéstarja, sült",
+   "cat": "hus",
+   "r": "m",
+   "kcal": 269,
+   "p": 24,
+   "c": 0,
+   "f": 19,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 120,
+   "note": ""
+  },
+  {
+   "id": "marhasoveny",
+   "name": "Marhahús, sovány, sült",
+   "cat": "hus",
+   "r": "g",
+   "kcal": 200,
+   "p": 30,
+   "c": 0,
+   "f": 8,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 120,
+   "note": ""
+  },
+  {
+   "id": "daraltmarha",
+   "name": "Darált marhahús, sütve",
+   "cat": "hus",
+   "r": "m",
+   "kcal": 250,
+   "p": 26,
+   "c": 0,
+   "f": 15,
+   "fib": 0,
+   "gi": 0,
+   "u": "",
+   "ug": 0,
+   "note": ""
+  },
+  {
+   "id": "daraltsertes",
+   "name": "Darált sertéshús, sütve",
+   "cat": "hus",
+   "r": "m",
+   "kcal": 297,
+   "p": 26,
+   "c": 0,
+   "f": 21,
+   "fib": 0,
+   "gi": 0,
+   "u": "",
+   "ug": 0,
+   "note": ""
+  },
+  {
+   "id": "csirkemaj",
+   "name": "Csirkemáj, párolt",
+   "cat": "hus",
+   "r": "g",
+   "kcal": 167,
+   "p": 24.5,
+   "c": 0.9,
+   "f": 6.5,
+   "fib": 0,
+   "gi": 0,
+   "u": "",
+   "ug": 0,
+   "note": ""
+  },
+  {
+   "id": "sonka",
+   "name": "Sonka, főtt, szeletelt",
+   "cat": "hus",
+   "r": "m",
+   "kcal": 120,
+   "p": 19,
+   "c": 1.5,
+   "f": 4,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 20,
+   "note": ""
+  },
+  {
+   "id": "virsli",
+   "name": "Virsli",
+   "cat": "hus",
+   "r": "b",
+   "kcal": 290,
+   "p": 12,
+   "c": 2,
+   "f": 26,
+   "fib": 0,
+   "gi": 0,
+   "u": "pár",
+   "ug": 100,
+   "note": "Feldolgozott hús, sok só és zsír."
+  },
+  {
+   "id": "kolbasz",
+   "name": "Kolbász, száraz",
+   "cat": "hus",
+   "r": "b",
+   "kcal": 450,
+   "p": 24,
+   "c": 1,
+   "f": 39,
+   "fib": 0,
+   "gi": 0,
+   "u": "karika",
+   "ug": 10,
+   "note": "Feldolgozott hús."
+  },
+  {
+   "id": "szalami",
+   "name": "Szalámi",
+   "cat": "hus",
+   "r": "b",
+   "kcal": 450,
+   "p": 22,
+   "c": 1,
+   "f": 40,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 8,
+   "note": "Feldolgozott hús."
+  },
+  {
+   "id": "bacon",
+   "name": "Bacon, sült",
+   "cat": "hus",
+   "r": "b",
+   "kcal": 541,
+   "p": 37,
+   "c": 1.4,
+   "f": 42,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 10,
+   "note": ""
+  },
+  {
+   "id": "rantotthus",
+   "name": "Rántott sertésszelet",
+   "cat": "hus",
+   "r": "b",
+   "kcal": 280,
+   "p": 20,
+   "c": 12,
+   "f": 17,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "rantottcsirke",
+   "name": "Rántott csirkemell",
+   "cat": "hus",
+   "r": "m",
+   "kcal": 260,
+   "p": 22,
+   "c": 12,
+   "f": 14,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "lazac",
+   "name": "Lazac, sült",
+   "cat": "hus",
+   "r": "g",
+   "kcal": 206,
+   "p": 22,
+   "c": 0,
+   "f": 12,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 150,
+   "note": "Omega-3 zsírsavakban gazdag."
+  },
+  {
+   "id": "tonhal",
+   "name": "Tonhal, konzerv, vízben",
+   "cat": "hus",
+   "r": "g",
+   "kcal": 116,
+   "p": 26,
+   "c": 0,
+   "f": 1,
+   "fib": 0,
+   "gi": 0,
+   "u": "konzerv",
+   "ug": 110,
+   "note": ""
+  },
+  {
+   "id": "tokehal",
+   "name": "Tőkehal / hekk, párolt",
+   "cat": "hus",
+   "r": "g",
+   "kcal": 105,
+   "p": 23,
+   "c": 0,
+   "f": 0.9,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "ponty",
+   "name": "Ponty, sült",
+   "cat": "hus",
+   "r": "g",
+   "kcal": 162,
+   "p": 23,
+   "c": 0,
+   "f": 7,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "rantotthal",
+   "name": "Rántott hal",
+   "cat": "hus",
+   "r": "m",
+   "kcal": 230,
+   "p": 15,
+   "c": 15,
+   "f": 12,
+   "fib": 0,
+   "gi": 0,
+   "u": "szelet",
+   "ug": 150,
+   "note": ""
+  },
+  {
+   "id": "garnela",
+   "name": "Garnélarák, főtt",
+   "cat": "hus",
+   "r": "g",
+   "kcal": 99,
+   "p": 24,
+   "c": 0,
+   "f": 0.3,
+   "fib": 0,
+   "gi": 0,
+   "u": "",
+   "ug": 0,
+   "note": ""
   }
  ],
  "cats": {
@@ -2772,6 +3102,7 @@
   "ital": "Italok",
   "kesz": "Készételek",
   "edes": "Édesség, nasi",
+  "hus": "Hús, hal",
   "sajat": "Saját ételek",
   "recept": "Receptek"
  },
@@ -2781,7 +3112,8 @@
   "b": "Kerülendő"
  },
  "meals": [
-  "Böjtzáró",
+  "Reggeli",
+  "Tízórai",
   "Ebéd",
   "Uzsonna",
   "Vacsora",
@@ -3223,7 +3555,8 @@
   "tenyer": {
    "l": "tenyérnyi",
    "g": {
-    "default": 100
+    "default": 100,
+    "hus": 120
    },
    "h": "tenyér méretű és vastagságú darab"
   },
@@ -3298,7 +3631,8 @@
    "g": {
     "gabona": 40,
     "tej": 25,
-    "default": 60
+    "default": 60,
+    "hus": 100
    },
    "h": "közepes szelet"
   },
@@ -3395,19 +3729,28 @@
    "merokanal",
    "okol",
    "tal"
+  ],
+  "hus": [
+   "tenyer",
+   "szelet",
+   "okol",
+   "db"
   ]
  },
  "defProfile": {
-  "sex": "m",
-  "age": 38,
-  "height": 198,
-  "weight": 105,
+  "sex": "f",
+  "age": 30,
+  "height": 170,
+  "weight": 70,
   "act": "1.375",
-  "goal": "-500",
+  "goal": "0",
   "winStart": "12:00",
   "winEnd": "20:00",
-  "target": 95,
-  "water": 3500
+  "target": 0,
+  "water": 2500,
+  "carbGoal": 0,
+  "bgLow": 4.0,
+  "bgHigh": 10.0
  },
  "qtyW": {
   "fel": 0.5,
@@ -3582,7 +3925,13 @@
   "lencse": "lencse",
   "turo": "turo",
   "alma": "alma",
-  "banan": "banan"
+  "banan": "banan",
+  "csirke": "csirkemell",
+  "pulyka": "pulykamell",
+  "karaj": "serteskaraj",
+  "marha": "marhasoveny",
+  "hal": "tokehal",
+  "hekk": "tokehal"
  },
  "acts": [
   [
@@ -3604,19 +3953,49 @@
  ],
  "goals": [
   [
-   "-500",
-   "Fogyás (~0,5 kg/hét)"
+   "0",
+   "Súlytartás"
   ],
   [
    "-300",
    "Lassú fogyás (~0,3 kg/hét)"
   ],
   [
-   "0",
-   "Súlytartás"
+   "-500",
+   "Fogyás (~0,5 kg/hét)"
+  ],
+  [
+   "300",
+   "Tömegnövelés (~0,3 kg/hét)"
   ]
  ],
  "tips": [
+  {
+   "t": "Alapok mindenkinek",
+   "pack": "",
+   "items": [
+    [
+     "Rendszeres étkezés.",
+     "A napi 3 főétkezés és 1–2 kisebb étkezés segít egyenletesen tartani az energiádat."
+    ],
+    [
+     "Fél tányér zöldség.",
+     "Minden főétkezésnél töltsd meg a tányér felét zöldséggel vagy salátával."
+    ],
+    [
+     "Fehérje minden étkezéshez.",
+     "Tojás, tejtermék, hüvelyes, hús vagy hal: tovább tart a jóllakottság."
+    ],
+    [
+     "Igyál eleget.",
+     "Napi 1,5–2,5 liter folyadék a legtöbb embernek elég; melegben és mozgásnál több."
+    ],
+    [
+     "Figyelj a jelzéseidre.",
+     "Egyél, ha éhes vagy, és állj meg, ha jóllaktál. Lassan enni segít észrevenni."
+    ]
+   ]
+  },
   {
    "t": "Böjt és inzulinrezisztencia",
    "items": [
@@ -3640,7 +4019,8 @@
      "Az utolsó étkezés legyen könnyebb.",
      "A késő esti nagy szénhidrátadag rontja az alvást és a reggeli vércukrot."
     ]
-   ]
+   ],
+   "pack": "ir"
   },
   {
    "t": "Adagbecslés mérleg nélkül",
@@ -3665,7 +4045,8 @@
      "Lapos tányér ≈ 300 g",
      "Készétel, főzelék. Mély tányér tele kb. 400 g."
     ]
-   ]
+   ],
+   "pack": "num"
   },
   {
    "t": "Mit jelentenek a számok?",
@@ -3686,7 +4067,8 @@
      "Jó ételek aránya",
      "A napi kalória hány százaléka jött „jó választás” besorolású ételből. 75% fölött jó a nap."
     ]
-   ]
+   ],
+   "pack": "ir"
   },
   {
    "t": "Vegetáriánus csapdák",
@@ -3707,7 +4089,8 @@
      "Hiánypótlás.",
      "Ellenőriztesd a B12-, D-vitamin-, vas- és omega-3-szinted."
     ]
-   ]
+   ],
+   "pack": ""
   },
   {
    "t": "Ami legalább annyit számít",
@@ -3728,8 +4111,99 @@
      "Labor 3–6 havonta.",
      "Éhgyomri vércukor, inzulin, HOMA-index, HbA1c. Gyógyszer mellett a böjtöt beszéld meg az orvosoddal."
     ]
+   ],
+   "pack": "ir"
+  },
+  {
+   "t": "Időszakos böjt",
+   "pack": "fast",
+   "items": [
+    [
+     "Kezdd fokozatosan.",
+     "12 órás éjszakai szünettel indulj, és csak akkor szűkítsd az ablakot, ha jól érzed magad."
+    ],
+    [
+     "A böjtben csak víz, tea, fekete kávé.",
+     "Tej, üdítő vagy „csak egy falat” megtöri a böjtöt."
+    ],
+    [
+     "Az ablakban egyél rendesen.",
+     "A böjt nem diéta: az ablakban fedezd a fehérje- és energiaszükségleted."
+    ],
+    [
+     "Kinek nem való?",
+     "Várandósság, szoptatás, étkezési zavar, cukorbetegség gyógyszerrel: előbb beszéld meg orvosoddal."
+    ]
+   ]
+  },
+  {
+   "t": "Ha az evés nehéz",
+   "pack": "ed",
+   "items": [
+    [
+     "Nincs jó vagy rossz étel.",
+     "Minden étel belefér. A rendszeresség többet számít, mint hogy pontosan mit eszel."
+    ],
+    [
+     "Egyél rendszeresen.",
+     "3 főétkezés és 2–3 kisebb étkezés, 3–4 óránként. Akkor is, ha nem érzel éhséget."
+    ],
+    [
+     "Az érzések jönnek és mennek.",
+     "Ha nehéz érzés jön evés után, írd le, és várj. Nem kell azonnal tenned semmit."
+    ],
+    [
+     "Nem vagy egyedül.",
+     "Az étkezési zavar kezelhető. Pszichológus, dietetikus és orvos együtt tud a legjobban segíteni."
+    ],
+    [
+     "Ha most nagyon nehéz.",
+     "Lelki Elsősegély Telefonszolgálat: 116-123 (ingyenes, éjjel-nappal). Életveszélyben hívd a 112-t."
+    ]
+   ]
+  },
+  {
+   "t": "Cukorbetegség és étkezés",
+   "pack": "diab",
+   "items": [
+    [
+     "Az orvosod étrendje az irányadó.",
+     "A napi szénhidrát-keretet és a célértékeket a kezelőorvosod vagy dietetikusod adja meg."
+    ],
+    [
+     "Egyenletes elosztás.",
+     "A szénhidrátot oszd el a nap folyamán, kerüld a nagy, egyszeri adagokat."
+    ],
+    [
+     "Lassú felszívódás.",
+     "Teljes kiőrlésű gabona, hüvelyes, zöldség; fehérjével és rosttal együtt kisebb a vércukorcsúcs."
+    ],
+    [
+     "Hipoglikémia.",
+     "Ha remegsz, izzadsz, szédülsz: mérj, és ha alacsony, egyél gyors szénhidrátot (pl. szőlőcukor), ahogy az orvosod tanította."
+    ],
+    [
+     "Mozgás étkezés után.",
+     "10–15 perc séta érezhetően segít a vércukornak."
+    ]
    ]
   }
  ],
- "disclaimer": "Általános tájékoztató, nem helyettesíti az orvosi vagy dietetikusi tanácsot. Az értékek átlagos tápanyagadatokon alapuló becslések."
+ "disclaimer": "Általános tájékoztató, nem helyettesíti az orvosi vagy dietetikusi tanácsot. Az értékek átlagos tápanyagadatokon alapuló becslések.",
+ "mealsFast": [
+  "Böjtzáró",
+  "Ebéd",
+  "Uzsonna",
+  "Vacsora",
+  "Nasi"
+ ],
+ "feelings": [
+  "Nyugodt",
+  "Elégedett",
+  "Feszült",
+  "Szorongó",
+  "Bűntudat",
+  "Sietős",
+  "Fáradt"
+ ]
 }

@@ -1,5 +1,7 @@
 package hu.lifeos.app.ui.screens
 
+import hu.lifeos.app.food.packFlags
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -98,6 +100,10 @@ fun TimelineScreen(
     val todos by vm.todos.collectAsState()
     val st by satori.state.collectAsState()
     val fs by food.state.collectAsState()
+    val settingsS by vm.settings.collectAsState()
+    val foodOn = settingsS?.moduleOn(hu.lifeos.app.data.Modules.FOOD) ?: true
+    val satoriOn = settingsS?.moduleOn(hu.lifeos.app.data.Modules.SATORI) ?: true
+    val packs = fs.packFlags()
     val c = satori.content
     var filter by rememberSaveable { mutableStateOf("all") }
     var toDelete by remember { mutableStateOf<EntryEntity?>(null) }
@@ -136,13 +142,18 @@ fun TimelineScreen(
                 if (money) Noc.sapphire else Noc.ice, title, if (money) e.text.ifBlank { null } else null,
                 listOf(if (money) tagMoney else tagNote), if (money) "money" else "note", entry = e))
         }
-        fs.day(dk).items.groupBy { it.meal }.forEach { (meal, its) ->
+        if (foodOn) fs.day(dk).items.groupBy { it.meal }.forEach { (meal, its) ->
             val tot = food.logic.totals(its)
             val first = its.minByOrNull { it.t }?.t ?: "12:00"
+            val tags = when {
+                packs.numbers -> listOf("${FoodLogic.fmt(tot.kcal)} kcal", "F ${FoodLogic.fmt(tot.p)} g")
+                packs.diab -> listOf("CH ${FoodLogic.fmt(tot.c)} g")
+                else -> listOf(tagHealth)
+            }
             add(TItem(hm(first), first, Icons.Outlined.Restaurant, Noc.good, meal,
-                its.joinToString(", ") { it.name } , listOf("${FoodLogic.fmt(tot.kcal)} kcal", "F ${FoodLogic.fmt(tot.p)} g"), "health", onTap = onOpenFood))
+                its.joinToString(", ") { it.name }, tags, "health", onTap = onOpenFood))
         }
-        if (fs.setupDone) {
+        if (foodOn && packs.fast && fs.setupDone) {
             add(TItem(hm(fs.profile.winStart), fs.profile.winStart, Icons.Outlined.Timer, Noc.cyan, windowOpen, null, listOf(tagHealth), "health"))
             add(TItem(hm(fs.profile.winEnd), fs.profile.winEnd, Icons.Outlined.Timer, Noc.cyan, windowClose, null, listOf(tagHealth), "health"))
         }
@@ -150,7 +161,7 @@ fun TimelineScreen(
             if (m.mood != null) add(TItem(Instant.ofEpochMilli(m.updatedAt).atZone(zone).toLocalTime().let { it.hour * 60 + it.minute }, "", Icons.Outlined.Mood, Noc.violet,
                 moodWords.getOrElse(m.mood - 1) { "" }, null, listOf(tagHealth), "health"))
         }
-        st.data.forEach { (typeId, td) ->
+        if (satoriOn) st.data.forEach { (typeId, td) ->
             td.journal.filter { it.date == dk }.forEach { j ->
                 add(TItem(hm(j.time), j.time, Icons.Outlined.Spa, Noc.amber,
                     (if (j.source == "dayclose") "$dayCloseLabel · " else "") + (stateLabels[j.state] ?: j.state),
@@ -226,12 +237,12 @@ fun TimelineScreen(
         items.forEachIndexed { i, it ->
             if (!nowShown && it.minute > nowMin) {
                 nowShown = true
-                item { NowCard(food, nowMin) }
+                item { NowCard(food, nowMin, foodOn) }
             }
             val past = selected.isBefore(today) || (isToday && it.minute in 0..nowMin)
             item { TimelineRow(it, past, isFirst = i == 0, isLast = i == items.lastIndex && nowShown, onLongPress = { e -> toDelete = e }) }
         }
-        if (!nowShown) item { NowCard(food, nowMin) }
+        if (!nowShown) item { NowCard(food, nowMin, foodOn) }
     }
 
     toDelete?.let { e ->
@@ -288,10 +299,11 @@ private fun TimelineRow(it: TItem, past: Boolean, isFirst: Boolean, isLast: Bool
 }
 
 @Composable
-private fun NowCard(food: FoodViewModel, nowMin: Int) {
+private fun NowCard(food: FoodViewModel, nowMin: Int, foodOn: Boolean) {
     val fs by food.state.collectAsState()
+    val packs = fs.packFlags()
     val f = Insights.fast(fs, food.logic)
-    val r = food.logic.targets(fs.profile)
+    val r = food.logic.targets(fs)
     val t = food.logic.totals(fs.day(LocalDate.now().toString()).items)
     Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
         Box(Modifier.width(26.dp).fillMaxHeight(), contentAlignment = Alignment.TopCenter) {
@@ -304,16 +316,16 @@ private fun NowCard(food: FoodViewModel, nowMin: Int) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.size(7.dp).clip(CircleShape).background(Noc.cyan))
                 Text("  " + stringResource(R.string.now_label) + " · %02d:%02d".format(nowMin / 60, nowMin % 60), style = MaterialTheme.typography.labelLarge, color = Noc.cyan, modifier = Modifier.weight(1f))
-                Text(
+                if (foodOn && packs.fast) Text(
                     if (f.eating) stringResource(R.string.window_left_short, f.minutesLeft / 60, f.minutesLeft % 60)
                     else stringResource(R.string.fast_short, f.minutesIn / 60, f.minutesIn % 60),
                     style = MaterialTheme.typography.labelLarge, color = Noc.amber,
                 )
             }
-            VSpace(8)
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            if (foodOn && packs.numbers && fs.setupDone) VSpace(8)
+            if (foodOn && packs.numbers && fs.setupDone) Row(verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
-                    Text(stringResource(if (t.gl < 80) R.string.zone_balanced else R.string.zone_watch), style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(if (t.kcal <= r.target && (!packs.ir || t.gl < 80)) R.string.zone_balanced else R.string.zone_watch), style = MaterialTheme.typography.titleMedium)
                     Text(stringResource(R.string.zone_kcal, FoodLogic.fmt(t.kcal), FoodLogic.fmt(r.target)), style = MaterialTheme.typography.bodySmall, color = Noc.cyan)
                 }
                 val frac = if (r.target > 0) (t.kcal / r.target).toFloat() else 0f

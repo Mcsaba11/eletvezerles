@@ -41,6 +41,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import hu.lifeos.app.R
 import hu.lifeos.app.food.FoodViewModel
+import hu.lifeos.app.food.FoodPacks
+import hu.lifeos.app.food.LocalPacks
+import hu.lifeos.app.food.packIds
 import hu.lifeos.app.food.Profile
 import hu.lifeos.app.ui.AppCard
 import hu.lifeos.app.ui.SectionLabel
@@ -57,7 +60,7 @@ fun FoodStatsTab(vm: FoodViewModel, modifier: Modifier) {
     val s by vm.state.collectAsState()
     val logic = vm.logic
     var range by rememberSaveable { mutableIntStateOf(7) }
-    val r = logic.targets(s.profile)
+    val r = logic.targets(s)
     val keys = (range - 1 downTo 0).map { LocalDate.now().minusDays(it.toLong()) }
     val tots = keys.map { logic.totals(s.day(it.toString()).items) }
     val logged = keys.indices.filter { s.day(keys[it].toString()).items.isNotEmpty() }
@@ -69,6 +72,28 @@ fun FoodStatsTab(vm: FoodViewModel, modifier: Modifier) {
     val pHit = logged.count { tots[it].p >= r.p }
     val waters = keys.map { s.day(it.toString()).water }.filter { it > 0 }
     val has = logged.isNotEmpty()
+    val packs = LocalPacks.current
+    val tAvgKcal = stringResource(R.string.food_avg_kcal); val tAvgP = stringResource(R.string.food_avg_p); val tAvgC = stringResource(R.string.food_avg_c)
+    val tAvgGl = stringResource(R.string.food_avg_gl); val tBudget = stringResource(R.string.food_in_budget); val tFast = stringResource(R.string.food_fast_rate)
+    val tFib = stringResource(R.string.food_avg_fib); val tWater = stringResource(R.string.food_avg_water); val tBal = stringResource(R.string.food_balance)
+    val sAvgKcal = stringResource(R.string.food_avg_kcal_sub, fmt(r.target), logged.size); val sAvgP = stringResource(R.string.food_avg_p_sub, r.p, pHit)
+    val sGoalC = stringResource(R.string.food_goal_g, r.c); val sGl = stringResource(R.string.food_gl_good); val sDays = stringResource(R.string.food_days)
+    val sFast = stringResource(R.string.food_fast_rate_sub); val sFib = stringResource(R.string.food_goal_g, 30)
+    val sWater = stringResource(R.string.food_goal_l, fmt(r.water / 1000, 1)); val sBal = stringResource(R.string.food_balance_sub)
+    val bgAll = keys.flatMap { s.day(it.toString()).bg }
+    val tBg = stringResource(R.string.diab_bg_avg); val sBg = stringResource(R.string.diab_bg_in_range, bgAll.count { it.v in s.profile.bgLow..s.profile.bgHigh }, bgAll.size)
+    val tiles = mutableListOf<@Composable (Modifier) -> Unit>(
+        { m -> StatTile(tAvgKcal, if (has) fmt(avg { it.kcal }) else "–", sAvgKcal, true, m) },
+        { m -> StatTile(tAvgP, if (has) fmt(avg { it.p }) + " g" else "–", sAvgP, modifier = m) },
+        { m -> StatTile(tAvgC, if (has) fmt(avg { it.c }) + " g" else "–", sGoalC, modifier = m) },
+        { m -> StatTile(tBudget, if (has) "$kHit / ${logged.size}" else "–", sDays, modifier = m) },
+        { m -> StatTile(tFib, if (has) fmt(avg { it.fib }) + " g" else "–", sFib, modifier = m) },
+        { m -> StatTile(tWater, if (waters.isNotEmpty()) fmt(waters.average() / 1000, 1) + " L" else "–", sWater, modifier = m) },
+    )
+    if (packs.ir) tiles += { m -> StatTile(tAvgGl, if (has) fmt(avg { it.gl }) else "–", sGl, modifier = m) }
+    if (packs.fast) tiles += { m -> StatTile(tFast, if (all.isNotEmpty()) fmt(inside * 100.0 / all.size) + "%" else "–", sFast, modifier = m) }
+    if (packs.diab) tiles += { m -> StatTile(tBg, if (bgAll.isNotEmpty()) fmt(bgAll.map { it.v }.average(), 1) + " mmol/l" else "–", sBg, modifier = m) }
+    tiles += { m -> StatTile(tBal, if (has) (if (avg { it.kcal } - r.tdee > 0) "+" else "") + fmt((avg { it.kcal } - r.tdee) * 7 / 7700, 2) + " kg" else "–", sBal, modifier = m) }
 
     LazyColumn(modifier, contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
@@ -77,17 +102,7 @@ fun FoodStatsTab(vm: FoodViewModel, modifier: Modifier) {
             }
         }
         item {
-            TileGrid(listOf<@Composable (Modifier) -> Unit>(
-                { m -> StatTile(stringResource(R.string.food_avg_kcal), if (has) fmt(avg { it.kcal }) else "–", stringResource(R.string.food_avg_kcal_sub, fmt(r.target), logged.size), true, m) },
-                { m -> StatTile(stringResource(R.string.food_avg_p), if (has) fmt(avg { it.p }) + " g" else "–", stringResource(R.string.food_avg_p_sub, r.p, pHit), modifier = m) },
-                { m -> StatTile(stringResource(R.string.food_avg_c), if (has) fmt(avg { it.c }) + " g" else "–", stringResource(R.string.food_goal_g, r.c), modifier = m) },
-                { m -> StatTile(stringResource(R.string.food_avg_gl), if (has) fmt(avg { it.gl }) else "–", stringResource(R.string.food_gl_good), modifier = m) },
-                { m -> StatTile(stringResource(R.string.food_in_budget), if (has) "$kHit / ${logged.size}" else "–", stringResource(R.string.food_days), modifier = m) },
-                { m -> StatTile(stringResource(R.string.food_fast_rate), if (all.isNotEmpty()) fmt(inside * 100.0 / all.size) + "%" else "–", stringResource(R.string.food_fast_rate_sub), modifier = m) },
-                { m -> StatTile(stringResource(R.string.food_avg_fib), if (has) fmt(avg { it.fib }) + " g" else "–", stringResource(R.string.food_goal_g, 35), modifier = m) },
-                { m -> StatTile(stringResource(R.string.food_avg_water), if (waters.isNotEmpty()) fmt(waters.average() / 1000, 1) + " L" else "–", stringResource(R.string.food_goal_l, fmt(r.water / 1000, 1)), modifier = m) },
-                { m -> StatTile(stringResource(R.string.food_balance), if (has) (if (avg { it.kcal } - r.tdee > 0) "+" else "") + fmt((avg { it.kcal } - r.tdee) * 7 / 7700, 2) + " kg" else "–", stringResource(R.string.food_balance_sub), modifier = m) },
-            ))
+            TileGrid(tiles)
         }
         if (has) {
             item { AppCard { Text(stringResource(R.string.food_kcal_chart), style = MaterialTheme.typography.titleSmall); VSpace(6); BarChart(tots.map { it.kcal }, r.target, "max", keys) } }
@@ -104,7 +119,7 @@ fun FoodStatsTab(vm: FoodViewModel, modifier: Modifier) {
                     }
                 }
             }
-            item {
+            if (packs.rating) item {
                 val bad = freq.filter { it.second.first().r == "b" }
                 AppCard {
                     Text(stringResource(R.string.food_bad_list), style = MaterialTheme.typography.titleSmall)
@@ -151,8 +166,20 @@ private fun BarChart(vals: List<Double>, target: Double, mode: String, keys: Lis
 
 @Composable
 fun FoodTipsTab(vm: FoodViewModel, modifier: Modifier) {
+    val packs = LocalPacks.current
+    val tips = vm.content.tips.filter { t ->
+        when (t.pack) {
+            "" -> true
+            "num" -> packs.numbers
+            FoodPacks.IR -> packs.ir && !packs.ed
+            FoodPacks.FAST -> packs.fast
+            FoodPacks.ED -> packs.ed
+            FoodPacks.DIAB -> packs.diab
+            else -> true
+        }
+    }.sortedByDescending { it.pack == FoodPacks.ED }
     LazyColumn(modifier, contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        items(vm.content.tips) { sec ->
+        items(tips) { sec ->
             AppCard {
                 Text(sec.t, style = MaterialTheme.typography.titleMedium)
                 sec.items.forEach { it ->
@@ -174,7 +201,8 @@ fun FoodProfileTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Uni
     val p = s.profile
     val c = vm.content
     val ctx = LocalContext.current
-    val r = vm.logic.targets(p)
+    val r = vm.logic.targets(s)
+    val packs = LocalPacks.current
     var pickStart by remember { mutableStateOf(false) }
     var pickEnd by remember { mutableStateOf(false) }
     var wipeAsk by remember { mutableStateOf(false) }
@@ -188,12 +216,20 @@ fun FoodProfileTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Uni
 
     @Composable
     fun num(label: String, value: Double, set: (Profile, Double) -> Profile, mod: Modifier) {
-        var t by remember(label) { mutableStateOf(fmt(value).replace(" ", "")) }
+        var t by remember(label) { mutableStateOf((if (value % 1 == 0.0) fmt(value) else fmt(value, 1)).replace(" ", "").replace(" ", "")) }
         OutlinedTextField(t, { v -> t = v; v.replace(',', '.').toDoubleOrNull()?.let { d -> vm.setProfile { pp -> set(pp, d) } } },
             mod, label = { Text(label) }, singleLine = true, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
     }
 
     LazyColumn(modifier, contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        item {
+            AppCard {
+                Text(stringResource(R.string.pack_title), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.pack_sub), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                VSpace(6)
+                PackToggles(s.packIds()) { vm.togglePack(it) }
+            }
+        }
         item {
             AppCard {
                 Text(stringResource(R.string.food_your_data), style = MaterialTheme.typography.titleMedium)
@@ -209,23 +245,37 @@ fun FoodProfileTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Uni
                 }
                 VSpace(6)
                 Picker(stringResource(R.string.food_activity), c.acts, c.acts.firstOrNull { it[0] == p.act } ?: c.acts[1], { it[1] }, { a -> vm.setProfile { it.copy(act = a[0]) } })
-                VSpace(6)
-                Picker(stringResource(R.string.food_goal), c.goals, c.goals.firstOrNull { it[0] == p.goal } ?: c.goals[0], { it[1] }, { g -> vm.setProfile { it.copy(goal = g[0]) } })
-                VSpace(6)
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    num(stringResource(R.string.food_target_kg), p.target, { pp, d -> pp.copy(target = d) }, Modifier.weight(1f))
-                    num(stringResource(R.string.food_water_ml), p.water, { pp, d -> pp.copy(water = d) }, Modifier.weight(1f))
+                if (packs.numbers) {
+                    VSpace(6)
+                    Picker(stringResource(R.string.food_goal), c.goals, c.goals.firstOrNull { it[0] == p.goal } ?: c.goals[0], { it[1] }, { g -> vm.setProfile { it.copy(goal = g[0]) } })
                 }
                 VSpace(6)
-                Text(stringResource(R.string.food_eating_window), style = MaterialTheme.typography.labelLarge)
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedButton(onClick = { pickStart = true }) { Text(p.winStart) }
-                    Text("–", modifier = Modifier.padding(top = 10.dp))
-                    OutlinedButton(onClick = { pickEnd = true }) { Text(p.winEnd) }
+                    if (packs.numbers) num(stringResource(R.string.food_target_kg), p.target, { pp, d -> pp.copy(target = d) }, Modifier.weight(1f))
+                    num(stringResource(R.string.food_water_ml), p.water, { pp, d -> pp.copy(water = d) }, Modifier.weight(1f))
+                }
+                if (packs.fast) {
+                    VSpace(6)
+                    Text(stringResource(R.string.food_eating_window), style = MaterialTheme.typography.labelLarge)
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        OutlinedButton(onClick = { pickStart = true }) { Text(p.winStart) }
+                        Text("–", modifier = Modifier.padding(top = 10.dp))
+                        OutlinedButton(onClick = { pickEnd = true }) { Text(p.winEnd) }
+                    }
+                }
+                if (packs.diab) {
+                    VSpace(10)
+                    Text(stringResource(R.string.pack_diab), style = MaterialTheme.typography.labelLarge)
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        num(stringResource(R.string.diab_carb_goal), p.carbGoal, { pp, d -> pp.copy(carbGoal = d) }, Modifier.weight(1f))
+                        num(stringResource(R.string.diab_bg_low), p.bgLow, { pp, d -> pp.copy(bgLow = d) }, Modifier.weight(1f))
+                        num(stringResource(R.string.diab_bg_high), p.bgHigh, { pp, d -> pp.copy(bgHigh = d) }, Modifier.weight(1f))
+                    }
+                    Text(stringResource(R.string.diab_profile_note), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
             }
         }
-        item {
+        if (packs.numbers) item {
             AppCard {
                 Text(stringResource(R.string.food_calc_targets), style = MaterialTheme.typography.titleMedium)
                 VSpace(6)

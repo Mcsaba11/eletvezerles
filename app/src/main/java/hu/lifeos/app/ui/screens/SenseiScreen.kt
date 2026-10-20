@@ -60,6 +60,7 @@ fun SenseiScreen(
     onBreath: () -> Unit, onSos: () -> Unit,
 ) {
     val st by satori.state.collectAsState()
+    val settings by vm.settings.collectAsState()
     val fs by food.state.collectAsState()
     val mood by vm.todayMood.collectAsState()
     val todos by vm.todos.collectAsState()
@@ -78,7 +79,7 @@ fun SenseiScreen(
             AppCard(glow = Noc.cyan) {
                 CardHeader(Icons.Outlined.Psychology, stringResource(R.string.sensei_insight), tint = Noc.cyan)
                 VSpace(8)
-                Text(Insights.dailyInsight(fs, food.logic, st, c, mood, todos, null), style = MaterialTheme.typography.bodyLarge)
+                Text(Insights.dailyInsight(fs, food.logic, st, c, mood, todos, null, foodOn = settings?.moduleOn(hu.lifeos.app.data.Modules.FOOD) ?: true, satoriOn = settings?.moduleOn(hu.lifeos.app.data.Modules.SATORI) ?: true), style = MaterialTheme.typography.bodyLarge)
             }
         }
         item {

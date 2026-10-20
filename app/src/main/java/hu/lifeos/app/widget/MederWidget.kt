@@ -33,6 +33,9 @@ import hu.lifeos.app.MainActivity
 import hu.lifeos.app.R
 import hu.lifeos.app.container
 import hu.lifeos.app.insight.Insights
+import hu.lifeos.app.data.Modules
+import hu.lifeos.app.food.packFlags
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -50,10 +53,14 @@ class MederWidget : GlanceAppWidget() {
         val fs = c.food.state.value
         val today = LocalDate.now().toString()
         val openTodos = c.db.todos().all().count { !it.done && it.dueDate != null && it.dueDate <= today }
+        val settings = c.settings.flow.first()
+        val satoriOn = settings.moduleOn(Modules.SATORI) && st.onboardingDone == true
+        val fastOn = settings.moduleOn(Modules.FOOD) && fs.packFlags().fast
         val streak = st.cur().streak
-        val typeLabel = c.satori.content.type(st.type).label
+        val bigLeft = if (satoriOn) "$streak " + context.getString(R.string.satori_day_word) else hu.lifeos.app.ui.Fmt.dayShort(LocalDate.now())
+        val typeLabel = if (satoriOn) c.satori.content.type(st.type).label else context.getString(R.string.today)
         val f = Insights.fast(fs, c.food.logic)
-        val fastText = if (f.eating) context.getString(R.string.widget_eating, f.minutesLeft / 60, f.minutesLeft % 60)
+        val fastText = if (!fastOn) "" else if (f.eating) context.getString(R.string.widget_eating, f.minutesLeft / 60, f.minutesLeft % 60)
         else context.getString(R.string.widget_fasting, f.minutesIn / 60, f.minutesIn % 60)
 
         fun open(action: String?) = actionStartActivity(
@@ -76,7 +83,7 @@ class MederWidget : GlanceAppWidget() {
                 Spacer(GlanceModifier.height(8.dp))
                 Row(GlanceModifier.fillMaxWidth()) {
                     Column(GlanceModifier.defaultWeight().background(card).cornerRadius(16.dp).padding(10.dp)) {
-                        Text("$streak " + context.getString(R.string.satori_day_word), style = TextStyle(color = text, fontSize = 20.sp, fontWeight = FontWeight.Bold))
+                        Text(bigLeft, style = TextStyle(color = text, fontSize = 20.sp, fontWeight = FontWeight.Bold))
                         Text(typeLabel, style = TextStyle(color = amber, fontSize = 11.sp))
                     }
                     Spacer(GlanceModifier.width(8.dp))
@@ -94,9 +101,11 @@ class MederWidget : GlanceAppWidget() {
                     Box(GlanceModifier.background(card).cornerRadius(14.dp).padding(8.dp).clickable(open("breath")), contentAlignment = Alignment.Center) {
                         Text(context.getString(R.string.sc_breath_short), style = TextStyle(color = amber, fontSize = 12.sp, fontWeight = FontWeight.Medium))
                     }
+                    if (satoriOn) {
                     Spacer(GlanceModifier.width(8.dp))
                     Box(GlanceModifier.background(card).cornerRadius(14.dp).padding(8.dp).clickable(open("sos")), contentAlignment = Alignment.Center) {
                         Text("SOS", style = TextStyle(color = sos, fontSize = 12.sp, fontWeight = FontWeight.Bold))
+                    }
                     }
                 }
             }

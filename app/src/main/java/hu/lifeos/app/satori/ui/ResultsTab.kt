@@ -242,7 +242,7 @@ fun ResultsTab(vm: SatoriViewModel, modifier: Modifier, onCertificate: (Int) -> 
         item {
             SectionLabel(stringResource(R.string.satori_breakdown))
             AppCard {
-                c.types.forEach { t ->
+                st.followedIds().map { c.type(it) }.forEach { t ->
                     val td = st.data[t.id] ?: return@forEach
                     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(vertical = 6.dp)) {
                         Icon(iconFor(t.icon), null, Modifier.size(18.dp), tint = MaterialTheme.colorScheme.primary)

@@ -25,11 +25,13 @@ class SatoriRepository(
     val loaded: StateFlow<Boolean> = _loaded.asStateFlow()
     private val mutex = Mutex()
 
+    private fun set(s: SatoriState) { content.custom = s.custom; _state.value = s }
+
     suspend fun load() {
         val raw = db.kv().get(KEY)?.json
         if (raw != null) {
             runCatching { json.decodeFromString(SatoriState.serializer(), raw) }
-                .onSuccess { _state.value = it.normalized(content.types.map { t -> t.id }) }
+                .onSuccess { set(it.normalized(content.types.map { t -> t.id })) }
         }
         _loaded.value = true
     }
@@ -38,7 +40,7 @@ class SatoriRepository(
         scope.launch {
             mutex.withLock {
                 val next = fn(_state.value)
-                _state.value = next
+                set(next)
                 db.kv().put(KvEntity(KEY, json.encodeToString(SatoriState.serializer(), next)))
             }
         }
@@ -57,7 +59,7 @@ class SatoriRepository(
             .normalized(content.types.map { it.id })
             .copy(onboardingDone = true)
         mutex.withLock {
-            _state.value = parsed
+            set(parsed)
             db.kv().put(KvEntity(KEY, json.encodeToString(SatoriState.serializer(), parsed)))
         }
         parsed.moodLog.forEach { m ->
@@ -75,7 +77,7 @@ class SatoriRepository(
     suspend fun replaceFromBackup(raw: String) {
         val parsed = json.decodeFromString(SatoriState.serializer(), raw).normalized(content.types.map { it.id })
         mutex.withLock {
-            _state.value = parsed
+            set(parsed)
             db.kv().put(KvEntity(KEY, json.encodeToString(SatoriState.serializer(), parsed)))
         }
     }

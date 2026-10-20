@@ -21,6 +21,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowDropDown
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Book
 import androidx.compose.material.icons.outlined.EmojiEvents
 import androidx.compose.material.icons.outlined.MoreVert
@@ -215,17 +218,28 @@ fun SatoriRoot(vm: SatoriViewModel, startSos: Boolean, onExit: () -> Unit) {
 @Composable
 private fun TypeSheet(vm: SatoriViewModel, onDismiss: () -> Unit) {
     val st by vm.state.collectAsState()
+    var adding by remember { mutableStateOf(false) }
+    val followed = st.followedIds()
     ModalBottomSheet(onDismissRequest = onDismiss, containerColor = MaterialTheme.colorScheme.surfaceContainer) {
-        Column(Modifier.padding(horizontal = 16.dp).padding(bottom = 24.dp).navigationBarsPadding()) {
-            Text(stringResource(R.string.satori_category), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(start = 8.dp, bottom = 8.dp))
-            vm.content.types.forEach { t ->
-                val streak = st.data[t.id]?.streak ?: 0
-                MenuRow(iconFor(t.icon), t.label, stringResource(R.string.satori_n_days, streak), onClick = { vm.setType(t.id); onDismiss() }, trailing = {
-                    if (t.id == st.type) Icon(Icons.Outlined.Spa, null, tint = MaterialTheme.colorScheme.tertiary)
+        Column(Modifier.verticalScroll(rememberScrollState()).padding(horizontal = 16.dp).padding(bottom = 24.dp).navigationBarsPadding()) {
+            Text(stringResource(R.string.habit_followed), style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(start = 8.dp, bottom = 8.dp))
+            followed.forEach { id ->
+                val t = vm.content.type(id)
+                val streak = st.data[id]?.streak ?: 0
+                MenuRow(iconFor(t.icon), t.label, stringResource(R.string.satori_n_days, streak), onClick = { vm.setType(id); onDismiss() }, trailing = {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        if (id == st.type) Icon(Icons.Outlined.Spa, null, tint = MaterialTheme.colorScheme.tertiary)
+                        if (followed.size > 1) IconButton(onClick = { if (vm.content.isCustom(id)) vm.deleteCustomHabit(id) else vm.unfollow(id) }) {
+                            Icon(if (vm.content.isCustom(id)) Icons.Outlined.Delete else Icons.Outlined.Close, stringResource(R.string.habit_remove), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+                        }
+                    }
                 })
             }
+            VSpace(8)
+            MenuRow(Icons.Outlined.Add, stringResource(R.string.habit_add), stringResource(R.string.habit_add_sub), onClick = { adding = true })
         }
     }
+    if (adding) AddHabitSheet(vm, onDismiss = { adding = false; onDismiss() })
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

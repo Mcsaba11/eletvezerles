@@ -31,6 +31,7 @@ import hu.lifeos.app.R
 import hu.lifeos.app.food.Food
 import hu.lifeos.app.food.FoodLogic
 import hu.lifeos.app.food.FoodViewModel
+import hu.lifeos.app.food.LocalPacks
 import hu.lifeos.app.ui.AppCard
 import hu.lifeos.app.ui.VSpace
 
@@ -47,7 +48,7 @@ fun FoodCalcTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit) 
     val opts = logic.unitOpts(food)
     var unit by remember(food) { mutableStateOf(opts.first()) }
     var sizeK by remember { mutableStateOf(1.0) }
-    var meal by remember { mutableStateOf(logic.defaultMeal(s.profile)) }
+    var meal by remember { mutableStateOf(logic.defaultMeal(s)) }
 
     LazyColumn(modifier, contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
@@ -73,7 +74,7 @@ fun FoodCalcTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit) 
             val q = qty.replace(',', '.').toDoubleOrNull() ?: 0.0
             val g = q * unit.g * (if (unit.v != "g") sizeK else 1.0)
             val n = logic.nutr(f, g)
-            val r = logic.targets(s.profile)
+            val r = logic.targets(s)
             val dayT = logic.totals(s.day(vm.today()).items)
             item {
                 AppCard {
@@ -85,13 +86,14 @@ fun FoodCalcTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit) 
                     if (f.note.isNotBlank()) { VSpace(4); Text(f.note, style = MaterialTheme.typography.bodyMedium) }
                     VSpace(10)
                     val pd = if (f.kcal > 0) f.p / f.kcal * 100 else 0.0
-                    TileGrid(listOf<@Composable (Modifier) -> Unit>(
+                    val showGl = LocalPacks.current.let { it.ir || it.diab }
+                    TileGrid(listOfNotNull<@Composable (Modifier) -> Unit>(
                         { m -> StatTile(stringResource(R.string.food_kcal), fmt(n.kcal), "kcal", true, m) },
                         { m -> StatTile(stringResource(R.string.food_protein), "${fmt(n.p, 1)} g", stringResource(R.string.food_per100kcal, fmt(pd, 1)), modifier = m) },
                         { m -> StatTile(stringResource(R.string.food_carb), "${fmt(n.c, 1)} g", stringResource(R.string.food_no_fiber), modifier = m) },
                         { m -> StatTile(stringResource(R.string.food_fat), "${fmt(n.f, 1)} g", if (n.kcal > 0) stringResource(R.string.food_pct_of_kcal, fmt(n.f * 9 / n.kcal * 100)) else "", modifier = m) },
                         { m -> StatTile(stringResource(R.string.food_fiber), "${fmt(n.fib, 1)} g", stringResource(R.string.food_of35), modifier = m) },
-                        { m -> StatTile(stringResource(R.string.food_gl), fmt(n.gl, 1), "${FoodLogic.glTxt(n.gl)} · GI ${if (f.gi > 0) fmt(f.gi) else "–"} (${FoodLogic.giTxt(f.gi)})", modifier = m) },
+                        if (showGl) { m -> StatTile(stringResource(R.string.food_gl), fmt(n.gl, 1), "${FoodLogic.glTxt(n.gl)} · GI ${if (f.gi > 0) fmt(f.gi) else "–"} (${FoodLogic.giTxt(f.gi)})", modifier = m) } else null,
                     ))
                 }
             }
@@ -112,7 +114,7 @@ fun FoodCalcTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit) 
                     if (f.ug > 0 && f.u.isNotBlank() && mn.isFinite()) Text(stringResource(R.string.food_fits_units, fmt(mn / f.ug, 1), f.u), style = MaterialTheme.typography.bodySmall)
                 }
             }
-            item {
+            if (LocalPacks.current.ir) item {
                 AppCard {
                     Text(stringResource(if (f.r == "g") R.string.food_similar else R.string.food_better), style = MaterialTheme.typography.titleSmall)
                     logic.swapsFor(s, f).forEach { sw ->
@@ -132,7 +134,7 @@ fun FoodCalcTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit) 
             item {
                 AppCard {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.Bottom) {
-                        Picker(stringResource(R.string.food_meal), c.meals, meal, { it }, { meal = it }, Modifier.weight(1f))
+                        Picker(stringResource(R.string.food_meal), logic.meals(s), meal, { it }, { meal = it }, Modifier.weight(1f))
                         Spacer(Modifier.width(4.dp))
                         Button(onClick = {
                             vm.addEntry(f, g, meal, vm.nowHM(), vm.today(), if (unit.v == "g") null else "${fmt(q)} ${unit.name}")

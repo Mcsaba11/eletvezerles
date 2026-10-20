@@ -69,15 +69,17 @@ class FoodLogic(val content: FoodContent) {
 
     // ---------- Célok ----------
 
-    fun targets(p: Profile): Targets {
+    fun targets(p: Profile, packs: Packs = Packs()): Targets {
         val w = p.weight; val h = p.height; val a = p.age
         val bmr = 10 * w + 6.25 * h - 5 * a + if (p.sex == "m") 5 else -161
         val tdee = bmr * (p.act.toDoubleOrNull() ?: 1.375)
         val floor = if (p.sex == "m") 1800 else 1400
-        val raw = tdee + (p.goal.toDoubleOrNull() ?: 0.0)
+        // Étkezési zavarnál nincs kalóriadeficit: a cél a szükséglet fedezése.
+        val raw = tdee + if (packs.ed) 0.0 else (p.goal.toDoubleOrNull() ?: 0.0)
         val target = maxOf(raw, floor.toDouble())
         val prot = (w * 1.3).roundToInt()
-        val carb = (target * .30 / 4).roundToInt()
+        val carbShare = if (packs.ir) .30 else .45
+        val carb = if (packs.diab && p.carbGoal > 0) p.carbGoal.roundToInt() else (target * carbShare / 4).roundToInt()
         val fat = maxOf(0, ((target - prot * 4 - carb * 4) / 9).roundToInt())
         return Targets(bmr, tdee, target, prot, carb, fat, w / ((h / 100) * (h / 100)), raw < floor, floor, if (p.water > 0) p.water else 3500.0)
     }
@@ -92,9 +94,26 @@ class FoodLogic(val content: FoodContent) {
         return if (s <= e) min in s until e else (min >= s || min < e)
     }
 
-    fun defaultMeal(p: Profile, now: LocalTime = LocalTime.now()): String {
+    fun targets(s: FoodState): Targets = targets(s.profile, s.packFlags())
+    fun defaultMeal(s: FoodState): String = defaultMeal(s.profile, s.packFlags())
+    fun meals(s: FoodState): List<String> = meals(s.packFlags())
+
+    /** Az étkezések nevei: böjtnél Böjtzáró…, egyébként Reggeli… */
+    fun meals(packs: Packs): List<String> = if (packs.fast && content.mealsFast.isNotEmpty()) content.mealsFast else content.meals
+
+    fun defaultMeal(p: Profile, packs: Packs, now: LocalTime = LocalTime.now()): String {
         val m = now.hour * 60 + now.minute
-        val meals = content.meals
+        val meals = meals(packs)
+        if (!packs.fast) {
+            return when {
+                m < 10 * 60 -> meals[0]
+                m < 11 * 60 + 30 -> meals[1]
+                m < 14 * 60 + 30 -> meals[2]
+                m < 17 * 60 + 30 -> meals[3]
+                m < 21 * 60 + 30 -> meals[4]
+                else -> meals.last()
+            }
+        }
         if (!inWindow(p, m)) return meals.last()
         val since = ((m - toMin(p.winStart)) + 1440) % 1440
         return when {
@@ -275,8 +294,9 @@ class FoodLogic(val content: FoodContent) {
 
     data class Insight(val kind: String, val text: String)
 
-    fun insights(s: FoodState, items: List<FoodEntry>): List<Insight> {
-        val r = targets(s.profile)
+    fun insights(s: FoodState, items: List<FoodEntry>, day: FoodDay = FoodDay(), packs: Packs = s.packFlags()): List<Insight> {
+        if (packs.ed) return edInsights(s, items)
+        val r = targets(s.profile, packs)
         val t = totals(items)
         val out = mutableListOf<Insight>()
         if (items.isEmpty()) return listOf(Insight("", "Adj hozzá ételt, és itt látod, mennyi maradt a napi keretedből."))
@@ -284,19 +304,60 @@ class FoodLogic(val content: FoodContent) {
         out += if (kl >= 0) Insight("", "Még ${fmt(kl)} kcal fér bele a napba.") else Insight("warn", "${fmt(-kl)} kcal-lal a napi cél fölött vagy.")
         val pl = r.p - t.p
         if (pl > 5) {
-            val ideas = listOf("skyr", "turosov", "tofu", "gorog", "tempeh", "cottage", "edamame", "lencse", "szejtan", "tojas")
+            val ideas = listOf("skyr", "turosov", "csirkemell", "tofu", "gorog", "tonhal", "cottage", "lencse", "tojas")
                 .filter { id -> items.none { it.fid == id } }.take(3)
                 .mapNotNull { findFood(s, it)?.name?.split(",")?.first()?.lowercase() }
             out += Insight("", "Fehérjéből még ${fmt(pl)} g hiányzik. Ötlet: ${ideas.joinToString(", ")}.")
         } else out += Insight("ok", "A fehérjecél megvan.")
-        if (t.gl >= 120) out += Insight("warn", "Magas a napi glikémiás terhelés (${fmt(t.gl)}). Cserélj gyors szénhidrátot hüvelyesre, zöldségre.")
-        if (t.fib < 20 && t.kcal > r.target * .5) out += Insight("", "Kevés a rost (${fmt(t.fib)} g). Zöldség, hüvelyes, chia vagy lenmag segít.")
-        val bad = items.filter { it.r == "b" }
-        if (bad.isNotEmpty()) out += Insight("warn", "Kerülendő tétel ma: ${bad.take(3).joinToString(", ") { it.name }}${if (bad.size > 3) "…" else ""}. A Kalkulátor fülön cserelehetőséget is mutatok.")
-        val outside = items.filter { !inWindow(s.profile, toMin(it.t)) && it.kcal > 5 }
-        if (outside.isNotEmpty()) out += Insight("warn", "${outside.size} tétel az étkezési ablakon kívül került rögzítésre.")
-        val first = items.minByOrNull { it.t }
-        if (first != null && first.r == "b") out += Insight("warn", "A böjtöt kerülendő étellel törted meg. Holnap próbáld fehérjével és zöldséggel kezdeni.")
+        if (packs.ir && t.gl >= 120) out += Insight("warn", "Magas a napi glikémiás terhelés (${fmt(t.gl)}). Cserélj gyors szénhidrátot hüvelyesre, zöldségre.")
+        if (t.fib < 20 && t.kcal > r.target * .5) out += Insight("", "Kevés a rost (${fmt(t.fib)} g). Zöldség, hüvelyes, teljes kiőrlésű gabona segít.")
+        if (packs.rating) {
+            val bad = items.filter { it.r == "b" }
+            if (bad.isNotEmpty()) out += Insight("warn", "Kerülendő tétel ma: ${bad.take(3).joinToString(", ") { it.name }}${if (bad.size > 3) "…" else ""}. A Kalkulátor fülön cserelehetőséget is mutatok.")
+        }
+        if (packs.fast) {
+            val outside = items.filter { !inWindow(s.profile, toMin(it.t)) && it.kcal > 5 }
+            if (outside.isNotEmpty()) out += Insight("warn", "${outside.size} tétel az étkezési ablakon kívül került rögzítésre.")
+            val first = items.minByOrNull { it.t }
+            if (packs.rating && first != null && first.r == "b") out += Insight("warn", "A böjtöt kerülendő étellel törted meg. Holnap próbáld fehérjével és zöldséggel kezdeni.")
+        }
+        if (packs.diab) out += diabInsights(s, items, day, r)
+        return out
+    }
+
+    /** Cukorbetegség: szénhidrát-keret, gyors felszívódású ételek, vércukor a célsávon kívül. */
+    private fun diabInsights(s: FoodState, items: List<FoodEntry>, day: FoodDay, r: Targets): List<Insight> {
+        val out = mutableListOf<Insight>()
+        val p = s.profile
+        val ch = items.sumOf { it.c }
+        if (p.carbGoal > 0) {
+            out += if (ch <= p.carbGoal) Insight("", "Szénhidrát: ${fmt(ch)} / ${fmt(p.carbGoal)} g a mai keretből.")
+            else Insight("warn", "A szénhidrát ${fmt(ch - p.carbGoal)} g-mal a napi keret fölött van.")
+        } else out += Insight("", "Add meg a napi szénhidrát-keretedet a Profilban (az orvosod vagy dietetikusod szerint).")
+        val big = items.filter { it.c >= 60 }
+        if (big.isNotEmpty()) out += Insight("warn", "Nagy szénhidrátadag egyszerre: ${big.first().name} (${fmt(big.first().c)} g). Érdemes több étkezésre elosztani.")
+        val fast = items.mapNotNull { e -> findFood(s, e.fid)?.takeIf { it.gi >= 70 && e.c >= 10 } }
+        if (fast.isNotEmpty()) out += Insight("warn", "Gyors felszívódású szénhidrát: ${fast.take(2).joinToString(", ") { it.name.split(",").first() }}. Fehérjével, rosttal együtt kisebb a vércukorcsúcs.")
+        day.bg.lastOrNull()?.let { b ->
+            if (b.v < p.bgLow) out += Insight("warn", "Az utolsó mérés (${fmt(b.v, 1)} mmol/l) a célsáv alatt van. Kövesd az orvosodtól kapott teendőket.")
+            else if (b.v > p.bgHigh) out += Insight("warn", "Az utolsó mérés (${fmt(b.v, 1)} mmol/l) a célsáv fölött van.")
+            else out += Insight("ok", "Az utolsó mérés a célsávban van (${fmt(b.v, 1)} mmol/l).")
+        }
+        return out
+    }
+
+    /** Étkezési zavar: számok nélküli, kíméletes visszajelzések a rendszerességről és a jelzésekről. */
+    private fun edInsights(s: FoodState, items: List<FoodEntry>): List<Insight> {
+        val out = mutableListOf<Insight>()
+        if (items.isEmpty()) return listOf(Insight("", "Ha készen állsz, rögzítsd az első mai étkezésed. Minden étkezés számít."))
+        out += Insight("ok", "Ma ${items.size} étkezést rögzítettél. Jó, hogy figyelsz magadra.")
+        val now = LocalTime.now().let { it.hour * 60 + it.minute }
+        val last = items.maxOf { toMin(it.t) }
+        if (now - last >= 4 * 60) out += Insight("", "Már jó ideje ettél utoljára. Egy kisebb étkezés most segíthet stabilan tartani az energiádat.")
+        val hungry = items.count { (it.hunger ?: 0) >= 5 }
+        if (hungry >= 1) out += Insight("", "Volt, hogy nagyon éhesen ültél le enni. A rendszeres, 3–4 óránkénti étkezés segít, hogy ne legyen ilyen erős az éhség.")
+        val hard = items.mapNotNull { it.feel }.filter { it in listOf("Bűntudat", "Szorongó", "Feszült") }
+        if (hard.isNotEmpty()) out += Insight("", "Ma nehéz érzések is jöttek evés körül. Ezek elmúlnak, nem kell tenned miattuk semmit. Ha sokszor visszatérnek, beszélj róluk szakemberrel.")
         return out
     }
 

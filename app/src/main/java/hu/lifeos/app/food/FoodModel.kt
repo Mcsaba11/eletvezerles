@@ -32,20 +32,26 @@ data class Food(
 @Serializable data class Meas(val l: String, val g: Map<String, Double>, val h: String = "")
 @Serializable data class RecipeItem(val fid: String, val g: Double)
 @Serializable data class Recipe(val id: String, val name: String = "", val servings: Int = 1, val items: List<RecipeItem> = emptyList())
-@Serializable data class TipSection(val t: String, val items: List<List<String>>)
+/** Tippcsoport; a [pack] megadja, melyik csomaghoz tartozik ("" = mindenkinek, "num" = csak ha vannak számok). */
+@Serializable data class TipSection(val t: String, val items: List<List<String>>, val pack: String = "")
 
 @Serializable
 data class Profile(
-    val sex: String = "m",
-    val age: Double = 38.0,
-    val height: Double = 175.0,
-    val weight: Double = 80.0,
+    val sex: String = "f",
+    val age: Double = 30.0,
+    val height: Double = 170.0,
+    val weight: Double = 70.0,
     val act: String = "1.375",
-    val goal: String = "-500",
+    val goal: String = "0",
     val winStart: String = "12:00",
     val winEnd: String = "20:00",
-    val target: Double = 75.0,
-    val water: Double = 3000.0,
+    val target: Double = 0.0,
+    val water: Double = 2500.0,
+    /** Cukorbetegség: napi szénhidrát-keret grammban (az orvos/dietetikus szerint); 0 = nincs megadva. */
+    val carbGoal: Double = 0.0,
+    /** Cukorbetegség: a vércukor célsávja mmol/l-ben (az orvos által megadott értékek az irányadók). */
+    val bgLow: Double = 4.0,
+    val bgHigh: Double = 10.0,
 )
 
 @Serializable
@@ -54,6 +60,8 @@ data class FoodContent(
     val cats: Map<String, String>,
     val rtxt: Map<String, String>,
     val meals: List<String>,
+    /** Időszakos böjtnél használt étkezésnevek (Böjtzáró…). */
+    val mealsFast: List<String> = emptyList(),
     val swaps: Map<String, List<String>>,
     val samples: List<Recipe>,
     val meas: Map<String, Meas>,
@@ -68,6 +76,8 @@ data class FoodContent(
     val goals: List<List<String>>,
     val tips: List<TipSection>,
     val disclaimer: String,
+    /** Étkezési zavar csomag: érzések a rögzítéshez. */
+    val feelings: List<String> = emptyList(),
 ) {
     companion object {
         private val json = Json { ignoreUnknownKeys = true; isLenient = true; coerceInputValues = true }
@@ -98,9 +108,16 @@ data class FoodEntry(
     val meal: String = "Ebéd",
     val t: String = "12:00",
     val est: String? = null,
+    /** Étkezési zavar csomag: éhség evés előtt és teltség utána (1–5), érzés. */
+    val hunger: Int? = null,
+    val full: Int? = null,
+    val feel: String? = null,
 )
 
-@Serializable data class FoodDay(val water: Double = 0.0, val items: List<FoodEntry> = emptyList())
+/** Vércukormérés (mmol/l); ctx: ehgyomor, elotte, utana, lefekves. */
+@Serializable data class BgRec(val id: String = "", val t: String = "", val v: Double = 0.0, val ctx: String = "")
+
+@Serializable data class FoodDay(val water: Double = 0.0, val items: List<FoodEntry> = emptyList(), val bg: List<BgRec> = emptyList())
 @Serializable data class WeightRec(val d: String, val kg: Double, val waist: Double? = null)
 
 @Serializable
@@ -113,6 +130,8 @@ data class FoodState(
     val days: Map<String, FoodDay> = emptyMap(),
     /** Igaz, ha a felhasználó már legalább egyszer megnyitotta vagy betöltötte a régi adatait. */
     val setupDone: Boolean = false,
+    /** Bekapcsolt fókuszcsomagok (FoodPacks); null = régi mentés. */
+    val packs: List<String>? = null,
 ) {
     fun day(k: String): FoodDay = days[k] ?: FoodDay()
     fun withDay(k: String, fn: (FoodDay) -> FoodDay) = copy(days = days + (k to fn(day(k))))

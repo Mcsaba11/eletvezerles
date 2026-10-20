@@ -54,6 +54,7 @@ import hu.lifeos.app.food.Food
 import hu.lifeos.app.food.FoodEntry
 import hu.lifeos.app.food.FoodLogic
 import hu.lifeos.app.food.FoodViewModel
+import hu.lifeos.app.food.LocalPacks
 import hu.lifeos.app.ui.AppCard
 import hu.lifeos.app.ui.EmptyHint
 import hu.lifeos.app.ui.Fmt
@@ -74,33 +75,23 @@ fun FoodTodayTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit,
     val s by vm.state.collectAsState()
     val view by vm.view.collectAsState()
     val logic = vm.logic
-    val c = vm.content
+    val packs = LocalPacks.current
     val ctx = LocalContext.current
     val today = LocalDate.now()
     val isToday = view == today
     val day = s.day(view.toString())
     val items = day.items
-    val r = logic.targets(s.profile)
+    val r = logic.targets(s)
     val t = logic.totals(items)
+    val meals = logic.meals(packs)
     var editEntry by remember { mutableStateOf<FoodEntry?>(null) }
     var legacyOpen by remember { mutableStateOf(false) }
 
     LazyColumn(modifier, contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        if (!s.setupDone) item {
-            AppCard(color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f)) {
-                Text(stringResource(R.string.food_welcome_title), style = MaterialTheme.typography.titleMedium)
-                Text(stringResource(R.string.food_welcome_text), style = MaterialTheme.typography.bodyMedium)
-                VSpace(8)
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(onClick = { legacyOpen = true }) { Text(stringResource(R.string.food_import_old)) }
-                    OutlinedButton(onClick = onProfile) { Text(stringResource(R.string.food_set_profile)) }
-                }
-                TextButton(onClick = { vm.markSetup() }) { Text(stringResource(R.string.food_start_fresh)) }
-            }
-        }
+        if (!s.setupDone) item { PackSetupCard(vm, onImport = { legacyOpen = true }, onProfile = onProfile) }
 
         // ---------- Böjtsáv ----------
-        item { FastBar(vm) }
+        if (packs.fast) item { FastBar(vm) }
 
         // ---------- Napváltó ----------
         item {
@@ -115,30 +106,42 @@ fun FoodTodayTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit,
             }
         }
 
-        // ---------- Makrók ----------
-        item {
-            AppCard {
-                MacroBar(stringResource(R.string.food_kcal), t.kcal, r.target, "kcal", "max")
-                MacroBar(stringResource(R.string.food_protein), t.p, r.p.toDouble(), "g", "min")
-                MacroBar(stringResource(R.string.food_carb), t.c, r.c.toDouble(), "g", "max")
-                MacroBar(stringResource(R.string.food_fat), t.f, r.f.toDouble(), "g", "max")
-                VSpace(8)
-                val goodK = items.filter { it.r == "g" }.sumOf { it.kcal }
-                val outside = items.filter { !logic.inWindow(s.profile, logic.toMin(it.t)) && it.kcal > 5 }
-                val glLabel = if (items.isEmpty()) "" else " · " + stringResource(if (t.gl < 80) R.string.food_low else if (t.gl < 120) R.string.food_mid else R.string.food_high)
-                TileGrid(listOf<@Composable (Modifier) -> Unit>(
-                    { m -> StatTile(stringResource(R.string.food_fiber), "${fmt(t.fib)} / 35 g", modifier = m) },
-                    { m -> StatTile(stringResource(R.string.food_gl), fmt(t.gl) + glLabel, modifier = m) },
-                    { m -> StatTile(stringResource(R.string.food_good_ratio), if (t.kcal > 0) fmt(goodK / t.kcal * 100) + "%" else "–", modifier = m) },
-                    { m -> StatTile(stringResource(R.string.food_fast_kept), if (items.isEmpty()) "–" else if (outside.isEmpty()) stringResource(R.string.food_yes) else stringResource(R.string.food_exceptions, outside.size), modifier = m) },
-                ))
+        if (packs.ed) {
+            item { EdRhythmCard(items, meals) }
+            item { EdLogCard(vm, toast) }
+        } else {
+            // ---------- Makrók ----------
+            item {
+                AppCard {
+                    MacroBar(stringResource(R.string.food_kcal), t.kcal, r.target, "kcal", "max")
+                    MacroBar(stringResource(R.string.food_protein), t.p, r.p.toDouble(), "g", "min")
+                    MacroBar(stringResource(R.string.food_carb), t.c, r.c.toDouble(), "g", "max")
+                    MacroBar(stringResource(R.string.food_fat), t.f, r.f.toDouble(), "g", "max")
+                    VSpace(8)
+                    val goodK = items.filter { it.r == "g" }.sumOf { it.kcal }
+                    val outside = items.filter { !logic.inWindow(s.profile, logic.toMin(it.t)) && it.kcal > 5 }
+                    val glLabel = if (items.isEmpty()) "" else " · " + stringResource(if (t.gl < 80) R.string.food_low else if (t.gl < 120) R.string.food_mid else R.string.food_high)
+                    val fibT = stringResource(R.string.food_fiber); val glT = stringResource(R.string.food_gl)
+                    val goodT = stringResource(R.string.food_good_ratio); val fastT = stringResource(R.string.food_fast_kept)
+                    val fastV = if (items.isEmpty()) "–" else if (outside.isEmpty()) stringResource(R.string.food_yes) else stringResource(R.string.food_exceptions, outside.size)
+                    val tiles = mutableListOf<@Composable (Modifier) -> Unit>({ m -> StatTile(fibT, "${fmt(t.fib)} / 30 g", modifier = m) })
+                    if (packs.ir) {
+                        tiles += { m -> StatTile(glT, fmt(t.gl) + glLabel, modifier = m) }
+                        tiles += { m -> StatTile(goodT, if (t.kcal > 0) fmt(goodK / t.kcal * 100) + "%" else "–", modifier = m) }
+                    }
+                    if (packs.fast) tiles += { m -> StatTile(fastT, fastV, modifier = m) }
+                    if (tiles.size % 2 == 1) tiles += { m -> StatTile(stringResource(R.string.food_water), "${fmt(day.water / 1000, 1)} L", modifier = m) }
+                    TileGrid(tiles)
+                }
             }
         }
+
+        if (packs.diab) item { DiabCard(vm, day) }
 
         // ---------- Tanácsok ----------
         item {
             AppCard {
-                logic.insights(s, items).forEach { ins ->
+                logic.insights(s, items, day, packs).forEach { ins ->
                     Row(Modifier.padding(vertical = 3.dp)) {
                         Box(Modifier.padding(top = 7.dp).width(6.dp).height(6.dp).clip(RoundedCornerShape(3.dp)).background(
                             when (ins.kind) { "warn" -> StatusColors.warn; "ok" -> StatusColors.ok; else -> MaterialTheme.colorScheme.primary }))
@@ -149,20 +152,17 @@ fun FoodTodayTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit,
             }
         }
 
-        // ---------- Szabad szöveg ----------
-        item { FreeTextCard(vm, toast) }
-
-        // ---------- Keresés listából ----------
-        item { QuickAddCard(vm, toast) }
-
-        // ---------- Saját tétel ----------
-        item { ManualCard(vm) }
+        if (!packs.ed) {
+            item { FreeTextCard(vm, toast) }
+            item { QuickAddCard(vm, toast) }
+            item { ManualCard(vm) }
+        }
 
         // ---------- Napló ----------
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 SectionLabel(stringResource(R.string.food_meals) + if (items.isNotEmpty()) " · " + stringResource(R.string.food_n_items, items.size) else "", Modifier.weight(1f))
-                TextButton(onClick = {
+                if (!packs.ed) TextButton(onClick = {
                     val n = vm.copyPrev()
                     toast(if (n == 0) ctx.getString(R.string.food_prev_empty) else ctx.getString(R.string.food_copied, n))
                 }) {
@@ -172,21 +172,30 @@ fun FoodTodayTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit,
         }
         if (items.isEmpty()) item {
             AppCard {
-                EmptyHint(stringResource(R.string.food_log_empty))
-                OutlinedButton(onClick = { vm.loadSample(ctx.getString(R.string.food_sample_suffix)) }) { Text(stringResource(R.string.food_load_sample)) }
+                EmptyHint(stringResource(if (packs.ed) R.string.ed_log_empty else R.string.food_log_empty))
+                if (!packs.ed) OutlinedButton(onClick = { vm.loadSample(ctx.getString(R.string.food_sample_suffix)) }) { Text(stringResource(R.string.food_load_sample)) }
             }
         }
-        c.meals.forEach { meal ->
-            val its = items.filter { it.meal.ifBlank { c.meals[1] } == meal }.sortedBy { it.t }
+        // A régi mentésekben más étkezésnevek is lehetnek (pl. Böjtzáró) – azokat is megmutatjuk.
+        val groups = (meals + items.map { it.meal.ifBlank { meals[1] } }).distinct()
+        groups.forEach { meal ->
+            val its = items.filter { it.meal.ifBlank { meals[1] } == meal }.sortedBy { it.t }
             if (its.isNotEmpty()) {
                 item {
                     val mt = logic.totals(its)
                     Row(verticalAlignment = Alignment.Bottom, modifier = Modifier.padding(top = 4.dp)) {
                         Text(meal, style = MaterialTheme.typography.titleSmall, modifier = Modifier.weight(1f))
-                        Text("${fmt(mt.kcal)} kcal · F ${fmt(mt.p)} g · Sz ${fmt(mt.c)} g", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                        val sum = when {
+                            packs.numbers -> "${fmt(mt.kcal)} kcal · F ${fmt(mt.p)} g · Sz ${fmt(mt.c)} g"
+                            packs.diab -> stringResource(R.string.diab_ch_g, fmt(mt.c))
+                            else -> ""
+                        }
+                        if (sum.isNotEmpty()) Text(sum, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                 }
-                items(its) { x -> EntryRow(vm, x, c.rtxt, onEdit = { editEntry = x }) }
+                items(its, key = { it.id.ifBlank { it.hashCode().toString() } }) { x ->
+                    if (packs.ed) EdEntryRow(x, onEdit = { editEntry = x }) else EntryRow(vm, x, vm.content.rtxt, onEdit = { editEntry = x })
+                }
             }
         }
 
@@ -206,25 +215,29 @@ fun FoodTodayTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit,
                 }
             }
         }
+        if (packs.ed) item { EdSupportCard() }
     }
 
     editEntry?.let { e ->
-        var g by remember(e.id) { mutableStateOf(fmt(e.g, 1).replace(" ", "").replace(',', '.')) }
-        AlertDialog(
-            onDismissRequest = { editEntry = null },
-            title = { Text(e.name) },
-            text = {
-                Column {
-                    if (e.g > 0) OutlinedTextField(g, { g = it }, label = { Text(stringResource(R.string.food_grams)) }, singleLine = true,
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
-                    else Text(stringResource(R.string.food_manual_item))
-                }
-            },
-            confirmButton = {
-                TextButton(onClick = { g.replace(',', '.').toDoubleOrNull()?.let { vm.setGrams(e, it) }; editEntry = null }, enabled = e.g > 0) { Text(stringResource(R.string.save)) }
-            },
-            dismissButton = { TextButton(onClick = { vm.deleteEntry(e); editEntry = null }) { Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error) } },
-        )
+        if (packs.ed) EdEditDialog(vm, e, onClose = { editEntry = null })
+        else {
+            var g by remember(e.id) { mutableStateOf(fmt(e.g, 1).replace(" ", "").replace(',', '.')) }
+            AlertDialog(
+                onDismissRequest = { editEntry = null },
+                title = { Text(e.name) },
+                text = {
+                    Column {
+                        if (e.g > 0) OutlinedTextField(g, { g = it }, label = { Text(stringResource(R.string.food_grams)) }, singleLine = true,
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
+                        else Text(stringResource(R.string.food_manual_item))
+                    }
+                },
+                confirmButton = {
+                    TextButton(onClick = { g.replace(',', '.').toDoubleOrNull()?.let { vm.setGrams(e, it) }; editEntry = null }, enabled = e.g > 0) { Text(stringResource(R.string.save)) }
+                },
+                dismissButton = { TextButton(onClick = { vm.deleteEntry(e); editEntry = null }) { Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error) } },
+            )
+        }
     }
     if (legacyOpen) LegacyImportDialog(vm, onClose = { legacyOpen = false }, toast = toast)
 }
@@ -232,7 +245,8 @@ fun FoodTodayTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit,
 @Composable
 private fun EntryRow(vm: FoodViewModel, x: FoodEntry, rtxt: Map<String, String>, onEdit: () -> Unit) {
     val s by vm.state.collectAsState()
-    val out = !vm.logic.inWindow(s.profile, vm.logic.toMin(x.t)) && x.kcal > 5
+    val packs = LocalPacks.current
+    val out = packs.fast && !vm.logic.inWindow(s.profile, vm.logic.toMin(x.t)) && x.kcal > 5
     ClickRow(onClick = onEdit) {
         Text(x.t, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.width(48.dp))
         Column(Modifier.weight(1f)) {
@@ -243,12 +257,13 @@ private fun EntryRow(vm: FoodViewModel, x: FoodEntry, rtxt: Map<String, String>,
             val sub = buildString {
                 if (!x.est.isNullOrBlank()) append("≈ ${x.est} · ")
                 if (x.g > 0) append("${fmt(x.g)} g · ")
-                append("F ${fmt(x.p)} · Sz ${fmt(x.c)} · Zs ${fmt(x.f)} · GL ${fmt(x.gl)}")
+                append("F ${fmt(x.p)} · Sz ${fmt(x.c)} · Zs ${fmt(x.f)}")
+                if (packs.ir) append(" · GL ${fmt(x.gl)}")
             }
             Text(sub, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             if (out) Text(stringResource(R.string.food_in_fast), style = MaterialTheme.typography.labelSmall, color = StatusColors.warn)
         }
-        Text("${fmt(x.kcal)} kcal", style = MaterialTheme.typography.labelLarge)
+        Text(if (packs.diab) "${fmt(x.c)} g CH" else "${fmt(x.kcal)} kcal", style = MaterialTheme.typography.labelLarge)
     }
 }
 
@@ -295,7 +310,7 @@ private fun FreeTextCard(vm: FoodViewModel, toast: (String) -> Unit) {
     val ctx = LocalContext.current
     var text by remember { mutableStateOf("") }
     var rows by remember { mutableStateOf<List<Row_>?>(null) }
-    var meal by remember { mutableStateOf(logic.defaultMeal(s.profile)) }
+    var meal by remember { mutableStateOf(logic.defaultMeal(s)) }
     var time by remember { mutableStateOf(vm.nowHM()) }
     var pickTime by remember { mutableStateOf(false) }
 
@@ -310,7 +325,7 @@ private fun FreeTextCard(vm: FoodViewModel, toast: (String) -> Unit) {
                 val info = logic.parseChunk(s, ch); val f = info.cands.firstOrNull(); val e = logic.estimate(s, info, f)
                 Row_(info, f, Math.round(e.g).toDouble(), e.txt)
             }
-            meal = logic.defaultMeal(s.profile); time = vm.nowHM()
+            meal = logic.defaultMeal(s); time = vm.nowHM()
         }, enabled = text.isNotBlank()) { Text(stringResource(R.string.food_parse)) }
         rows?.let { list ->
             VSpace(8)
@@ -344,7 +359,7 @@ private fun FreeTextCard(vm: FoodViewModel, toast: (String) -> Unit) {
             Text(stringResource(R.string.food_total_kcal, fmt(total)), style = MaterialTheme.typography.titleSmall)
             VSpace(6)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.Bottom) {
-                Picker(stringResource(R.string.food_meal), vm.content.meals, meal, { it }, { meal = it }, Modifier.weight(1f))
+                Picker(stringResource(R.string.food_meal), logic.meals(s), meal, { it }, { meal = it }, Modifier.weight(1f))
                 OutlinedButton(onClick = { pickTime = true }) { Text(time) }
             }
             VSpace(6)
@@ -374,7 +389,7 @@ fun QuickAddCard(vm: FoodViewModel, toast: (String) -> Unit, title: Int = R.stri
     val opts = logic.unitOpts(food)
     var unit by remember(food) { mutableStateOf(if (food != null && food!!.ug > 0 && food!!.u.isNotBlank()) opts.getOrNull(1) ?: opts.first() else opts.first()) }
     var sizeK by remember { mutableStateOf(1.0) }
-    var meal by remember { mutableStateOf(logic.defaultMeal(s.profile)) }
+    var meal by remember { mutableStateOf(logic.defaultMeal(s)) }
     var time by remember { mutableStateOf(vm.nowHM()) }
     var pickTime by remember { mutableStateOf(false) }
     LaunchedEffect(food) { if (food != null) qty = if (food!!.ug > 0 && food!!.u.isNotBlank()) "1" else "100" }
@@ -404,7 +419,7 @@ fun QuickAddCard(vm: FoodViewModel, toast: (String) -> Unit, title: Int = R.stri
         }
         VSpace(6)
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.Bottom) {
-            Picker(stringResource(R.string.food_meal), vm.content.meals, meal, { it }, { meal = it }, Modifier.weight(1f))
+            Picker(stringResource(R.string.food_meal), logic.meals(s), meal, { it }, { meal = it }, Modifier.weight(1f))
             OutlinedButton(onClick = { pickTime = true }) { Text(time) }
         }
         VSpace(6)
@@ -449,7 +464,7 @@ private fun ManualCard(vm: FoodViewModel) {
             VSpace(6)
             Button(onClick = {
                 fun d(x: String) = x.replace(',', '.').toDoubleOrNull() ?: 0.0
-                vm.addManual(name, d(kcal), d(p), d(cc), d(f), vm.logic.defaultMeal(s.profile), vm.nowHM())
+                vm.addManual(name, d(kcal), d(p), d(cc), d(f), vm.logic.defaultMeal(s), vm.nowHM())
                 name = ""; kcal = ""; p = ""; cc = ""; f = ""; open = false
             }, enabled = name.isNotBlank()) { Text(stringResource(R.string.food_record)) }
         }

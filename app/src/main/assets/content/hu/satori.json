@@ -17,13 +17,48 @@
   },
   {
    "id": "social",
-   "label": "Kevesebb telefon",
+   "label": "Kevesebb telefon, görgetés",
    "icon": "smartphone"
   },
   {
    "id": "porno",
    "label": "Digitális fókusz",
    "icon": "visibility_off"
+  },
+  {
+   "id": "koffein",
+   "label": "Kevesebb koffein",
+   "icon": "coffee"
+  },
+  {
+   "id": "nassolas",
+   "label": "Nassolás nélkül",
+   "icon": "fastfood"
+  },
+  {
+   "id": "szerencsejatek",
+   "label": "Szerencsejáték nélkül",
+   "icon": "casino"
+  },
+  {
+   "id": "vasarlas",
+   "label": "Tudatos vásárlás",
+   "icon": "shopping_cart"
+  },
+  {
+   "id": "gaming",
+   "label": "Kevesebb játék",
+   "icon": "sports_esports"
+  },
+  {
+   "id": "cannabis",
+   "label": "Cannabis nélkül",
+   "icon": "eco"
+  },
+  {
+   "id": "koromragas",
+   "label": "Körömrágás nélkül",
+   "icon": "back_hand"
   }
  ],
  "stages": [
@@ -452,6 +487,352 @@
      "text": "Hosszabb távon a legtöbb ember számára a legnagyobb nyereség nem egy mérhető \"élettani reset\", hanem a viselkedés feletti kontroll visszaszerzése és az önbizalom erősödése — ezt a kutatás is leginkább alá tudja támasztani."
     }
    ]
+  },
+  "koffein": {
+   "badge": "Kevesebb koffein",
+   "icon": "coffee",
+   "heading": "Mi történik a testedben?",
+   "cardTitle": "Mi történik most a testemben?",
+   "intro": "A koffeinmegvonás jól dokumentált: a tünetek erőssége attól függ, mennyi kávét, energiaitalt vagy teát fogyasztottál naponta. Általános tájékoztató kép, nem orvosi tanács.",
+   "safety": "Ha napi több csésze kávét iszol, a fokozatos csökkentés (pl. naponta fél csészével kevesebb) sokkal kíméletesebb, mint a hirtelen elhagyás.",
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma, az első órák",
+     "icon": "coffee",
+     "text": "Az utolsó adag után 12–24 órával jelentkezhet az első fejfájás, fáradtság és a „ködös fej” érzése. Ez a megvonás leggyakoribb jele, nem betegség."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 2,
+     "when": "1–2. nap — a csúcs",
+     "icon": "thunderstorm",
+     "text": "A tünetek többnyire ekkor a legerősebbek: fejfájás, álmosság, ingerlékenység, nehezebb koncentráció. Sok víz, rövid séta és korai lefekvés segít."
+    },
+    {
+     "minDay": 3,
+     "maxDay": 9,
+     "when": "3–9. nap",
+     "icon": "trending_down",
+     "text": "A fejfájás és a fáradtság a legtöbb embernél fokozatosan elmúlik. Az agy alkalmazkodik: kevesebb adenozin-receptor marad „éhes” a koffeinre."
+    },
+    {
+     "minDay": 10,
+     "maxDay": 30,
+     "when": "2–4. hét",
+     "icon": "bedtime",
+     "text": "Sokan számolnak be mélyebb, pihentetőbb alvásról és egyenletesebb energiaszintről a nap folyamán, délutáni „zuhanás” nélkül."
+    },
+    {
+     "minDay": 31,
+     "maxDay": null,
+     "when": "1 hónapon túl",
+     "icon": "auto_awesome",
+     "text": "A reggeli éberséged már nem egy csészétől függ. Ha visszatérnél, egy-egy alkalmi kávé hatása is erősebbnek tűnhet, mint régen."
+    }
+   ]
+  },
+  "nassolas": {
+   "badge": "Nassolás nélkül",
+   "icon": "fastfood",
+   "heading": "Mi történik benned?",
+   "cardTitle": "Mi történik most benned?",
+   "intro": "A nassolás többnyire szokás és érzelmi szabályozás kérdése: unalom, stressz, fáradtság. Az idővonal viselkedéskutatási megfigyelésekre épül, tájékoztató jelleggel. A cél nem az evés megvonása, hanem a rendszeres, kiegyensúlyozott étkezés.",
+   "safety": "Ha az evéssel kapcsolatos gondolatok sok szorongást okoznak, vagy falásrohamok és szigorú korlátozás váltják egymást, kérj szakembert. Ilyenkor a nassolás „tiltása” árthat.",
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma",
+     "icon": "fastfood",
+     "text": "Figyeld meg, mikor nyúlnál a nasihoz: éhség, unalom vagy feszültség? Már ez az észrevétel is megtöri az automatizmust."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 3,
+     "when": "1–3. nap",
+     "icon": "bolt",
+     "text": "A megszokott időpontokban (pl. délután, tévézés közben) erős késztetés jöhet. Ez a szokás-hurok jelzése. Egy pohár víz vagy egy rendes uzsonna segít."
+    },
+    {
+     "minDay": 4,
+     "maxDay": 14,
+     "when": "1–2. hét",
+     "icon": "balance",
+     "text": "A rendszeres főétkezések mellett a késztetések jellemzően ritkulnak. Sokan veszik észre, hogy a vércukruk és az energiájuk egyenletesebb."
+    },
+    {
+     "minDay": 15,
+     "maxDay": 60,
+     "when": "3–8. hét",
+     "icon": "psychology",
+     "text": "Az ízlelés és a jutalmazási rendszer alkalmazkodik: az édes és sós ízek intenzívebbnek tűnnek, kevesebb is elég."
+    },
+    {
+     "minDay": 61,
+     "maxDay": null,
+     "when": "2 hónapon túl",
+     "icon": "auto_awesome",
+     "text": "A szokás átalakul: a nasi alkalmi élvezet lesz, nem automatikus válasz egy érzésre."
+    }
+   ]
+  },
+  "szerencsejatek": {
+   "badge": "Szerencsejáték nélkül",
+   "icon": "casino",
+   "heading": "Mi történik benned?",
+   "cardTitle": "Mi történik most benned?",
+   "intro": "A szerencsejáték-függőség a jutalmazási rendszert érinti, hasonlóan a szerhasználathoz. Az idővonal pszichológiai és klinikai megfigyelésekre épül, tájékoztató jelleggel.",
+   "safety": "Ha adósságaid vannak, vagy a játék miatt a megélhetésed veszélyben van, kérj segítséget (pl. Anonim Szerencsejátékosok, családsegítő, adósságtanácsadás). A legtöbb fogadóoldalon kérhető önkizárás is.",
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma",
+     "icon": "shield",
+     "text": "Az első lépés a hozzáférés megnehezítése: töröld az appokat, kérj önkizárást, add át a bankkártyát egy bizalmi embernek."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 7,
+     "when": "1. hét",
+     "icon": "thunderstorm",
+     "text": "Gyakori a nyugtalanság, ingerlékenység és a „most visszanyerném” gondolat. Ez a hajsza-gondolkodás, ami tipikus tünet. Nem kell engedelmeskedned neki."
+    },
+    {
+     "minDay": 8,
+     "maxDay": 30,
+     "when": "2–4. hét",
+     "icon": "balance",
+     "text": "Az erős késztetések ritkulnak, de stressz vagy pénzügyi gond idején visszatérhetnek. Ez normális, és nem jelent kudarcot."
+    },
+    {
+     "minDay": 31,
+     "maxDay": 90,
+     "when": "1–3 hónap",
+     "icon": "trending_down",
+     "text": "A pénzügyeid átláthatóbbá válnak. Sokan ekkor érzik először, hogy újra van mozgásterük és tervezhetnek."
+    },
+    {
+     "minDay": 91,
+     "maxDay": null,
+     "when": "3 hónapon túl",
+     "icon": "auto_awesome",
+     "text": "A bizalom a környezeteddel lassan helyreáll, a megtakarítás pedig kézzelfogható eredmény lesz."
+    }
+   ]
+  },
+  "vasarlas": {
+   "badge": "Tudatos vásárlás",
+   "icon": "shopping_cart",
+   "heading": "Mi történik benned?",
+   "cardTitle": "Mi történik most benned?",
+   "intro": "A kényszeres vásárlás mögött gyakran érzelmi szabályozás áll: a vásárlás pillanata rövid örömöt ad. Viselkedéskutatási megfigyelések alapján, tájékoztató jelleggel.",
+   "safety": null,
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma",
+     "icon": "shopping_cart",
+     "text": "Iratkozz le a hírlevelekről, töröld a mentett kártyaadatokat. Minden apró akadály segít."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 7,
+     "when": "1. hét",
+     "icon": "bolt",
+     "text": "Erős lehet a késztetés akciók vagy rossz nap után. Próbáld ki a 48 órás szabályt: ami a kosárban van, csak két nap múlva veheted meg."
+    },
+    {
+     "minDay": 8,
+     "maxDay": 30,
+     "when": "2–4. hét",
+     "icon": "balance",
+     "text": "Feltűnik, hány dolgot valójában nem is akartál. A kosárból kitörölt tételek listája sokat tanít."
+    },
+    {
+     "minDay": 31,
+     "maxDay": null,
+     "when": "1 hónapon túl",
+     "icon": "auto_awesome",
+     "text": "A megtakarított összeg nő, és a vásárlás újra tudatos döntés lesz, nem érzelmi válasz."
+    }
+   ]
+  },
+  "gaming": {
+   "badge": "Kevesebb játék",
+   "icon": "sports_esports",
+   "heading": "Mi történik benned?",
+   "cardTitle": "Mi történik most benned?",
+   "intro": "A videojátékok erős, gyors jutalmakat adnak. A csökkentés hatásai viselkedéskutatási megfigyeléseken alapulnak, tájékoztató jelleggel.",
+   "safety": null,
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma",
+     "icon": "sports_esports",
+     "text": "Tervezd meg, mivel töltöd a felszabaduló időt. Az üres idő a leggyakoribb visszaesési pont."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 7,
+     "when": "1. hét",
+     "icon": "bolt",
+     "text": "Unalom, nyugtalanság, a játék gondolata gyakran előjöhet. Ez az ingerhiány jele, és elmúlik."
+    },
+    {
+     "minDay": 8,
+     "maxDay": 30,
+     "when": "2–4. hét",
+     "icon": "bedtime",
+     "text": "Sokaknál javul az alvás (kevesebb éjszakai játék), és több energia jut mozgásra, kapcsolatokra."
+    },
+    {
+     "minDay": 31,
+     "maxDay": null,
+     "when": "1 hónapon túl",
+     "icon": "auto_awesome",
+     "text": "Ha visszatérsz a játékhoz, tudatosan, időkerettel teszed. Te döntesz, nem a játék."
+    }
+   ]
+  },
+  "cannabis": {
+   "badge": "Cannabis nélkül",
+   "icon": "eco",
+   "heading": "Mi történik a testedben?",
+   "cardTitle": "Mi történik most a testemben?",
+   "intro": "A rendszeres cannabishasználat abbahagyása után jól leírt megvonási tünetek jelentkezhetnek. Általános tájékoztató kép, nem orvosi tanács.",
+   "safety": "Ha a megvonás alatt erős szorongást, depressziós tüneteket vagy alvászavart tapasztalsz, kérj orvosi vagy addiktológiai segítséget.",
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 1,
+     "when": "Első 1–2 nap",
+     "icon": "eco",
+     "text": "Az első tünetek általában 1–2 nap után jelennek meg: ingerlékenység, nyugtalanság, csökkent étvágy."
+    },
+    {
+     "minDay": 2,
+     "maxDay": 6,
+     "when": "2–6. nap — a csúcs",
+     "icon": "thunderstorm",
+     "text": "A tünetek többnyire ekkor a legerősebbek: alvászavar, élénk álmok, szorongás, hangulatingadozás. Mozgás és rendszeres napirend segít."
+    },
+    {
+     "minDay": 7,
+     "maxDay": 14,
+     "when": "2. hét",
+     "icon": "trending_down",
+     "text": "A legtöbb tünet enyhül. Az alvás még hullámzó lehet, az élénk álmok egy ideig maradhatnak."
+    },
+    {
+     "minDay": 15,
+     "maxDay": 30,
+     "when": "3–4. hét",
+     "icon": "psychology",
+     "text": "A legtöbb embernél a megvonási tünetek elmúlnak. Sokan tisztább gondolkodásról és jobb memóriáról számolnak be."
+    },
+    {
+     "minDay": 31,
+     "maxDay": null,
+     "when": "1 hónapon túl",
+     "icon": "auto_awesome",
+     "text": "A motiváció és a koncentráció javulhat. A stresszkezelés új, egészséges módjai rögzülnek."
+    }
+   ]
+  },
+  "koromragas": {
+   "badge": "Körömrágás nélkül",
+   "icon": "back_hand",
+   "heading": "Mi történik a kezeden?",
+   "cardTitle": "Mi történik most?",
+   "intro": "A körömrágás gyakori, ismétlődő szokás, többnyire feszültség vagy unalom idején. A szokásfordítás (habit reversal) módszere jól kutatott és hatékony.",
+   "safety": null,
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma",
+     "icon": "back_hand",
+     "text": "Figyeld meg, mikor emeled a kezed a szádhoz. Készíts elő valamit, amivel lekötheted a kezed (stresszlabda, gyűrű)."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 7,
+     "when": "1. hét",
+     "icon": "bolt",
+     "text": "Az automatikus mozdulat még sokszor előjön. Ilyenkor ökölbe szorított kéz 1 percig: ez a szokásfordítás alaplépése."
+    },
+    {
+     "minDay": 8,
+     "maxDay": 30,
+     "when": "2–4. hét",
+     "icon": "spa",
+     "text": "A köröm körüli bőr gyógyulni kezd, a sebek és berepedések eltűnnek."
+    },
+    {
+     "minDay": 31,
+     "maxDay": 120,
+     "when": "1–4 hónap",
+     "icon": "trending_down",
+     "text": "A köröm havonta nagyjából 3 mm-t nő, így pár hónap alatt teljesen visszanőhet."
+    },
+    {
+     "minDay": 121,
+     "maxDay": null,
+     "when": "4 hónapon túl",
+     "icon": "auto_awesome",
+     "text": "A szokás helyét új reakció vette át. Feszültség idején már mást csinál a kezed."
+    }
+   ]
+  },
+  "altalanos": {
+   "badge": "Saját szokás",
+   "icon": "star",
+   "heading": "Mi történik benned?",
+   "cardTitle": "Mi történik most benned?",
+   "intro": "Bármilyen szokás elhagyása hasonló utat jár be: az első napok a legnehezebbek, aztán a késztetés ritkul. Általános, viselkedéskutatásra épülő kép.",
+   "safety": null,
+   "stages": [
+    {
+     "minDay": 0,
+     "maxDay": 0,
+     "when": "Ma",
+     "icon": "star",
+     "text": "Az első nap a döntés napja. Gondold végig, mikor és hol szokott előjönni a késztetés, és mi lesz a helyette-terved."
+    },
+    {
+     "minDay": 1,
+     "maxDay": 3,
+     "when": "1–3. nap",
+     "icon": "thunderstorm",
+     "text": "A szokás-hurok ilyenkor a legerősebb: a megszokott helyzetekben szinte automatikusan jön a késztetés. Ez nem gyengeség, hanem idegrendszeri beidegződés."
+    },
+    {
+     "minDay": 4,
+     "maxDay": 21,
+     "when": "1–3. hét",
+     "icon": "balance",
+     "text": "A késztetések ritkulnak és rövidülnek. Minden kibírt hullám gyengíti a régi kapcsolatot."
+    },
+    {
+     "minDay": 22,
+     "maxDay": 66,
+     "when": "3–9. hét",
+     "icon": "psychology",
+     "text": "A kutatások szerint egy új szokás átlagosan két hónap alatt válik automatikussá. Ez az az időszak, amikor az új út kitapossa magát."
+    },
+    {
+     "minDay": 67,
+     "maxDay": null,
+     "when": "2 hónapon túl",
+     "icon": "auto_awesome",
+     "text": "Az új szokás lett az alap. A régi már inkább emlék, mint késztetés."
+    }
+   ]
   }
  },
  "messages": {
@@ -573,6 +954,118 @@
    {
     "icon": "call",
     "text": "Hívd fel a bizalmi segítődet, vagy menj oda valakihez, akivel most beszélgethetsz."
+   }
+  ],
+  "koffein": [
+   {
+    "icon": "water_drop",
+    "text": "Igyál meg egy nagy pohár vizet: a fáradtság egy része gyakran folyadékhiány."
+   },
+   {
+    "icon": "directions_walk",
+    "text": "Menj ki 5 percre a friss levegőre, a fény és a mozgás természetes ébresztő."
+   },
+   {
+    "icon": "coffee",
+    "text": "Ha nagyon kell, válts koffeinmentesre vagy gyógyteára: a rituálé maradhat."
+   }
+  ],
+  "nassolas": [
+   {
+    "icon": "water_drop",
+    "text": "Igyál egy pohár vizet, és várj 10 percet: kiderül, éhség-e vagy szokás."
+   },
+   {
+    "icon": "restaurant",
+    "text": "Ha éhes vagy, egyél rendes, tápláló uzsonnát. Ez nem kudarc, hanem gondoskodás."
+   },
+   {
+    "icon": "edit_note",
+    "text": "Írd le, mi történt közvetlenül a késztetés előtt. Unalom, fáradtság vagy stressz?"
+   }
+  ],
+  "szerencsejatek": [
+   {
+    "icon": "call",
+    "text": "Hívd fel a bizalmi embered, és mondd ki hangosan, hogy most játszanál."
+   },
+   {
+    "icon": "timer",
+    "text": "Az erős késztetés 15–20 perc alatt lecseng. Állíts be egy időzítőt, és csinálj addig mást."
+   },
+   {
+    "icon": "shield",
+    "text": "Ha még nem tetted meg, kérj önkizárást a fogadóoldalakon."
+   }
+  ],
+  "vasarlas": [
+   {
+    "icon": "timer",
+    "text": "48 órás szabály: hagyd a kosárban, és két nap múlva döntsd el."
+   },
+   {
+    "icon": "edit_note",
+    "text": "Írd le, mit éreznél, ha megvennéd. Melyik érzést keresed most?"
+   },
+   {
+    "icon": "phonelink_off",
+    "text": "Zárd be a vásárlós appot, és tedd el a telefont 10 percre."
+   }
+  ],
+  "gaming": [
+   {
+    "icon": "directions_walk",
+    "text": "Állj fel és mozogj 5 percet: a test felébreszti a fejet is."
+   },
+   {
+    "icon": "diversity_1",
+    "text": "Írj egy barátodnak, vagy beszélj valakivel élőben."
+   },
+   {
+    "icon": "task_alt",
+    "text": "Válassz egy rövid, kézzelfogható feladatot, és fejezd be."
+   }
+  ],
+  "cannabis": [
+   {
+    "icon": "air",
+    "text": "Lassú légzés: 4 mp be, 6 mp ki, öt percig. Csillapítja a nyugtalanságot."
+   },
+   {
+    "icon": "directions_run",
+    "text": "Egy kiadós séta vagy edzés természetes módon csökkenti a feszültséget."
+   },
+   {
+    "icon": "call",
+    "text": "Beszélj valakivel, akiben megbízol, vagy hívd a segélyvonalat."
+   }
+  ],
+  "koromragas": [
+   {
+    "icon": "back_hand",
+    "text": "Szorítsd ökölbe a kezed 1 percig: ez a szokásfordítás alaplépése."
+   },
+   {
+    "icon": "touch_app",
+    "text": "Fogj valamit a kezedbe: stresszlabda, toll, gyűrű."
+   },
+   {
+    "icon": "spa",
+    "text": "Ápold a körmöd: krém, reszelő. Amire vigyázol, azt kevésbé rágod."
+   }
+  ],
+  "altalanos": [
+   {
+    "icon": "timer",
+    "text": "A késztetés hullám: 10–20 perc alatt lecseng. Állíts be egy időzítőt."
+   },
+   {
+    "icon": "directions_walk",
+    "text": "Változtass helyet: menj ki a szobából vagy az épületből 5 percre."
+   },
+   {
+    "icon": "call",
+    "text": "Hívd fel vagy írj a bizalmi emberednek."
    }
   ]
  },

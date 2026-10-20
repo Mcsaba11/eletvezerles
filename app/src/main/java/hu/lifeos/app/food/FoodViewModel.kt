@@ -32,6 +32,39 @@ class FoodViewModel(private val c: AppContainer) : ViewModel() {
 
     fun markSetup() = repo.update { it.copy(setupDone = true) }
 
+    // ---------- Fókuszcsomagok ----------
+    fun setPacks(ids: Collection<String>) = repo.update { it.copy(packs = FoodPacks.ALL.filter { p -> p in ids }, setupDone = true) }
+    fun togglePack(id: String) = repo.update { s ->
+        val cur = s.packIds()
+        s.copy(packs = FoodPacks.ALL.filter { p -> if (p == id) p !in cur else p in cur }, setupDone = true)
+    }
+
+    // ---------- Étkezési zavar csomag: számok nélküli rögzítés ----------
+    fun logMeal(desc: String, meal: String, t: String, hunger: Int?, full: Int?, feel: String?, day: String = _view.value.toString()) {
+        repo.update { s ->
+            s.withDay(day) { d ->
+                d.copy(items = d.items + FoodEntry(id = FoodLogic.rid(), name = desc.trim(), meal = meal, t = t, hunger = hunger, full = full, feel = feel))
+            }
+        }
+    }
+
+    fun updateEntry(e: FoodEntry) {
+        val day = _view.value.toString()
+        repo.update { s -> s.withDay(day) { d -> d.copy(items = d.items.map { if (it.id == e.id) e else it }) } }
+    }
+
+    // ---------- Cukorbetegség csomag: vércukornapló ----------
+    fun addBg(v: Double, ctx: String, t: String) {
+        if (v <= 0) return
+        val day = _view.value.toString()
+        repo.update { s -> s.withDay(day) { d -> d.copy(bg = (d.bg + BgRec(FoodLogic.rid(), t, v, ctx)).sortedBy { it.t }) } }
+    }
+
+    fun deleteBg(id: String) {
+        val day = _view.value.toString()
+        repo.update { s -> s.withDay(day) { d -> d.copy(bg = d.bg.filter { it.id != id }) } }
+    }
+
     fun addEntry(f: Food, g: Double, meal: String, t: String, day: String = _view.value.toString(), est: String? = null) {
         if (g <= 0) return
         repo.update { s -> s.withDay(day) { d -> d.copy(items = d.items + logic.entry(f, g, meal, t, est)) } }
@@ -86,7 +119,7 @@ class FoodViewModel(private val c: AppContainer) : ViewModel() {
         )
         val items = rows.mapNotNull { r ->
             val f = logic.findFood(s0, r[0] as String) ?: return@mapNotNull null
-            logic.entry(f.copy(name = f.name + sampleSuffix), (r[1] as Int).toDouble(), content.meals[r[2] as Int], r[3] as String, null)
+            logic.entry(f.copy(name = f.name + sampleSuffix), (r[1] as Int).toDouble(), logic.defaultMeal(s0.profile, s0.packFlags(), java.time.LocalTime.parse(r[3] as String)), r[3] as String, null)
         }
         repo.update { s -> s.withDay(day) { d -> d.copy(items = d.items + items) } }
     }
@@ -114,7 +147,7 @@ class FoodViewModel(private val c: AppContainer) : ViewModel() {
     // ---------- Profil ----------
     fun setProfile(fn: (Profile) -> Profile) = repo.update { s -> s.copy(profile = fn(s.profile), setupDone = true) }
 
-    fun wipe() = repo.update { FoodState(profile = content.defProfile, setupDone = true) }
+    fun wipe() = repo.update { FoodState(profile = content.defProfile, setupDone = true, packs = it.packs) }
 
     fun importLegacy(text: String, onResult: (Int?) -> Unit) = viewModelScope.launch {
         onResult(runCatching { repo.importLegacy(text) }.getOrNull())

@@ -61,7 +61,7 @@ val dockTabs = listOf(
 @Composable
 fun TopHeader(
     status: String, statusColor: Color, initials: String,
-    onSos: () -> Unit, onProfile: () -> Unit, modifier: Modifier = Modifier, subtitle: String? = null,
+    onSos: (() -> Unit)?, onProfile: () -> Unit, modifier: Modifier = Modifier, subtitle: String? = null,
 ) {
     val thump = rememberThump()
     Row(
@@ -81,7 +81,7 @@ fun TopHeader(
             }
             Text(subtitle ?: (stringResource(R.string.today) + ", " + Fmt.dayFull(LocalDate.now())), style = MaterialTheme.typography.bodySmall, color = Noc.text2, maxLines = 1)
         }
-        Row(
+        if (onSos != null) Row(
             Modifier.clip(RoundedCornerShape(50)).background(Noc.sos.copy(alpha = 0.14f)).border(1.dp, Noc.sos.copy(alpha = 0.45f), RoundedCornerShape(50))
                 .clickable { thump(); onSos() }.padding(horizontal = 12.dp, vertical = 6.dp),
             verticalAlignment = Alignment.CenterVertically,

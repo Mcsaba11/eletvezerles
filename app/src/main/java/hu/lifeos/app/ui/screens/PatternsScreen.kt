@@ -1,5 +1,7 @@
 package hu.lifeos.app.ui.screens
 
+import hu.lifeos.app.food.packFlags
+
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -94,11 +96,14 @@ fun PatternsScreen(
     val entries by vm.recentEntries.collectAsState()
     val wheel by vm.lifeWheel.collectAsState()
     val st by satori.state.collectAsState()
+    val settings by vm.settings.collectAsState()
     val fs by food.state.collectAsState()
     val c = satori.content
+    val satoriOn = settings?.moduleOn(hu.lifeos.app.data.Modules.SATORI) ?: true
+    val glOn = (settings?.moduleOn(hu.lifeos.app.data.Modules.FOOD) ?: true) && fs.packFlags().ir
     var rate by remember { mutableStateOf(false) }
     val ser = Insights.series(14, moods, fs, food.logic, st, entries)
-    val patterns = Insights.patterns(Insights.series(60, moods, fs, food.logic, st, entries), st, c)
+    val patterns = Insights.patterns(Insights.series(60, moods, fs, food.logic, st, entries), st, c, satoriOn)
     val dimNames = WHEEL_DIMS.map { stringResource(it) }
     val mk = LocalDate.now().toString().take(7)
     val cur = wheel[mk]
@@ -173,20 +178,20 @@ fun PatternsScreen(
                 LineChart(
                     listOf(
                         ser.map { it.mood?.let { m -> (m - 1) / 4.0 } } to Noc.amber,
-                        ser.map { it.gl?.let { g -> g / maxGl } } to Noc.coral,
-                        ser.map { it.cravings / maxCr } to Noc.cyan,
+                        ser.map { if (glOn) it.gl?.let { g -> g / maxGl } else null } to Noc.coral,
+                        ser.map { if (satoriOn) it.cravings / maxCr else null } to Noc.cyan,
                     ),
                     Modifier.fillMaxWidth().height(170.dp),
                 )
                 VSpace(8)
                 Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                    Legend(Noc.amber, stringResource(R.string.type_mood)); Legend(Noc.coral, stringResource(R.string.food_gl)); Legend(Noc.cyan, stringResource(R.string.legend_cravings))
+                    Legend(Noc.amber, stringResource(R.string.type_mood)); if (glOn) Legend(Noc.coral, stringResource(R.string.food_gl)); if (satoriOn) Legend(Noc.cyan, stringResource(R.string.legend_cravings))
                 }
             }
         }
 
         // ---------- Megtakarítás és Satori ----------
-        item {
+        if (satoriOn && st.onboardingDone == true) item {
             val d = st.cur()
             val saved = d.dailyCost * d.streak
             val days = ser.count { s -> s.cravings == 0 }

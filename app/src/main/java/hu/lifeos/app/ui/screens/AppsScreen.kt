@@ -44,6 +44,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import hu.lifeos.app.R
+import hu.lifeos.app.data.AppSettings
+import hu.lifeos.app.data.Modules
 import hu.lifeos.app.ui.AppCard
 import hu.lifeos.app.ui.Pill
 import hu.lifeos.app.ui.SectionLabel
@@ -53,14 +55,14 @@ private data class MiniApp(val name: Int, val desc: Int, val icon: ImageVector, 
 
 @Composable
 fun AppsScreen(
-    contentPadding: PaddingValues,
+    contentPadding: PaddingValues, settings: AppSettings, onToggleModule: (String) -> Unit,
     onOpenSatori: () -> Unit, onOpenFood: () -> Unit, onOpenCalendar: () -> Unit, onOpenTodos: () -> Unit, onOpenSettings: () -> Unit,
 ) {
-    val active = listOf(
-        MiniApp(R.string.satori_name, R.string.app_satori_desc, Icons.Outlined.Spa, { Noc.amber }, onOpenSatori),
-        MiniApp(R.string.app_food, R.string.app_food_desc, Icons.Outlined.Restaurant, { Noc.good }, onOpenFood),
-        MiniApp(R.string.tab_calendar, R.string.app_calendar_desc, Icons.Outlined.CalendarToday, { Noc.sapphire }, onOpenCalendar),
-        MiniApp(R.string.tab_todos, R.string.app_todos_desc, Icons.Outlined.CheckCircle, { Noc.cyan }, onOpenTodos),
+    val active = listOfNotNull(
+        if (settings.moduleOn(Modules.SATORI)) MiniApp(R.string.satori_name, R.string.app_satori_desc, Icons.Outlined.Spa, { Noc.amber }, onOpenSatori) else null,
+        if (settings.moduleOn(Modules.FOOD)) MiniApp(R.string.app_food, R.string.app_food_desc, Icons.Outlined.Restaurant, { Noc.good }, onOpenFood) else null,
+        if (settings.moduleOn(Modules.TASKS)) MiniApp(R.string.tab_calendar, R.string.app_calendar_desc, Icons.Outlined.CalendarToday, { Noc.sapphire }, onOpenCalendar) else null,
+        if (settings.moduleOn(Modules.TASKS)) MiniApp(R.string.tab_todos, R.string.app_todos_desc, Icons.Outlined.CheckCircle, { Noc.cyan }, onOpenTodos) else null,
     )
     val soon = listOf(
         MiniApp(R.string.app_money, R.string.app_money_desc, Icons.Outlined.AccountBalanceWallet, { Noc.sapphire }),
@@ -82,8 +84,15 @@ fun AppsScreen(
                 Text(stringResource(R.string.apps_sub), style = MaterialTheme.typography.bodyMedium, color = Noc.text2)
             }
         }
-        item(span = { GridItemSpan(2) }) { SectionLabel(stringResource(R.string.apps_active)) }
+        if (active.isNotEmpty()) item(span = { GridItemSpan(2) }) { SectionLabel(stringResource(R.string.apps_active)) }
         items(active) { a -> Tile(a, ready = true) }
+        item(span = { GridItemSpan(2) }) {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                SectionLabel(stringResource(R.string.apps_modules))
+                Text(stringResource(R.string.apps_modules_sub), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
+                MODULE_INFO.forEach { m -> ModuleTile(m, settings.moduleOn(m.id)) { onToggleModule(m.id) } }
+            }
+        }
         item(span = { GridItemSpan(2) }) { SectionLabel(stringResource(R.string.apps_soon)) }
         items(soon) { a -> Tile(a, ready = false) }
         item(span = { GridItemSpan(2) }) {

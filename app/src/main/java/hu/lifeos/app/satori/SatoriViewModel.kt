@@ -35,8 +35,40 @@ class SatoriViewModel(private val c: AppContainer) : ViewModel() {
     fun setMode(id: String) = c.satori.update { SatoriLogic.setMode(it, id) }
     fun setWeeklyAllowance(n: Int) = c.satori.update { s -> s.withCur { it.copy(weeklyAllowance = n.coerceIn(0, 7)) } }
 
-    fun finishOnboarding(type: String, theme: String, mode: String) = c.satori.update {
-        SatoriLogic.setMode(it.copy(type = type, theme = theme, onboardingDone = true), mode)
+    fun finishOnboarding(types: List<String>, theme: String, mode: String) = c.satori.update {
+        val list = types.ifEmpty { listOf(it.type) }
+        SatoriLogic.setMode(it.copy(type = list.first(), followed = list, theme = theme, onboardingDone = true), mode)
+    }
+
+    // ---------- Követett és saját szokások ----------
+    fun follow(id: String) = c.satori.update { s ->
+        val data = if (s.data.containsKey(id)) s.data else s.data + (id to TypeData())
+        s.copy(followed = (s.followedIds() + id).distinct(), type = id, data = data)
+    }
+
+    fun unfollow(id: String) = c.satori.update { s ->
+        val rest = s.followedIds() - id
+        if (rest.isEmpty()) s else s.copy(followed = rest, type = if (s.type == id) rest.first() else s.type)
+    }
+
+    /** Új saját szokás; visszaadja az azonosítóját. */
+    fun addCustomHabit(label: String, icon: String, dailyCost: Double): String {
+        val id = "sajat_" + java.util.UUID.randomUUID().toString().take(6)
+        c.satori.update { s ->
+            s.copy(
+                custom = s.custom + TypeDef(id, label.trim(), icon),
+                followed = (s.followedIds() + id).distinct(),
+                type = id,
+                data = s.data + (id to TypeData(dailyCost = dailyCost)),
+            )
+        }
+        return id
+    }
+
+    fun deleteCustomHabit(id: String) = c.satori.update { s ->
+        val rest = s.followedIds() - id
+        s.copy(custom = s.custom.filter { it.id != id }, followed = rest, data = s.data - id,
+            type = if (s.type == id) rest.firstOrNull() ?: content.types.first().id else s.type)
     }
 
     fun togglePledge() = c.satori.update { s ->

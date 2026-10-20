@@ -55,7 +55,7 @@ import hu.lifeos.app.ui.screens.SettingsScreen
 import hu.lifeos.app.ui.screens.TimelineScreen
 import hu.lifeos.app.ui.screens.TodayScreen
 import hu.lifeos.app.ui.screens.TodosScreen
-import hu.lifeos.app.ui.screens.WelcomeScreen
+import hu.lifeos.app.ui.screens.SetupWizard
 import hu.lifeos.app.ui.theme.Noc
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -75,7 +75,7 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, act
     val settings by vm.settings.collectAsState()
     val s = settings ?: return
     if (!s.welcomeDone) {
-        WelcomeScreen(onDone = { name -> vm.updateSettings { it.copy(name = name, welcomeDone = true) } })
+        SetupWizard(s, food, onFinish = { next -> vm.updateSettings { next } })
         return
     }
 
@@ -123,7 +123,8 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, act
                 TopHeader(
                     status = stringResource(if (flow) R.string.status_in_flow else R.string.status_care),
                     statusColor = if (flow) Noc.good else Noc.amber,
-                    initials = initials, onSos = { openSatori(true) }, onProfile = { nav.navigate("settings") },
+                    initials = initials, onSos = if (s.moduleOn(hu.lifeos.app.data.Modules.SATORI)) ({ openSatori(true) }) else null,
+                    onProfile = { nav.navigate("settings") },
                 )
             }
             NavHost(
@@ -155,7 +156,7 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, act
                 }
                 composable("apps") {
                     AppsScreen(
-                        tabPadding,
+                        tabPadding, s, onToggleModule = { id -> vm.updateSettings { st -> val cur = st.modules ?: hu.lifeos.app.data.Modules.ALL; st.copy(modules = if (id in cur) cur - id else cur + id) } },
                         onOpenSatori = { openSatori() }, onOpenFood = { nav.navigate("food") },
                         onOpenCalendar = { nav.navigate("calendar") }, onOpenTodos = { nav.navigate("todos") },
                         onOpenSettings = { nav.navigate("settings") },

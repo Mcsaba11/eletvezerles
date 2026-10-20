@@ -1,5 +1,7 @@
 package hu.lifeos.app.insight
 
+import hu.lifeos.app.food.packFlags
+
 import hu.lifeos.app.data.EntryEntity
 import hu.lifeos.app.data.EntryKind
 import hu.lifeos.app.data.MoodEntity
@@ -58,16 +60,17 @@ object Insights {
             val d = t.minusDays(i.toLong()); val k = d.toString()
             val items = food.day(k).items
             val tot = logic.totals(items)
+            val packs = food.packFlags()
             DaySeries(
                 d, moodBy[k]?.mood?.toDouble(),
-                if (items.isEmpty()) null else tot.gl, if (items.isEmpty()) null else tot.kcal,
+                if (items.isEmpty() || !packs.ir) null else tot.gl, if (items.isEmpty() || !packs.numbers) null else tot.kcal,
                 (cravBy[k] ?: 0) + (journalHard[k] ?: 0), spendBy[k] ?: 0.0,
             )
         }
     }
 
     /** Észrevett mintázatok, a legerősebb elöl. A szövegek magyarok (a tartalom része). */
-    fun patterns(ser: List<DaySeries>, satori: SatoriState, content: SatoriContent): List<Pattern> {
+    fun patterns(ser: List<DaySeries>, satori: SatoriState, content: SatoriContent, satoriOn: Boolean = true): List<Pattern> {
         val out = mutableListOf<Pattern>()
         // Hangulat és glikémiás terhelés
         val mg = ser.filter { it.mood != null && it.gl != null }
@@ -86,7 +89,7 @@ object Insights {
                 "A nehezebb, sóvárgással teli napjaidon rosszabb a hangulatod. Ilyenkor érdemes előre betervezni egy sétát vagy a légzést.", kotlin.math.abs(r))
         }
         // Napszak
-        SatoriLogic.topRiskyDaypart(satori.cur())?.let { risk ->
+        if (satoriOn) SatoriLogic.topRiskyDaypart(satori.cur())?.let { risk ->
             out += Pattern("Kockázatos napszak", "${risk.share}%",
                 "A nehezebb pillanataid ${risk.share}%-a ${content.daypartLabel[risk.part] ?: risk.part} jelentkezik. Erre az időszakra készíts egy Ha… akkor… tervet.", risk.share / 100.0)
         }
@@ -107,16 +110,24 @@ object Insights {
     fun dailyInsight(
         food: FoodState, logic: FoodLogic, satori: SatoriState, content: SatoriContent,
         mood: MoodEntity?, todos: List<TodoEntity>, nextEvent: String?, now: LocalTime = LocalTime.now(),
+        foodOn: Boolean = true, satoriOn: Boolean = true,
     ): String {
         val parts = mutableListOf<String>()
-        val f = fast(food, logic, now)
-        parts += if (f.eating) "Az étkezési ablakod ${f.closes}-kor zárul, még ${f.minutesLeft / 60} ó ${f.minutesLeft % 60} p van hátra."
-        else "A mai étkezési ablakod ${f.opens}-kor nyílik, addig víz, fekete kávé vagy tea."
-        val d = satori.cur()
-        val risk = SatoriLogic.topRiskyDaypart(d)
-        val nowPart = SatoriLogic.daypartOf("%02d:%02d".format(now.hour, now.minute))
-        if (risk != null && risk.part == nowPart) parts += "Ez a napszak szokott neked a legnehezebb lenni: tartsd kéznél az SOS-t és a légzést."
-        else if (d.streak > 0) parts += "${d.streak}. napja tartod a(z) ${content.type(satori.type).label} utat."
+        val packs = food.packFlags()
+        if (foodOn && packs.fast) {
+            val f = fast(food, logic, now)
+            parts += if (f.eating) "Az étkezési ablakod ${f.closes}-kor zárul, még ${f.minutesLeft / 60} ó ${f.minutesLeft % 60} p van hátra."
+            else "A mai étkezési ablakod ${f.opens}-kor nyílik, addig víz, fekete kávé vagy tea."
+        } else if (foodOn && packs.ed) {
+            if (food.day(LocalDate.now().toString()).items.isEmpty() && now.hour >= 10) parts += "Ma még nem rögzítettél étkezést. Ha készen állsz, egy kis reggeli vagy tízórai jót tesz."
+        }
+        if (satoriOn && satori.onboardingDone == true) {
+            val d = satori.cur()
+            val risk = SatoriLogic.topRiskyDaypart(d)
+            val nowPart = SatoriLogic.daypartOf("%02d:%02d".format(now.hour, now.minute))
+            if (risk != null && risk.part == nowPart) parts += "Ez a napszak szokott neked a legnehezebb lenni: tartsd kéznél az SOS-t és a légzést."
+            else if (d.streak > 0) parts += "${d.streak}. napja tartod a(z) ${content.type(satori.type).label} utat."
+        }
         when {
             mood?.mood != null && mood.mood <= 2 -> parts += "Ma nehezebb napod van, legyél kedves magadhoz: egy rövid séta vagy pár perc légzés is számít."
             nextEvent != null -> parts += "Következő programod: $nextEvent."
@@ -124,6 +135,11 @@ object Insights {
         val today = LocalDate.now().toString()
         val overdue = todos.count { !it.done && it.dueDate != null && it.dueDate < today }
         if (overdue > 0) parts += "$overdue lejárt teendőd vár, válassz ki egyet, és zárd le ma."
+        if (parts.isEmpty()) parts += when (now.hour) {
+            in 5..10 -> "Jó reggelt! Válassz ki egy dolgot, amire ma igazán figyelni szeretnél, és rögzítsd a gyorsbevitellel."
+            in 11..17 -> "Tarts egy rövid szünetet: egy pohár víz és pár mély lélegzet sokat segít a délutáni lendületben."
+            else -> "Ideje lassítani. Mi volt ma a legjobb pillanatod? Írd le egy mondatban."
+        }
         return parts.take(3).joinToString(" ")
     }
 

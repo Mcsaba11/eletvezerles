@@ -49,6 +49,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hu.lifeos.app.BuildConfigInfo
 import hu.lifeos.app.R
+import androidx.compose.material.icons.outlined.KeyboardArrowDown
+import androidx.compose.material.icons.outlined.KeyboardArrowUp
+import hu.lifeos.app.data.Modules
+import hu.lifeos.app.data.HomeCards
 import hu.lifeos.app.container
 import hu.lifeos.app.data.Backup
 import hu.lifeos.app.data.ImportKind
@@ -160,6 +164,38 @@ fun SettingsScreen(vm: MainViewModel, satori: SatoriViewModel, onBack: () -> Uni
                     suffix = { Text("Ft") },
                     keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Number),
                 )
+            }
+
+            SectionLabel(stringResource(R.string.apps_modules))
+            AppCard {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    MODULE_INFO.forEach { m ->
+                        ModuleTile(m, settings.moduleOn(m.id)) {
+                            vm.updateSettings { st -> val cur = st.modules ?: Modules.ALL; st.copy(modules = if (m.id in cur) cur - m.id else cur + m.id) }
+                        }
+                    }
+                }
+            }
+
+            SectionLabel(stringResource(R.string.home_cards))
+            AppCard {
+                Text(stringResource(R.string.home_cards_sub), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                VSpace(6)
+                val order = HomeCards.ordered(settings).filter { id -> HomeCards.module(id)?.let(settings::moduleOn) ?: true }
+                order.forEachIndexed { i, id ->
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(stringResource(homeCardLabel(id)), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
+                        IconButton(onClick = { vm.updateSettings { st -> st.copy(homeOrder = moveCard(HomeCards.ordered(st), id, -1)) } }, enabled = i > 0) {
+                            Icon(Icons.Outlined.KeyboardArrowUp, stringResource(R.string.move_up))
+                        }
+                        IconButton(onClick = { vm.updateSettings { st -> st.copy(homeOrder = moveCard(HomeCards.ordered(st), id, 1)) } }, enabled = i < order.size - 1) {
+                            Icon(Icons.Outlined.KeyboardArrowDown, stringResource(R.string.move_down))
+                        }
+                        Switch(id !in settings.homeHidden, { on -> vm.updateSettings { st -> st.copy(homeHidden = if (on) st.homeHidden - id else st.homeHidden + id) } })
+                    }
+                }
+                VSpace(6)
+                TextButton(onClick = { vm.updateSettings { it.copy(welcomeDone = false) } }) { Text(stringResource(R.string.wiz_restart)) }
             }
 
             SectionLabel(stringResource(R.string.tab_calendar))
@@ -285,3 +321,25 @@ fun SwitchRow(title: String, sub: String?, checked: Boolean, onChange: (Boolean)
     }
 }
 
+/** A kezdőlap-kártya neve a beállításokhoz. */
+fun homeCardLabel(id: String): Int = when (id) {
+    "capture" -> R.string.hc_capture
+    "insight" -> R.string.sensei_insight
+    "food" -> R.string.app_food
+    "satori" -> R.string.satori_name
+    "breath" -> R.string.hc_breath
+    "mood" -> R.string.mood_title
+    "money" -> R.string.card_money
+    "focus" -> R.string.card_focus
+    "wheel" -> R.string.wheel_title
+    else -> R.string.hc_quote
+}
+
+/** Egy kártya mozgatása a sorrendben (dir = -1 fel, +1 le). */
+fun moveCard(order: List<String>, id: String, dir: Int): List<String> {
+    val l = order.toMutableList()
+    val i = l.indexOf(id); val j = i + dir
+    if (i < 0 || j !in l.indices) return order
+    l[i] = l[j]; l[j] = id
+    return l
+}
