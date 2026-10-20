@@ -2,6 +2,7 @@ package hu.lifeos.app.ui.theme
 
 import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
@@ -9,102 +10,156 @@ import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
+import hu.lifeos.app.R
 import hu.lifeos.app.satori.ThemeColors
 
-private val DarkCore = darkColorScheme(
-    primary = Color(0xFF88D7AD),
-    onPrimary = Color(0xFF00391F),
-    primaryContainer = Color(0xFF0E4F33),
-    onPrimaryContainer = Color(0xFFA4F3C8),
-    secondary = Color(0xFFB3CCBE),
-    onSecondary = Color(0xFF1F352A),
-    secondaryContainer = Color(0xFF354B40),
-    onSecondaryContainer = Color(0xFFCFE9D9),
-    tertiary = Color(0xFFE9C349),
-    onTertiary = Color(0xFF3C2F00),
-    tertiaryContainer = Color(0xFF574500),
-    onTertiaryContainer = Color(0xFFFFE088),
-    background = Color(0xFF101314),
-    onBackground = Color(0xFFE1E3E0),
-    surface = Color(0xFF101314),
-    onSurface = Color(0xFFE1E3E0),
-    surfaceVariant = Color(0xFF404943),
-    onSurfaceVariant = Color(0xFFBFC9C1),
-    surfaceContainerLowest = Color(0xFF0B0E0F),
-    surfaceContainerLow = Color(0xFF181C1C),
-    surfaceContainer = Color(0xFF1C2020),
-    surfaceContainerHigh = Color(0xFF262B2A),
-    surfaceContainerHighest = Color(0xFF313635),
-    outline = Color(0xFF89938C),
-    outlineVariant = Color(0xFF404943),
-    error = Color(0xFFFFB4AB),
+/*
+ * „Nocturne” arculat: éjkék alap, elektromos cián jel, borostyán meleg kiemelés.
+ * A sötét mód az alap; világos változat is van ugyanezekkel a szerepekkel.
+ */
+
+val Jakarta = FontFamily(
+    Font(R.font.jakarta_regular, FontWeight.Normal),
+    Font(R.font.jakarta_italic, FontWeight.Normal, FontStyle.Italic),
+    Font(R.font.jakarta_medium, FontWeight.Medium),
+    Font(R.font.jakarta_semibold, FontWeight.SemiBold),
+    Font(R.font.jakarta_bold, FontWeight.Bold),
+    Font(R.font.jakarta_extrabold, FontWeight.ExtraBold),
 )
 
-private val LightCore = lightColorScheme(
-    primary = Color(0xFF1B6B48),
-    onPrimary = Color.White,
-    primaryContainer = Color(0xFFA4F3C8),
-    onPrimaryContainer = Color(0xFF002113),
-    secondary = Color(0xFF4D6357),
-    onSecondary = Color.White,
-    secondaryContainer = Color(0xFFCFE9D9),
-    onSecondaryContainer = Color(0xFF0A1F15),
-    tertiary = Color(0xFF735C00),
-    onTertiary = Color.White,
-    tertiaryContainer = Color(0xFFFFE088),
-    onTertiaryContainer = Color(0xFF231B00),
-    background = Color(0xFFF7F8F4),
-    onBackground = Color(0xFF191C1A),
-    surface = Color(0xFFF7F8F4),
-    onSurface = Color(0xFF191C1A),
-    surfaceVariant = Color(0xFFDCE5DC),
-    onSurfaceVariant = Color(0xFF404943),
-    surfaceContainerLowest = Color.White,
-    surfaceContainerLow = Color(0xFFF1F3EF),
-    surfaceContainer = Color(0xFFEBEEE9),
-    surfaceContainerHigh = Color(0xFFE5E8E3),
-    surfaceContainerHighest = Color(0xFFDFE3DE),
-    outline = Color(0xFF707971),
-    outlineVariant = Color(0xFFC0C9C0),
+/** Az arculat különleges színei, amelyek nem férnek bele a Material szerepekbe. */
+@Immutable
+data class Palette(
+    val dark: Boolean,
+    val abyss: Color,
+    val canvas: Color,
+    val card: Color,
+    val cardElevated: Color,
+    val stroke: Color,
+    val sheen: Color,
+    val well: Color,
+    val cyan: Color,
+    val sapphire: Color,
+    val ice: Color,
+    val amber: Color,
+    val coral: Color,
+    val sos: Color,
+    val good: Color,
+    val text: Color,
+    val text2: Color,
+    val text3: Color,
+    val violet: Color,
+)
+
+val DarkPalette = Palette(
+    dark = true,
+    abyss = Color(0xFF060913), canvas = Color(0xFF0A0F1D), card = Color(0xFF161F36), cardElevated = Color(0xFF1E293B),
+    stroke = Color(0xA62A3859), sheen = Color(0x14FFFFFF), well = Color(0xFF0F172A),
+    cyan = Color(0xFF00F2FE), sapphire = Color(0xFF38BDF8), ice = Color(0xFF93C5FD), amber = Color(0xFFF59E0B),
+    coral = Color(0xFFFB7185), sos = Color(0xFFF43F5E), good = Color(0xFF34D399),
+    text = Color(0xFFF8FAFC), text2 = Color(0xFF94A3B8), text3 = Color(0xFF64748B), violet = Color(0xFFA78BFA),
+)
+
+val LightPalette = Palette(
+    dark = false,
+    abyss = Color(0xFFE6ECF5), canvas = Color(0xFFF3F6FB), card = Color(0xFFFFFFFF), cardElevated = Color(0xFFFFFFFF),
+    stroke = Color(0xFFDCE3EE), sheen = Color(0x00FFFFFF), well = Color(0xFFE9EEF6),
+    cyan = Color(0xFF0891B2), sapphire = Color(0xFF0284C7), ice = Color(0xFF2563EB), amber = Color(0xFFD97706),
+    coral = Color(0xFFE11D48), sos = Color(0xFFE11D48), good = Color(0xFF059669),
+    text = Color(0xFF0F172A), text2 = Color(0xFF475569), text3 = Color(0xFF94A3B8), violet = Color(0xFF7C3AED),
+)
+
+val LocalPalette = staticCompositionLocalOf { DarkPalette }
+
+/** Rövid elérés: `Noc.cyan` stb. a kompozícióban. */
+val Noc: Palette @Composable get() = LocalPalette.current
+
+private fun schemeFor(p: Palette): ColorScheme = if (p.dark) darkColorScheme(
+    primary = p.cyan, onPrimary = Color(0xFF060913),
+    primaryContainer = Color(0xFF0B3A4A), onPrimaryContainer = Color(0xFFB8FBFF),
+    secondary = p.sapphire, onSecondary = Color(0xFF00354A),
+    secondaryContainer = Color(0xFF13324A), onSecondaryContainer = Color(0xFFC4E7FF),
+    tertiary = p.amber, onTertiary = Color(0xFF2A1700),
+    tertiaryContainer = Color(0xFF3A2A12), onTertiaryContainer = Color(0xFFFFDDB8),
+    background = p.canvas, onBackground = p.text,
+    surface = p.canvas, onSurface = p.text,
+    surfaceVariant = Color(0xFF243049), onSurfaceVariant = p.text2,
+    surfaceContainerLowest = p.abyss, surfaceContainerLow = p.card, surfaceContainer = Color(0xFF1A2440),
+    surfaceContainerHigh = p.cardElevated, surfaceContainerHighest = Color(0xFF2A3859),
+    outline = Color(0xFF3A4A66), outlineVariant = Color(0xFF243049),
+    error = p.coral, onError = Color(0xFF3A0010), errorContainer = Color(0xFF4A1020), onErrorContainer = Color(0xFFFFDAD6),
+    inverseSurface = p.text, inverseOnSurface = p.canvas,
+) else lightColorScheme(
+    primary = p.cyan, onPrimary = Color.White,
+    primaryContainer = Color(0xFFCFF7FB), onPrimaryContainer = Color(0xFF053B47),
+    secondary = p.sapphire, onSecondary = Color.White,
+    secondaryContainer = Color(0xFFDBEEFC), onSecondaryContainer = Color(0xFF07344F),
+    tertiary = p.amber, onTertiary = Color.White,
+    tertiaryContainer = Color(0xFFFFEBC7), onTertiaryContainer = Color(0xFF4A2A00),
+    background = p.canvas, onBackground = p.text,
+    surface = p.canvas, onSurface = p.text,
+    surfaceVariant = Color(0xFFE2E8F0), onSurfaceVariant = p.text2,
+    surfaceContainerLowest = p.abyss, surfaceContainerLow = p.card, surfaceContainer = Color(0xFFF7F9FC),
+    surfaceContainerHigh = Color(0xFFEFF3F8), surfaceContainerHighest = Color(0xFFE2E8F0),
+    outline = Color(0xFFCBD5E1), outlineVariant = Color(0xFFE2E8F0),
+    error = p.coral, onError = Color.White, errorContainer = Color(0xFFFFE4E6), onErrorContainer = Color(0xFF4C0519),
 )
 
 val AppShapes = Shapes(
     extraSmall = RoundedCornerShape(8.dp),
     small = RoundedCornerShape(12.dp),
-    medium = RoundedCornerShape(18.dp),
+    medium = RoundedCornerShape(16.dp),
     large = RoundedCornerShape(24.dp),
-    extraLarge = RoundedCornerShape(32.dp),
+    extraLarge = RoundedCornerShape(28.dp),
 )
 
-private val base = Typography()
-val AppTypography = base.copy(
-    displaySmall = base.displaySmall.copy(fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.5).sp),
-    headlineMedium = base.headlineMedium.copy(fontWeight = FontWeight.ExtraBold, letterSpacing = (-0.3).sp),
-    headlineSmall = base.headlineSmall.copy(fontWeight = FontWeight.Bold),
-    titleLarge = base.titleLarge.copy(fontWeight = FontWeight.Bold),
-    titleMedium = base.titleMedium.copy(fontWeight = FontWeight.SemiBold),
-    labelSmall = TextStyle(fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp),
+private fun ts(size: Int, weight: FontWeight, line: Int, spacing: Double = 0.0) =
+    TextStyle(fontFamily = Jakarta, fontSize = size.sp, fontWeight = weight, lineHeight = line.sp, letterSpacing = spacing.sp)
+
+val AppTypography = Typography(
+    displayLarge = ts(44, FontWeight.Bold, 52, -1.2),
+    displayMedium = ts(36, FontWeight.Bold, 44, -1.0),
+    displaySmall = ts(30, FontWeight.Bold, 38, -0.75),
+    headlineLarge = ts(26, FontWeight.Bold, 34, -0.5),
+    headlineMedium = ts(22, FontWeight.Bold, 28, -0.33),
+    headlineSmall = ts(19, FontWeight.SemiBold, 26, -0.19),
+    titleLarge = ts(19, FontWeight.Bold, 26, -0.19),
+    titleMedium = ts(17, FontWeight.SemiBold, 24, -0.08),
+    titleSmall = ts(15, FontWeight.SemiBold, 20),
+    bodyLarge = ts(16, FontWeight.Normal, 24),
+    bodyMedium = ts(14, FontWeight.Normal, 20),
+    bodySmall = ts(13, FontWeight.Normal, 18),
+    labelLarge = ts(14, FontWeight.SemiBold, 18, 0.14),
+    labelMedium = ts(12, FontWeight.SemiBold, 16, 0.24),
+    labelSmall = ts(10, FontWeight.Bold, 14, 0.6),
 )
 
 @Composable
-fun AppTheme(darkMode: String = "system", content: @Composable () -> Unit) {
+fun AppTheme(darkMode: String = "dark", content: @Composable () -> Unit) {
     val dark = when (darkMode) {
-        "dark" -> true
         "light" -> false
-        else -> isSystemInDarkTheme()
+        "system" -> isSystemInDarkTheme()
+        else -> true
     }
-    val scheme = if (dark) DarkCore else LightCore
+    val palette = if (dark) DarkPalette else LightPalette
     SystemBars(dark)
-    MaterialTheme(colorScheme = scheme, typography = AppTypography, shapes = AppShapes, content = content)
+    CompositionLocalProvider(LocalPalette provides palette) {
+        MaterialTheme(colorScheme = schemeFor(palette), typography = AppTypography, shapes = AppShapes, content = content)
+    }
 }
 
 @Composable
@@ -123,37 +178,15 @@ private fun SystemBars(dark: Boolean) {
 
 fun hex(s: String): Color = Color(android.graphics.Color.parseColor(s))
 
-/** A Satori témák (zen, harcos, jóga…) mindig sötét, saját színvilágú sémát kapnak. */
-fun satoriScheme(c: ThemeColors): ColorScheme = darkColorScheme(
-    primary = hex(c.primary),
-    onPrimary = Color(0xFF2A0F0A),
-    primaryContainer = hex(c.primaryContainer),
-    onPrimaryContainer = hex(c.onPrimaryContainer),
-    secondary = hex(c.secondary),
-    onSecondary = Color(0xFF0B2014),
-    secondaryContainer = hex(c.secondaryContainer),
-    onSecondaryContainer = hex(c.onSecondaryContainer),
-    tertiary = hex(c.tertiary),
-    onTertiary = Color(0xFF241A00),
-    tertiaryContainer = hex(c.tertiaryContainer),
-    onTertiaryContainer = hex(c.onTertiaryContainer),
-    outline = hex(c.outline),
-    outlineVariant = hex(c.outlineVariant),
-    background = Color(0xFF111316),
-    onBackground = Color(0xFFEDE7E3),
-    surface = Color(0xFF111316),
-    onSurface = Color(0xFFEDE7E3),
-    surfaceVariant = Color(0xFF2A2D31),
-    onSurfaceVariant = Color(0xFFC9C2BE),
-    surfaceContainerLowest = Color(0xFF0C0E10),
-    surfaceContainerLow = Color(0xFF181B1E),
-    surfaceContainer = Color(0xFF1D2023),
-    surfaceContainerHigh = Color(0xFF272A2E),
-    surfaceContainerHighest = Color(0xFF323539),
-)
+/**
+ * A Satori a közös arculatot használja; a választott téma (zen, harcos…) csak a hangulatot,
+ * a szövegeket és a fotókat adja. Így minden modul egységes marad.
+ */
+@Composable
+fun satoriScheme(@Suppress("UNUSED_PARAMETER") c: ThemeColors): ColorScheme = MaterialTheme.colorScheme
 
 object StatusColors {
-    val ok = Color(0xFF7FD6A4)
-    val warn = Color(0xFFE9C349)
-    val bad = Color(0xFFFF8A7A)
+    val ok = Color(0xFF34D399)
+    val warn = Color(0xFFF59E0B)
+    val bad = Color(0xFFFB7185)
 }

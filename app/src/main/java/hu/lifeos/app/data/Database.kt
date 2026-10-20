@@ -120,6 +120,9 @@ interface KvDao {
     @Query("SELECT * FROM kv WHERE `key` = :key")
     suspend fun get(key: String): KvEntity?
 
+    @Query("SELECT * FROM kv WHERE `key` = :key")
+    fun observe(key: String): Flow<KvEntity?>
+
     @Upsert
     suspend fun put(e: KvEntity)
 

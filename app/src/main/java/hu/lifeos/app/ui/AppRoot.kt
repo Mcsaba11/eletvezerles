@@ -1,26 +1,24 @@
 package hu.lifeos.app.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Apps
-import androidx.compose.material.icons.outlined.CalendarToday
-import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.History
-import androidx.compose.material.icons.outlined.WbSunny
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -28,10 +26,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -43,31 +42,36 @@ import hu.lifeos.app.R
 import hu.lifeos.app.capture.CaptureType
 import hu.lifeos.app.food.FoodViewModel
 import hu.lifeos.app.food.ui.FoodRoot
+import hu.lifeos.app.insight.Insights
 import hu.lifeos.app.satori.SatoriViewModel
+import hu.lifeos.app.satori.ui.BreathOverlay
 import hu.lifeos.app.satori.ui.SatoriRoot
 import hu.lifeos.app.ui.screens.AppsScreen
 import hu.lifeos.app.ui.screens.CalendarScreen
 import hu.lifeos.app.ui.screens.EventEditScreen
+import hu.lifeos.app.ui.screens.PatternsScreen
+import hu.lifeos.app.ui.screens.SenseiScreen
 import hu.lifeos.app.ui.screens.SettingsScreen
 import hu.lifeos.app.ui.screens.TimelineScreen
 import hu.lifeos.app.ui.screens.TodayScreen
 import hu.lifeos.app.ui.screens.TodosScreen
 import hu.lifeos.app.ui.screens.WelcomeScreen
+import hu.lifeos.app.ui.theme.Noc
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-private data class Tab(val route: String, val label: Int, val icon: ImageVector)
+/** Kívülről érkező parancs (gyorsparancs, widget, értesítés). */
+object Actions {
+    const val SOS = "sos"
+    const val CAPTURE = "capture"
+    const val VOICE = "voice"
+    const val DAYCLOSE = "dayclose"
+    const val FOOD = "food"
+    const val BREATH = "breath"
+}
 
-private val tabs = listOf(
-    Tab("today", R.string.tab_today, Icons.Outlined.WbSunny),
-    Tab("calendar", R.string.tab_calendar, Icons.Outlined.CalendarToday),
-    Tab("todos", R.string.tab_todos, Icons.Outlined.CheckCircle),
-    Tab("timeline", R.string.tab_timeline, Icons.Outlined.History),
-    Tab("apps", R.string.tab_apps, Icons.Outlined.Apps),
-)
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel) {
+fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, action: StateFlow<String?>, consumeAction: () -> Unit) {
     val settings by vm.settings.collectAsState()
     val s = settings ?: return
     if (!s.welcomeDone) {
@@ -78,94 +82,132 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel) {
     val nav = rememberNavController()
     val backStack by nav.currentBackStackEntryAsState()
     val route = backStack?.destination?.route ?: "today"
-    val isTab = tabs.any { it.route == route }
+    val isTab = dockTabs.any { it.route == route }
     var captureOpen by rememberSaveable { mutableStateOf(false) }
+    var captureInitial by rememberSaveable { mutableStateOf("") }
+    var breathOpen by rememberSaveable { mutableStateOf(false) }
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val ctx = LocalContext.current
+    val mood by vm.todayMood.collectAsState()
+    val st by satori.state.collectAsState()
+    val pending by action.collectAsState()
 
-    fun openSatori(sos: Boolean = false) = nav.navigate(if (sos) "satori?sos=true" else "satori?sos=false")
+    fun openSatori(sos: Boolean = false) = nav.navigate(if (sos) "satori?sos=true" else "satori?sos=false") { launchSingleTop = true }
+    fun go(r: String) = nav.navigate(r) {
+        popUpTo(nav.graph.findStartDestination().id) { saveState = true }
+        launchSingleTop = true
+        restoreState = true
+    }
+    val voice = rememberVoiceInput { t -> captureInitial = t; captureOpen = true }
 
-    Scaffold(
-        snackbarHost = { SnackbarHost(snackbar) },
-        bottomBar = {
-            if (isTab) NavigationBar(containerColor = MaterialTheme.colorScheme.surfaceContainerLow) {
-                tabs.forEach { t ->
-                    NavigationBarItem(
-                        selected = route == t.route,
-                        onClick = {
-                            nav.navigate(t.route) {
-                                popUpTo(nav.graph.findStartDestination().id) { saveState = true }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                        icon = { Icon(t.icon, null) },
-                        label = { Text(stringResource(t.label), maxLines = 1) },
+    LaunchedEffect(pending) {
+        when (pending) {
+            Actions.SOS -> openSatori(true)
+            Actions.CAPTURE -> { captureInitial = ""; captureOpen = true }
+            Actions.VOICE -> voice()
+            Actions.DAYCLOSE -> openSatori(false)
+            Actions.FOOD -> nav.navigate("food") { launchSingleTop = true }
+            Actions.BREATH -> breathOpen = true
+        }
+        if (pending != null) consumeAction()
+    }
+
+    val tabPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 170.dp)
+    val initials = s.name.trim().split(" ").filter { it.isNotBlank() }.take(2).joinToString("") { it.take(1).uppercase() }.ifBlank { "M" }
+    val flow = Insights.inFlow(st, mood)
+
+    Box(Modifier.fillMaxSize().background(Noc.canvas)) {
+        Column(Modifier.fillMaxSize()) {
+            AnimatedVisibility(isTab, enter = fadeIn(), exit = fadeOut()) {
+                TopHeader(
+                    status = stringResource(if (flow) R.string.status_in_flow else R.string.status_care),
+                    statusColor = if (flow) Noc.good else Noc.amber,
+                    initials = initials, onSos = { openSatori(true) }, onProfile = { nav.navigate("settings") },
+                )
+            }
+            NavHost(
+                nav, startDestination = "today", modifier = Modifier.fillMaxSize(),
+                enterTransition = {
+                    if (dockTabs.any { it.route == targetState.destination.route }) fadeIn()
+                    else slideInHorizontally { it / 3 } + fadeIn()
+                },
+                exitTransition = { fadeOut() },
+                popEnterTransition = { fadeIn() },
+                popExitTransition = {
+                    if (dockTabs.any { it.route == initialState.destination.route }) fadeOut()
+                    else slideOutHorizontally { it / 3 } + fadeOut()
+                },
+            ) {
+                composable("today") {
+                    TodayScreen(
+                        vm, satori, food, tabPadding,
+                        onOpenSatori = { openSatori() }, onOpenFood = { nav.navigate("food") },
+                        onOpenCalendar = { nav.navigate("calendar") }, onOpenTodos = { nav.navigate("todos") },
+                        onOpenSensei = { go("sensei") }, onOpenPatterns = { go("patterns") },
+                        onOpenSettings = { nav.navigate("settings") }, onBreath = { breathOpen = true },
+                        onCapture = { captureInitial = ""; captureOpen = true }, onVoice = voice,
                     )
                 }
-            }
-        },
-        floatingActionButton = {
-            if (isTab && route != "apps") FloatingActionButton(
-                onClick = { captureOpen = true },
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            ) { Icon(Icons.Outlined.Add, stringResource(R.string.capture_title)) }
-        },
-    ) { pad ->
-        NavHost(
-            nav, startDestination = "today",
-            modifier = if (isTab) Modifier.padding(bottom = pad.calculateBottomPadding()) else Modifier,
-            enterTransition = { fadeIn() }, exitTransition = { fadeOut() },
-        ) {
-            composable("today") {
-                TodayScreen(vm, satori, food,
-                    onOpenSatori = { openSatori() }, onSos = { openSatori(true) },
-                    onOpenFood = { nav.navigate("food") },
-                    onOpenCalendar = { nav.navigate("calendar") { launchSingleTop = true } },
-                    onOpenTodos = { nav.navigate("todos") { launchSingleTop = true } },
-                    onOpenSettings = { nav.navigate("settings") },
-                    onCapture = { captureOpen = true },
-                )
-            }
-            composable("calendar") {
-                CalendarScreen(vm,
-                    onNewEvent = { date -> nav.navigate("event?id=-1&date=$date") },
-                    onEditEvent = { id -> nav.navigate("event?id=$id&date=") },
-                    onOpenSettings = { nav.navigate("settings") },
-                )
-            }
-            composable("todos") { TodosScreen(vm) }
-            composable("timeline") { TimelineScreen(vm, satori) }
-            composable("apps") {
-                AppsScreen(onOpenSatori = { openSatori() }, onOpenFood = { nav.navigate("food") }, onOpenSettings = { nav.navigate("settings") })
-            }
-            composable("food") { FoodRoot(food, onExit = { nav.popBackStack() }) }
-            composable("settings") { SettingsScreen(vm, satori, onBack = { nav.popBackStack() }) }
-            composable(
-                "event?id={id}&date={date}",
-                arguments = listOf(
-                    navArgument("id") { type = NavType.LongType; defaultValue = -1L },
-                    navArgument("date") { type = NavType.StringType; defaultValue = "" },
-                ),
-            ) { entry ->
-                EventEditScreen(
-                    vm, id = entry.arguments?.getLong("id") ?: -1L, date = entry.arguments?.getString("date").orEmpty(),
-                    onBack = { nav.popBackStack() },
-                )
-            }
-            composable(
-                "satori?sos={sos}",
-                arguments = listOf(navArgument("sos") { type = NavType.BoolType; defaultValue = false }),
-            ) { entry ->
-                SatoriRoot(satori, startSos = entry.arguments?.getBoolean("sos") ?: false, onExit = { nav.popBackStack() })
+                composable("timeline") {
+                    TimelineScreen(vm, satori, food, tabPadding, onOpenSatori = { openSatori() }, onOpenFood = { nav.navigate("food") },
+                        onEditEvent = { id -> nav.navigate("event?id=$id&date=") })
+                }
+                composable("apps") {
+                    AppsScreen(
+                        tabPadding,
+                        onOpenSatori = { openSatori() }, onOpenFood = { nav.navigate("food") },
+                        onOpenCalendar = { nav.navigate("calendar") }, onOpenTodos = { nav.navigate("todos") },
+                        onOpenSettings = { nav.navigate("settings") },
+                    )
+                }
+                composable("patterns") { PatternsScreen(vm, satori, food, tabPadding, onOpenSettings = { nav.navigate("settings") }) }
+                composable("sensei") { SenseiScreen(vm, satori, food, tabPadding, onBreath = { breathOpen = true }, onSos = { openSatori(true) }) }
+                composable("calendar") {
+                    CalendarScreen(vm,
+                        onNewEvent = { date -> nav.navigate("event?id=-1&date=$date") },
+                        onEditEvent = { id -> nav.navigate("event?id=$id&date=") },
+                        onOpenSettings = { nav.navigate("settings") },
+                        onBack = { nav.popBackStack() },
+                    )
+                }
+                composable("todos") { TodosScreen(vm, onBack = { nav.popBackStack() }) }
+                composable("food") { FoodRoot(food, onExit = { nav.popBackStack() }) }
+                composable("settings") { SettingsScreen(vm, satori, onBack = { nav.popBackStack() }) }
+                composable(
+                    "event?id={id}&date={date}",
+                    arguments = listOf(
+                        navArgument("id") { type = NavType.LongType; defaultValue = -1L },
+                        navArgument("date") { type = NavType.StringType; defaultValue = "" },
+                    ),
+                ) { entry ->
+                    EventEditScreen(vm, id = entry.arguments?.getLong("id") ?: -1L, date = entry.arguments?.getString("date").orEmpty(), onBack = { nav.popBackStack() })
+                }
+                composable(
+                    "satori?sos={sos}",
+                    arguments = listOf(navArgument("sos") { type = NavType.BoolType; defaultValue = false }),
+                ) { entry ->
+                    SatoriRoot(satori, startSos = entry.arguments?.getBoolean("sos") ?: false, onExit = { nav.popBackStack() })
+                }
             }
         }
+
+        // ---------- Lebegő beviteli kapszula és dokk ----------
+        AnimatedVisibility(
+            isTab, modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth(),
+            enter = slideInVertically { it } + fadeIn(), exit = slideOutVertically { it } + fadeOut(),
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                if (route == "today" || route == "timeline") CapturePill(onClick = { captureInitial = ""; captureOpen = true }, onMic = voice, modifier = Modifier.padding(bottom = 4.dp))
+                FloatingDock(route, onSelect = { go(it) })
+            }
+        }
+        SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter).navigationBarsPadding().padding(bottom = 150.dp))
     }
 
     if (captureOpen) {
         CaptureSheet(
+            initial = captureInitial,
             onDismiss = { captureOpen = false },
             onSave = { parsed ->
                 vm.saveCapture(parsed) { type ->
@@ -183,4 +225,5 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel) {
             },
         )
     }
+    if (breathOpen) BreathOverlay(satori, onClose = { breathOpen = false })
 }

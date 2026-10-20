@@ -21,7 +21,11 @@ data class AppSettings(
     val reminderEnabled: Boolean = false,
     val reminderTime: String = "20:00",
     /** "system", "dark" vagy "light". */
-    val darkMode: String = "system",
+    val darkMode: String = "dark",
+    /** Havi költési keret forintban; 0 = nincs beállítva. */
+    val monthlyBudget: Double = 0.0,
+    /** Az a nap, amikor a felhasználó a Sensei mai meglátását „Rendben”-nel lezárta. */
+    val insightDismissed: String = "",
     val name: String = "",
     val welcomeDone: Boolean = false,
 )
@@ -37,6 +41,8 @@ class SettingsStore(private val context: Context) {
         val dark = stringPreferencesKey("dark")
         val name = stringPreferencesKey("name")
         val welcome = booleanPreferencesKey("welcome")
+        val budget = stringPreferencesKey("budget")
+        val insight = stringPreferencesKey("insight")
     }
 
     val flow: Flow<AppSettings> = context.dataStore.data.map { p -> read(p) }
@@ -48,7 +54,9 @@ class SettingsStore(private val context: Context) {
         defaultWriteCalendarId = p[K.writeCal]?.toLongOrNull(),
         reminderEnabled = p[K.reminder] ?: false,
         reminderTime = p[K.reminderTime] ?: "20:00",
-        darkMode = p[K.dark] ?: "system",
+        darkMode = p[K.dark] ?: "dark",
+        monthlyBudget = p[K.budget]?.toDoubleOrNull() ?: 0.0,
+        insightDismissed = p[K.insight] ?: "",
         name = p[K.name] ?: "",
         welcomeDone = p[K.welcome] ?: false,
     )
@@ -65,6 +73,8 @@ class SettingsStore(private val context: Context) {
             p[K.dark] = n.darkMode
             p[K.name] = n.name
             p[K.welcome] = n.welcomeDone
+            p[K.budget] = n.monthlyBudget.toString()
+            p[K.insight] = n.insightDismissed
         }
     }
 }

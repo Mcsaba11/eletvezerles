@@ -147,6 +147,19 @@ fun SettingsScreen(vm: MainViewModel, satori: SatoriViewModel, onBack: () -> Uni
                         FilterChip(settings.darkMode == id, { vm.updateSettings { it.copy(darkMode = id) } }, label = { Text(stringResource(l)) })
                     }
                 }
+                VSpace(12)
+                var budget by remember { mutableStateOf(if (settings.monthlyBudget > 0) settings.monthlyBudget.toLong().toString() else "") }
+                OutlinedTextField(
+                    budget,
+                    { v ->
+                        budget = v.filter { it.isDigit() }
+                        val num = budget.toDoubleOrNull() ?: 0.0
+                        vm.updateSettings { st -> st.copy(monthlyBudget = num) }
+                    },
+                    Modifier.fillMaxWidth(), label = { Text(stringResource(R.string.set_budget)) }, singleLine = true,
+                    suffix = { Text("Ft") },
+                    keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Number),
+                )
             }
 
             SectionLabel(stringResource(R.string.tab_calendar))

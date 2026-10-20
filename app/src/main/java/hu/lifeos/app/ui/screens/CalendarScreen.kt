@@ -24,6 +24,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.outlined.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.Add
@@ -53,7 +54,7 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 
 @Composable
-fun CalendarScreen(vm: MainViewModel, onNewEvent: (LocalDate) -> Unit, onEditEvent: (Long) -> Unit, onOpenSettings: () -> Unit) {
+fun CalendarScreen(vm: MainViewModel, onNewEvent: (LocalDate) -> Unit, onEditEvent: (Long) -> Unit, onOpenSettings: () -> Unit, onBack: () -> Unit) {
     val month by vm.month.collectAsState()
     val selected by vm.selectedDay.collectAsState()
     val agenda by vm.monthAgenda.collectAsState()
@@ -67,11 +68,12 @@ fun CalendarScreen(vm: MainViewModel, onNewEvent: (LocalDate) -> Unit, onEditEve
 
     LazyColumn(
         Modifier.fillMaxSize().statusBarsPadding(),
-        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 32.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         item {
             Row(verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.back)) }
                 Text(Fmt.monthYear(month), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.weight(1f))
                 IconButton(onClick = { vm.shiftMonth(-1) }) { Icon(Icons.AutoMirrored.Outlined.KeyboardArrowLeft, null) }
                 TextButton(onClick = { vm.selectDay(today) }) { Text(stringResource(R.string.today)) }

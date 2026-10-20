@@ -2,6 +2,12 @@ package hu.lifeos.app.satori.ui
 
 import android.content.Intent
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.runtime.rememberCoroutineScope
+import hu.lifeos.app.ui.theme.Noc
+import hu.lifeos.app.ui.rememberTick
+import kotlinx.coroutines.launch
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -101,7 +107,10 @@ fun SatoriRoot(vm: SatoriViewModel, startSos: Boolean, onExit: () -> Unit) {
             return@MaterialTheme
         }
 
-        var tab by rememberSaveable { mutableIntStateOf(0) }
+        val pager = rememberPagerState(pageCount = { 5 })
+        val tab = pager.currentPage
+        val pagerScope = rememberCoroutineScope()
+        val tick = rememberTick()
         var sosOpen by rememberSaveable { mutableStateOf(startSos) }
         var breathOpen by rememberSaveable { mutableStateOf(false) }
         var bodyOpen by rememberSaveable { mutableStateOf(false) }
@@ -151,7 +160,7 @@ fun SatoriRoot(vm: SatoriViewModel, startSos: Boolean, onExit: () -> Unit) {
                     actions = {
                         Button(
                             onClick = { sosOpen = true },
-                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer, contentColor = MaterialTheme.colorScheme.onPrimaryContainer),
+                            colors = ButtonDefaults.buttonColors(containerColor = Noc.sos, contentColor = androidx.compose.ui.graphics.Color.White),
                             contentPadding = ButtonDefaults.TextButtonContentPadding,
                         ) { Text(stringResource(R.string.sos)) }
                         IconButton(onClick = { settingsOpen = true }) { Icon(Icons.Outlined.MoreVert, stringResource(R.string.settings)) }
@@ -159,11 +168,11 @@ fun SatoriRoot(vm: SatoriViewModel, startSos: Boolean, onExit: () -> Unit) {
                 )
             },
             bottomBar = {
-                NavigationBar(containerColor = MaterialTheme.colorScheme.surfaceContainerLow) {
+                NavigationBar(containerColor = Noc.abyss) {
                     tabs.forEachIndexed { i, t ->
                         val label = if (i == 4) theme.mentorName.ifBlank { stringResource(t.label) } else stringResource(t.label)
                         NavigationBarItem(
-                            selected = tab == i, onClick = { tab = i },
+                            selected = tab == i, onClick = { tick(); pagerScope.launch { pager.animateScrollToPage(i) } },
                             icon = { Icon(t.icon, null) }, label = { Text(label, maxLines = 1) },
                             colors = NavigationBarItemDefaults.colors(indicatorColor = MaterialTheme.colorScheme.tertiary.copy(alpha = 0.22f)),
                         )
@@ -171,13 +180,15 @@ fun SatoriRoot(vm: SatoriViewModel, startSos: Boolean, onExit: () -> Unit) {
                 }
             },
         ) { pad ->
-            val mod = Modifier.padding(pad)
-            when (tab) {
+            HorizontalPager(pager, Modifier.padding(pad), beyondViewportPageCount = 1) { page ->
+            val mod = Modifier
+            when (page) {
                 0 -> PathTab(vm, mod, onDayClose = { dayCloseOpen = true }, onBody = { bodyOpen = true }, resetPulse = resetPulse, onPulseDone = { resetPulse = false })
                 1 -> ResultsTab(vm, mod, onCertificate = { idx -> certIndex = idx; certReplay = true })
                 2 -> JournalTab(vm, mod)
                 3 -> BalanceTab(vm, mod)
                 else -> MentorTab(vm, mod, onSos = { sosOpen = true })
+            }
             }
         }
 

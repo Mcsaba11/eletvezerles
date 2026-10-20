@@ -1,6 +1,20 @@
 package hu.lifeos.app.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import hu.lifeos.app.ui.theme.Noc
+import hu.lifeos.app.ui.Pill
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.background
+import androidx.compose.material3.rememberSwipeToDismissBoxState
+import androidx.compose.material3.SwipeToDismissBoxValue
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -48,7 +62,7 @@ import hu.lifeos.app.ui.VSpace
 import java.time.LocalDate
 
 @Composable
-fun TodosScreen(vm: MainViewModel) {
+fun TodosScreen(vm: MainViewModel, onBack: () -> Unit) {
     val todos by vm.todos.collectAsState()
     val today = LocalDate.now()
     var text by rememberSaveable { mutableStateOf("") }
@@ -77,10 +91,18 @@ fun TodosScreen(vm: MainViewModel) {
 
     LazyColumn(
         Modifier.fillMaxSize().statusBarsPadding(),
-        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 96.dp),
+        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 32.dp),
         verticalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        item { Text(stringResource(R.string.tab_todos), style = MaterialTheme.typography.headlineMedium) }
+        item {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, stringResource(R.string.back)) }
+                Text(stringResource(R.string.tab_todos), style = MaterialTheme.typography.headlineMedium, modifier = Modifier.weight(1f))
+                val open = todos.count { !it.done }
+                Pill(stringResource(R.string.todos_open_n, open))
+            }
+            Text(stringResource(R.string.todos_swipe_hint), style = MaterialTheme.typography.bodySmall, color = Noc.text3, modifier = Modifier.padding(start = 12.dp))
+        }
         item {
             AppCard {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -109,9 +131,7 @@ fun TodosScreen(vm: MainViewModel) {
             if (list.isNotEmpty()) {
                 item { SectionLabel(stringResource(label)) }
                 items(list, key = { it.id }) { td ->
-                    AppCard(color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                        TodoLine(td, today, onToggle = { vm.toggleTodo(td) }, onClick = { editing = td })
-                    }
+                    SwipeTodo(td, today, vm, onEdit = { editing = td })
                 }
             }
         }
@@ -169,4 +189,36 @@ fun TodoEditDialog(td: TodoEntity, onDismiss: () -> Unit, onSave: (TodoEntity) -
         dismissButton = { TextButton(onClick = onDelete) { Text(stringResource(R.string.delete), color = MaterialTheme.colorScheme.error) } },
     )
     if (pick) DatePickDialog(due ?: LocalDate.now(), { pick = false }) { due = it }
+}
+
+
+/** Húzással kezelhető teendő: jobbra = kész, balra = törlés. */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun SwipeTodo(td: TodoEntity, today: LocalDate, vm: MainViewModel, onEdit: () -> Unit) {
+    val thump = hu.lifeos.app.ui.rememberThump()
+    val state = rememberSwipeToDismissBoxState(confirmValueChange = { v ->
+        when (v) {
+            SwipeToDismissBoxValue.StartToEnd -> { thump(); vm.toggleTodo(td); false }
+            SwipeToDismissBoxValue.EndToStart -> { thump(); vm.deleteTodo(td); true }
+            else -> false
+        }
+    })
+    SwipeToDismissBox(
+        state = state,
+        backgroundContent = {
+            val toRight = state.dismissDirection == SwipeToDismissBoxValue.StartToEnd
+            Box(
+                Modifier.fillMaxSize().clip(RoundedCornerShape(24.dp)).background((if (toRight) Noc.good else Noc.coral).copy(alpha = 0.18f))
+                    .padding(horizontal = 24.dp),
+                contentAlignment = if (toRight) Alignment.CenterStart else Alignment.CenterEnd,
+            ) {
+                Icon(if (toRight) Icons.Outlined.CheckCircle else Icons.Outlined.Delete, null, tint = if (toRight) Noc.good else Noc.coral)
+            }
+        },
+    ) {
+        AppCard(padding = PaddingValues(horizontal = 8.dp, vertical = 6.dp)) {
+            TodoLine(td, today, onToggle = { vm.toggleTodo(td) }, onClick = onEdit)
+        }
+    }
 }

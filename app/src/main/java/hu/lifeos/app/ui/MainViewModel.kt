@@ -207,6 +207,16 @@ class MainViewModel(private val c: AppContainer) : ViewModel() {
         onDone(p.type)
     }
 
+    // ---------- Életkerék ----------
+    val lifeWheel: StateFlow<Map<String, Map<String, Int>>> = c.db.kv().observe(WHEEL_KEY)
+        .map { e -> e?.json?.let { runCatching { wheelJson.decodeFromString(wheelSer, it) }.getOrNull() } ?: emptyMap() }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyMap())
+
+    fun rateWheel(month: String, values: Map<String, Int>) = viewModelScope.launch {
+        val next = lifeWheel.value + (month to values)
+        c.db.kv().put(hu.lifeos.app.data.KvEntity(WHEEL_KEY, wheelJson.encodeToString(wheelSer, next)))
+    }
+
     fun updateSettings(fn: (AppSettings) -> AppSettings) = viewModelScope.launch {
         c.settings.update(fn)
         refreshPhone()
@@ -214,4 +224,13 @@ class MainViewModel(private val c: AppContainer) : ViewModel() {
     }
 
     init { refreshPhone() }
+
+    companion object {
+        const val WHEEL_KEY = "lifewheel"
+        val wheelJson = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
+        val wheelSer = kotlinx.serialization.builtins.MapSerializer(
+            kotlinx.serialization.builtins.serializer<String>(),
+            kotlinx.serialization.builtins.MapSerializer(kotlinx.serialization.builtins.serializer<String>(), kotlinx.serialization.builtins.serializer<Int>()),
+        )
+    }
 }

@@ -1,6 +1,9 @@
 package hu.lifeos.app
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import kotlinx.coroutines.flow.MutableStateFlow
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_WEAK
@@ -30,6 +33,7 @@ import kotlinx.coroutines.runBlocking
 class MainActivity : FragmentActivity() {
 
     private val locked = mutableStateOf(false)
+    private val pendingAction = MutableStateFlow<String?>(null)
     private var backgroundedAt = 0L
 
     private val processObserver = object : DefaultLifecycleObserver {
@@ -53,8 +57,20 @@ class MainActivity : FragmentActivity() {
     private lateinit var satoriVm: SatoriViewModel
     private lateinit var foodVm: FoodViewModel
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent.getStringExtra(EXTRA_ACTION)?.let { pendingAction.value = it }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        hu.lifeos.app.widget.WidgetUpdater.refresh(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
+        if (savedInstanceState == null) intent?.getStringExtra(EXTRA_ACTION)?.let { pendingAction.value = it }
         enableEdgeToEdge()
         val c = container
         val factory = viewModelFactory {
@@ -80,12 +96,14 @@ class MainActivity : FragmentActivity() {
                 if (locked.value) {
                     LockScreen(onUnlock = { authenticate() })
                 } else {
-                    AppRoot(mainVm, satoriVm, foodVm)
+                    AppRoot(mainVm, satoriVm, foodVm, pendingAction, consumeAction = { pendingAction.value = null })
                 }
             }
         }
         if (locked.value) authenticate()
     }
+
+    companion object { const val EXTRA_ACTION = "action" }
 
     private fun authenticate() {
         val bm = BiometricManager.from(this)
