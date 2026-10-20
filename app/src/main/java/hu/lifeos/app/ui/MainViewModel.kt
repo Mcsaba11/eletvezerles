@@ -223,6 +223,7 @@ class MainViewModel(private val c: AppContainer) : ViewModel() {
         c.settings.update(fn)
         refreshPhone()
         Reminders.schedule(c.appContext, c.settings.flow.first())
+        runCatching { hu.lifeos.app.notify.Nudges.scheduleAll(c.appContext) }
     }
 
     init { refreshPhone() }

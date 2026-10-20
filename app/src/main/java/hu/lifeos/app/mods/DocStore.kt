@@ -28,8 +28,25 @@ class DocStore<T>(
     val state: StateFlow<T> = _state.asStateFlow()
     private val mutex = Mutex()
 
+    @Volatile var loaded = false
+        private set
+
     suspend fun load() {
-        db.kv().get(key)?.json?.let { raw -> runCatching { json.decodeFromString(serializer, raw) }.onSuccess { _state.value = it } }
+        mutex.withLock {
+            db.kv().get(key)?.json?.let { raw -> runCatching { json.decodeFromString(serializer, raw) }.onSuccess { _state.value = it } }
+            loaded = true
+        }
+    }
+
+    suspend fun ensureLoaded() { if (!loaded) load() }
+
+    /** Azonnali (megvárt) módosítás, pl. widgetről. */
+    suspend fun updateNow(fn: (T) -> T) {
+        mutex.withLock {
+            val next = fn(_state.value)
+            _state.value = next
+            db.kv().put(KvEntity(key, json.encodeToString(serializer, next)))
+        }
     }
 
     fun update(fn: (T) -> T) {
@@ -70,7 +87,7 @@ class ModStores(db: AppDatabase, scope: CoroutineScope) {
 
     private val all: List<DocStore<*>> = listOf(money, sleep, move, people, goals, learn, house, trackers)
 
-    suspend fun loadAll() = all.forEach { it.load() }
+    suspend fun loadAll() = all.forEach { it.ensureLoaded() }
 
     fun exportAll(): Map<String, JsonElement> = all.associate { it.key to it.export() }
 

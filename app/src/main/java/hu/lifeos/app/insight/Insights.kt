@@ -1,6 +1,8 @@
 package hu.lifeos.app.insight
 
 import hu.lifeos.app.food.packFlags
+import hu.lifeos.app.mods.MoveDoc
+import hu.lifeos.app.mods.SleepDoc
 
 import hu.lifeos.app.data.EntryEntity
 import hu.lifeos.app.data.EntryKind
@@ -48,9 +50,21 @@ object Insights {
         return num / sqrt(dx * dy)
     }
 
-    data class DaySeries(val date: LocalDate, val mood: Double?, val gl: Double?, val kcal: Double?, val cravings: Int, val spend: Double)
+    data class DaySeries(
+        val date: LocalDate, val mood: Double?, val gl: Double?, val kcal: Double?, val cravings: Int, val spend: Double,
+        /** Az előző éjszaka alvása percben (null = nincs adat). */
+        val sleepMin: Int? = null,
+        /** Aznapi mozgás percben (null = a modul nincs használatban). */
+        val moveMin: Int? = null,
+    )
 
-    fun series(days: Int, moods: List<MoodEntity>, food: FoodState, logic: FoodLogic, satori: SatoriState, entries: List<EntryEntity>): List<DaySeries> {
+    fun series(
+        days: Int, moods: List<MoodEntity>, food: FoodState, logic: FoodLogic, satori: SatoriState, entries: List<EntryEntity>,
+        sleep: SleepDoc? = null, move: MoveDoc? = null,
+    ): List<DaySeries> {
+        val sleepBy = sleep?.nights?.associate { it.date to it.minutes() }.orEmpty()
+        val moveBy = move?.items?.groupBy { it.date }?.mapValues { (_, l) -> l.sumOf { it.minutes } }
+        val moveUsed = move != null && move.items.isNotEmpty()
         val moodBy = moods.associateBy { it.date }
         val cravBy = satori.cravingLog.groupingBy { it.date }.eachCount()
         val journalHard = satori.data.values.flatMap { it.journal }.filter { it.state == "kisertes" || it.state == "kuzdelem" || it.state == "megbotlas" }.groupingBy { it.date }.eachCount()
@@ -65,6 +79,7 @@ object Insights {
                 d, moodBy[k]?.mood?.toDouble(),
                 if (items.isEmpty() || !packs.ir) null else tot.gl, if (items.isEmpty() || !packs.numbers) null else tot.kcal,
                 (cravBy[k] ?: 0) + (journalHard[k] ?: 0), spendBy[k] ?: 0.0,
+                sleepBy[k], if (moveUsed) moveBy?.get(k) ?: 0 else null,
             )
         }
     }
@@ -92,6 +107,46 @@ object Insights {
         if (satoriOn) SatoriLogic.topRiskyDaypart(satori.cur())?.let { risk ->
             out += Pattern("Kockázatos napszak", "${risk.share}%",
                 "A nehezebb pillanataid ${risk.share}%-a ${content.daypartLabel[risk.part] ?: risk.part} jelentkezik. Erre az időszakra készíts egy Ha… akkor… tervet.", risk.share / 100.0)
+        }
+        // Alvás és hangulat
+        val sm = ser.filter { it.mood != null && it.sleepMin != null }
+        if (sm.size >= 5) {
+            val good = sm.filter { it.sleepMin!! >= 7 * 60 }.mapNotNull { it.mood }.average()
+            val short = sm.filter { it.sleepMin!! < 6 * 60 + 30 }.mapNotNull { it.mood }.average()
+            if (!good.isNaN() && !short.isNaN() && good - short >= 0.3) {
+                out += Pattern("Alvás és hangulat", "${fmt1(good)} vs ${fmt1(short)}",
+                    "Ha legalább 7 órát alszol, másnap átlagosan ${fmt1(good)} a hangulatod, rövid éjszaka után csak ${fmt1(short)}. Az alvás a legolcsóbb hangulatjavító.", (good - short) / 2)
+            }
+        }
+        // Mozgás és hangulat
+        val mm = ser.filter { it.mood != null && it.moveMin != null }
+        if (mm.size >= 5) {
+            val active = mm.filter { it.moveMin!! >= 20 }.mapNotNull { it.mood }.average()
+            val rest = mm.filter { it.moveMin!! < 20 }.mapNotNull { it.mood }.average()
+            if (!active.isNaN() && !rest.isNaN() && active - rest >= 0.3) {
+                out += Pattern("Mozgás és hangulat", "+${fmt1(active - rest)}",
+                    "Azokon a napokon, amikor legalább 20 percet mozogsz, átlagosan ${fmt1(active - rest)} ponttal jobb a hangulatod.", (active - rest) / 2)
+            }
+        }
+        // Alvás és sóvárgás
+        val sc = ser.filter { it.sleepMin != null }
+        if (sc.size >= 7 && sc.any { it.cravings > 0 }) {
+            val shortC = sc.filter { it.sleepMin!! < 6 * 60 + 30 }.map { it.cravings.toDouble() }.average()
+            val goodC = sc.filter { it.sleepMin!! >= 7 * 60 }.map { it.cravings.toDouble() }.average()
+            if (!shortC.isNaN() && !goodC.isNaN() && shortC > goodC + 0.3) {
+                out += Pattern("Alvás és sóvárgás", "${fmt1(shortC)} vs ${fmt1(goodC)}",
+                    "Rövid éjszaka után több a nehéz pillanat (${fmt1(shortC)} vs ${fmt1(goodC)} naponta). Fáradtan a késztetés is erősebb: ilyenkor legyen kéznél az SOS.", 0.45)
+            }
+        }
+        // Alvás és költés
+        val ss = ser.filter { it.sleepMin != null && it.spend > 0 }
+        if (ss.size >= 6) {
+            val shortS = ss.filter { it.sleepMin!! < 6 * 60 + 30 }.map { it.spend }.average()
+            val goodS = ss.filter { it.sleepMin!! >= 7 * 60 }.map { it.spend }.average()
+            if (!shortS.isNaN() && !goodS.isNaN() && goodS > 0 && shortS > goodS * 1.25) {
+                out += Pattern("Alvás és költés", "+${((shortS / goodS - 1) * 100).toInt()}%",
+                    "Kialvatlanul többet költesz, mint kipihenten. Fáradt napokon érdemes a nagyobb vásárlást másnapra halasztani.", 0.4)
+            }
         }
         // Költés és hangulat
         val ms = ser.filter { it.mood != null && it.spend > 0 }

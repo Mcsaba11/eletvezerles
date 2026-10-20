@@ -91,6 +91,7 @@ val WHEEL_DIMS = listOf(R.string.wd_time, R.string.wd_body, R.string.wd_soul, R.
 fun PatternsScreen(
     vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, contentPadding: PaddingValues,
     onOpenSettings: () -> Unit,
+    mods: hu.lifeos.app.mods.ModsViewModel? = null,
 ) {
     val moods by vm.moodHistory.collectAsState()
     val entries by vm.recentEntries.collectAsState()
@@ -102,8 +103,12 @@ fun PatternsScreen(
     val satoriOn = settings?.moduleOn(hu.lifeos.app.data.Modules.SATORI) ?: true
     val glOn = (settings?.moduleOn(hu.lifeos.app.data.Modules.FOOD) ?: true) && fs.packFlags().ir
     var rate by remember { mutableStateOf(false) }
-    val ser = Insights.series(14, moods, fs, food.logic, st, entries)
-    val patterns = Insights.patterns(Insights.series(60, moods, fs, food.logic, st, entries), st, c, satoriOn)
+    val sleepOn = settings?.moduleOn(hu.lifeos.app.data.Modules.SLEEP) == true
+    val moveOn = settings?.moduleOn(hu.lifeos.app.data.Modules.MOVE) == true
+    val sleepDoc = mods?.sleep?.state?.collectAsState()?.value?.takeIf { sleepOn }
+    val moveDoc = mods?.move?.state?.collectAsState()?.value?.takeIf { moveOn }
+    val ser = Insights.series(14, moods, fs, food.logic, st, entries, sleepDoc, moveDoc)
+    val patterns = Insights.patterns(Insights.series(60, moods, fs, food.logic, st, entries, sleepDoc, moveDoc), st, c, satoriOn)
     val dimNames = WHEEL_DIMS.map { stringResource(it) }
     val mk = LocalDate.now().toString().take(7)
     val cur = wheel[mk]
@@ -180,12 +185,13 @@ fun PatternsScreen(
                         ser.map { it.mood?.let { m -> (m - 1) / 4.0 } } to Noc.amber,
                         ser.map { if (glOn) it.gl?.let { g -> g / maxGl } else null } to Noc.coral,
                         ser.map { if (satoriOn) it.cravings / maxCr else null } to Noc.cyan,
+                        ser.map { it.sleepMin?.let { m -> (m / 600.0).coerceAtMost(1.0) } } to Noc.violet,
                     ),
                     Modifier.fillMaxWidth().height(170.dp),
                 )
                 VSpace(8)
                 Row(horizontalArrangement = Arrangement.spacedBy(14.dp)) {
-                    Legend(Noc.amber, stringResource(R.string.type_mood)); if (glOn) Legend(Noc.coral, stringResource(R.string.food_gl)); if (satoriOn) Legend(Noc.cyan, stringResource(R.string.legend_cravings))
+                    Legend(Noc.amber, stringResource(R.string.type_mood)); if (glOn) Legend(Noc.coral, stringResource(R.string.food_gl)); if (satoriOn) Legend(Noc.cyan, stringResource(R.string.legend_cravings)); if (sleepDoc != null) Legend(Noc.violet, stringResource(R.string.mod_sleep))
                 }
             }
         }

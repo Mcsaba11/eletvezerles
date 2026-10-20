@@ -86,6 +86,7 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, mod
     var captureOpen by rememberSaveable { mutableStateOf(false) }
     var captureInitial by rememberSaveable { mutableStateOf("") }
     var breathOpen by rememberSaveable { mutableStateOf(false) }
+    var breathTech by rememberSaveable { mutableStateOf("relax") }
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val ctx = LocalContext.current
@@ -108,7 +109,8 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, mod
             Actions.VOICE -> voice()
             Actions.DAYCLOSE -> openSatori(false)
             Actions.FOOD -> nav.navigate("food") { launchSingleTop = true }
-            Actions.BREATH -> breathOpen = true
+            Actions.BREATH -> { breathTech = "relax"; breathOpen = true }
+            else -> pending?.takeIf { it.startsWith("open:") }?.let { r -> nav.navigate(r.removePrefix("open:")) { launchSingleTop = true } }
         }
         if (pending != null) consumeAction()
     }
@@ -146,7 +148,7 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, mod
                         onOpenSatori = { openSatori() }, onOpenFood = { nav.navigate("food") },
                         onOpenCalendar = { nav.navigate("calendar") }, onOpenTodos = { nav.navigate("todos") },
                         onOpenSensei = { go("sensei") }, onOpenPatterns = { go("patterns") },
-                        onOpenSettings = { nav.navigate("settings") }, onBreath = { breathOpen = true },
+                        onOpenSettings = { nav.navigate("settings") }, onBreath = { breathTech = "relax"; breathOpen = true },
                         onCapture = { captureInitial = ""; captureOpen = true }, onVoice = voice,
                         mods = mods, onOpenModule = { r -> nav.navigate(r) { launchSingleTop = true } },
                     )
@@ -164,8 +166,8 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, mod
                         onOpenSettings = { nav.navigate("settings") },
                     )
                 }
-                composable("patterns") { PatternsScreen(vm, satori, food, tabPadding, onOpenSettings = { nav.navigate("settings") }) }
-                composable("sensei") { SenseiScreen(vm, satori, food, tabPadding, onBreath = { breathOpen = true }, onSos = { openSatori(true) }) }
+                composable("patterns") { PatternsScreen(vm, satori, food, tabPadding, onOpenSettings = { nav.navigate("settings") }, mods = mods) }
+                composable("sensei") { SenseiScreen(vm, satori, food, tabPadding, onBreath = { breathTech = "relax"; breathOpen = true }, onSos = { openSatori(true) }) }
                 composable("calendar") {
                     CalendarScreen(vm,
                         onNewEvent = { date -> nav.navigate("event?id=-1&date=$date") },
@@ -180,6 +182,7 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, mod
                         sst.followedIds().sumOf { id -> sst.data[id]?.let { it.dailyCost * it.streak } ?: 0.0 } else null
                     hu.lifeos.app.mods.ui.MoneyScreen(mods, s.monthlyBudget, onSetBudget = { v -> vm.updateSettings { it.copy(monthlyBudget = v) } }, satoriSaved = saved, onBack = { nav.popBackStack() })
                 }
+                composable("mind") { hu.lifeos.app.ui.screens.MindScreen(vm, satori, onBreath = { t -> breathTech = t; breathOpen = true }, onBack = { nav.popBackStack() }) }
                 composable("sleep") { hu.lifeos.app.mods.ui.SleepScreen(mods, onBack = { nav.popBackStack() }) }
                 composable("move") { hu.lifeos.app.mods.ui.MoveScreen(mods, onBack = { nav.popBackStack() }) }
                 composable("people") { hu.lifeos.app.mods.ui.PeopleScreen(mods, onBack = { nav.popBackStack() }) }
@@ -241,5 +244,5 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, mod
             },
         )
     }
-    if (breathOpen) BreathOverlay(satori, onClose = { breathOpen = false })
+    if (breathOpen) BreathOverlay(satori, onClose = { breathOpen = false }, initial = breathTech)
 }

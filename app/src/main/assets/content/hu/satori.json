@@ -1311,6 +1311,35 @@
     "d": 6,
     "k": "out"
    }
+  ],
+  "coherent": [
+   {
+    "n": "Beszívás",
+    "d": 5,
+    "k": "in"
+   },
+   {
+    "n": "Kifújás",
+    "d": 5,
+    "k": "out"
+   }
+  ],
+  "sigh": [
+   {
+    "n": "Beszívás",
+    "d": 2,
+    "k": "in"
+   },
+   {
+    "n": "Még egy kis levegő",
+    "d": 1,
+    "k": "in"
+   },
+   {
+    "n": "Lassú kifújás",
+    "d": 6,
+    "k": "out"
+   }
   ]
  },
  "craving_triggers": [
@@ -2062,6 +2091,16 @@
    "id": "surf",
    "title": "Hullámzás",
    "sub": "Sóvárgás-szörf"
+  },
+  {
+   "id": "coherent",
+   "title": "5-5",
+   "sub": "Rezonancia-légzés, percenként 6 légvétel"
+  },
+  {
+   "id": "sigh",
+   "title": "Kettős sóhaj",
+   "sub": "Gyors feszültségoldás"
   }
  ],
  "mentor_topics": [

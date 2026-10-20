@@ -6,6 +6,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -300,9 +301,9 @@ private fun UrgeWave(elapsed: Long, pct: Int, accent: Color) {
 // ---------------- Vezetett légzés ----------------
 
 @Composable
-fun BreathOverlay(vm: SatoriViewModel, onClose: () -> Unit) {
+fun BreathOverlay(vm: SatoriViewModel, onClose: () -> Unit, initial: String = "box") {
     val c = vm.content
-    var tech by rememberSaveable { mutableStateOf("box") }
+    var tech by rememberSaveable { mutableStateOf(initial) }
     var phaseIdx by remember { mutableIntStateOf(0) }
     var frac by remember { mutableStateOf(0f) }
     var remaining by remember { mutableIntStateOf(0) }
@@ -341,7 +342,7 @@ fun BreathOverlay(vm: SatoriViewModel, onClose: () -> Unit) {
                 IconButton(onClick = onClose) { Icon(Icons.Outlined.Close, stringResource(R.string.close), tint = Color.White) }
             }
             VSpace(8)
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Row(Modifier.horizontalScroll(androidx.compose.foundation.rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 c.techniqueDefs.forEach { t ->
                     val on = t.id == tech
                     Column(

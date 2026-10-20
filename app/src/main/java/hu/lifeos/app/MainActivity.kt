@@ -28,6 +28,7 @@ import hu.lifeos.app.ui.LockScreen
 import hu.lifeos.app.ui.MainViewModel
 import hu.lifeos.app.ui.theme.AppTheme
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : FragmentActivity() {
@@ -66,6 +67,8 @@ class MainActivity : FragmentActivity() {
     override fun onStop() {
         super.onStop()
         hu.lifeos.app.widget.WidgetUpdater.refresh(this)
+        val app = applicationContext
+        container.scope.launch { runCatching { hu.lifeos.app.notify.Nudges.scheduleAll(app) } }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

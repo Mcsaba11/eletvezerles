@@ -34,6 +34,19 @@ data class AppSettings(
     val homeOrder: List<String> = emptyList(),
     /** Elrejtett kezdőlap-kártyák. */
     val homeHidden: Set<String> = emptySet(),
+    /** Reggeli összefoglaló: születésnapok, esedékes jelentkezés, házimunka, számlák, határidők. */
+    val notifMorning: Boolean = false,
+    val morningTime: String = "08:00",
+    /** Lefekvés előtti emlékeztető (az Alvás modul lefekvési célja előtt 30 perccel). */
+    val notifBedtime: Boolean = false,
+    /** Esti emlékeztető, ha a napi tanulás még nincs meg. */
+    val notifLearn: Boolean = false,
+    val learnTime: String = "19:00",
+    /** Délutáni emlékeztető, ha ma még nem volt mozgás. */
+    val notifMove: Boolean = false,
+    val moveTime: String = "17:30",
+    /** A widget tartalma: summary (összefoglaló), trackers (saját követők) vagy both. */
+    val widgetMode: String = "both",
 ) {
     fun moduleOn(id: String): Boolean = (modules ?: Modules.LEGACY).contains(id)
 
@@ -95,6 +108,14 @@ class SettingsStore(private val context: Context) {
         val modules = stringPreferencesKey("modules")
         val homeOrder = stringPreferencesKey("home_order")
         val homeHidden = stringPreferencesKey("home_hidden")
+        val nMorning = booleanPreferencesKey("n_morning")
+        val morningTime = stringPreferencesKey("morning_time")
+        val nBed = booleanPreferencesKey("n_bed")
+        val nLearn = booleanPreferencesKey("n_learn")
+        val learnTime = stringPreferencesKey("learn_time")
+        val nMove = booleanPreferencesKey("n_move")
+        val moveTime = stringPreferencesKey("move_time")
+        val widgetMode = stringPreferencesKey("widget_mode")
     }
 
     val flow: Flow<AppSettings> = context.dataStore.data.map { p -> read(p) }
@@ -114,6 +135,11 @@ class SettingsStore(private val context: Context) {
         modules = p[K.modules]?.split(',')?.filter { it.isNotBlank() },
         homeOrder = p[K.homeOrder]?.split(',')?.filter { it.isNotBlank() }.orEmpty(),
         homeHidden = p[K.homeHidden]?.split(',')?.filter { it.isNotBlank() }?.toSet().orEmpty(),
+        notifMorning = p[K.nMorning] ?: false, morningTime = p[K.morningTime] ?: "08:00",
+        notifBedtime = p[K.nBed] ?: false,
+        notifLearn = p[K.nLearn] ?: false, learnTime = p[K.learnTime] ?: "19:00",
+        notifMove = p[K.nMove] ?: false, moveTime = p[K.moveTime] ?: "17:30",
+        widgetMode = p[K.widgetMode] ?: "both",
     )
 
     suspend fun update(fn: (AppSettings) -> AppSettings) {
@@ -133,6 +159,11 @@ class SettingsStore(private val context: Context) {
             if (n.modules == null) p.remove(K.modules) else p[K.modules] = n.modules.joinToString(",")
             p[K.homeOrder] = n.homeOrder.joinToString(",")
             p[K.homeHidden] = n.homeHidden.joinToString(",")
+            p[K.nMorning] = n.notifMorning; p[K.morningTime] = n.morningTime
+            p[K.nBed] = n.notifBedtime
+            p[K.nLearn] = n.notifLearn; p[K.learnTime] = n.learnTime
+            p[K.nMove] = n.notifMove; p[K.moveTime] = n.moveTime
+            p[K.widgetMode] = n.widgetMode
         }
     }
 }

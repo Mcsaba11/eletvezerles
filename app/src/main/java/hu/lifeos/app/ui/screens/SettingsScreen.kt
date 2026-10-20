@@ -49,6 +49,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import hu.lifeos.app.BuildConfigInfo
 import hu.lifeos.app.R
+import hu.lifeos.app.data.AppSettings
 import androidx.compose.material.icons.outlined.KeyboardArrowDown
 import androidx.compose.material.icons.outlined.KeyboardArrowUp
 import hu.lifeos.app.data.Modules
@@ -90,6 +91,17 @@ fun SettingsScreen(vm: MainViewModel, satori: SatoriViewModel, onBack: () -> Uni
     val calPerm = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { res ->
         if (res[Manifest.permission.READ_CALENDAR] == true) vm.updateSettings { it.copy(showPhoneCalendar = true) }
         else toast(R.string.perm_denied)
+    }
+    var pendingNudge by remember { mutableStateOf<((AppSettings) -> AppSettings)?>(null) }
+    var nudgeTime by remember { mutableStateOf<String?>(null) }
+    val nudgePerm = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
+        if (ok) pendingNudge?.let { fn -> vm.updateSettings(fn) }
+        pendingNudge = null
+    }
+    fun nudge(on: Boolean, fn: (AppSettings) -> AppSettings) {
+        if (on && Build.VERSION.SDK_INT >= 33 && !hu.lifeos.app.notify.Reminders.canNotify(ctx)) {
+            pendingNudge = fn; nudgePerm.launch(Manifest.permission.POST_NOTIFICATIONS)
+        } else vm.updateSettings(fn)
     }
     val notifPerm = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { ok ->
         if (ok) vm.updateSettings { it.copy(reminderEnabled = true) } else toast(R.string.perm_denied)
@@ -237,6 +249,19 @@ fun SettingsScreen(vm: MainViewModel, satori: SatoriViewModel, onBack: () -> Uni
                 }
             }
 
+            SectionLabel(stringResource(R.string.widget_section))
+            AppCard {
+                Text(stringResource(R.string.widget_section_sub), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf("summary" to R.string.widget_summary, "trackers" to R.string.mod_trackers, "both" to R.string.widget_both).forEach { (id, l) ->
+                        FilterChip(settings.widgetMode == id, {
+                            vm.updateSettings { it.copy(widgetMode = id) }
+                            hu.lifeos.app.widget.WidgetUpdater.refresh(ctx)
+                        }, label = { Text(stringResource(l)) })
+                    }
+                }
+            }
+
             SectionLabel(stringResource(R.string.set_reminder))
             AppCard {
                 SwitchRow(stringResource(R.string.reminder_on), stringResource(R.string.reminder_sub), settings.reminderEnabled) { on ->
@@ -246,6 +271,18 @@ fun SettingsScreen(vm: MainViewModel, satori: SatoriViewModel, onBack: () -> Uni
                 }
                 if (settings.reminderEnabled) {
                     TextButton(onClick = { pickTime = true }) { Text(stringResource(R.string.reminder_time, settings.reminderTime)) }
+                }
+                VSpace(8)
+                SwitchRow(stringResource(R.string.nudge_morning), stringResource(R.string.nudge_morning_sub), settings.notifMorning) { on -> nudge(on) { it.copy(notifMorning = on) } }
+                if (settings.notifMorning) TextButton(onClick = { nudgeTime = "morning" }) { Text(stringResource(R.string.reminder_time, settings.morningTime)) }
+                if (settings.moduleOn(Modules.SLEEP)) SwitchRow(stringResource(R.string.nudge_bed), stringResource(R.string.nudge_bed_sub), settings.notifBedtime) { on -> nudge(on) { it.copy(notifBedtime = on) } }
+                if (settings.moduleOn(Modules.MOVE)) {
+                    SwitchRow(stringResource(R.string.nudge_move), stringResource(R.string.nudge_move_sub), settings.notifMove) { on -> nudge(on) { it.copy(notifMove = on) } }
+                    if (settings.notifMove) TextButton(onClick = { nudgeTime = "move" }) { Text(stringResource(R.string.reminder_time, settings.moveTime)) }
+                }
+                if (settings.moduleOn(Modules.LEARN)) {
+                    SwitchRow(stringResource(R.string.nudge_learn), stringResource(R.string.nudge_learn_sub), settings.notifLearn) { on -> nudge(on) { it.copy(notifLearn = on) } }
+                    if (settings.notifLearn) TextButton(onClick = { nudgeTime = "learn" }) { Text(stringResource(R.string.reminder_time, settings.learnTime)) }
                 }
             }
 
@@ -276,6 +313,13 @@ fun SettingsScreen(vm: MainViewModel, satori: SatoriViewModel, onBack: () -> Uni
         }
     }
 
+    nudgeTime?.let { k ->
+        val cur = when (k) { "morning" -> settings.morningTime; "move" -> settings.moveTime; else -> settings.learnTime }
+        TimePickDialog(runCatching { LocalTime.parse(cur) }.getOrDefault(LocalTime.of(8, 0)), { nudgeTime = null }) { t ->
+            val v = t.toString()
+            vm.updateSettings { when (k) { "morning" -> it.copy(morningTime = v); "move" -> it.copy(moveTime = v); else -> it.copy(learnTime = v) } }
+        }
+    }
     if (pickTime) TimePickDialog(runCatching { LocalTime.parse(settings.reminderTime) }.getOrDefault(LocalTime.of(20, 0)), { pickTime = false }) { t ->
         vm.updateSettings { it.copy(reminderTime = t.toString()) }
     }

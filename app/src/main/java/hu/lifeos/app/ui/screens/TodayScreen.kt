@@ -250,7 +250,7 @@ fun TodayScreen(
                 "mood" -> {
                 // ---------- Hangulat ----------
                 item {
-                    AppCard(padding = PaddingValues(14.dp)) {
+                    AppCard(onClick = { onOpenModule("mind") }, padding = PaddingValues(14.dp)) {
                         CardHeader(Icons.Outlined.Mood, stringResource(R.string.mood_title), tint = Noc.violet) {
                             if (mood?.mood != null) Text("${mood?.mood}/5", style = MaterialTheme.typography.labelLarge, color = Noc.violet)
                         }

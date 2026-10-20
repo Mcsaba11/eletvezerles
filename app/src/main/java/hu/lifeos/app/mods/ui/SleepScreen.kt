@@ -163,10 +163,16 @@ fun SleepScreen(vm: ModsViewModel, onBack: () -> Unit) {
         FormSheet(stringResource(R.string.sleep_settings), onDismiss = { settings = false }) {
             NumIn(h, { h = it }, stringResource(R.string.sleep_target), suffix = stringResource(R.string.hours_short), decimal = true)
             Text(stringResource(R.string.sleep_target_hint), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
+            var bedGoal by remember { mutableStateOf(d.bedGoal) }
+            var pickGoal by remember { mutableStateOf(false) }
+            Text(stringResource(R.string.sleep_bed_goal), style = MaterialTheme.typography.labelLarge, color = Noc.text2)
+            TonalButton(bedGoal, onClick = { pickGoal = true })
+            Text(stringResource(R.string.sleep_bed_goal_hint), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
             PrimaryButton(stringResource(R.string.save), onClick = {
-                h.toNum()?.let { v -> vm.sleep.update { it.copy(targetHours = v.coerceIn(4.0, 12.0)) } }
+                h.toNum()?.let { v -> vm.sleep.update { it.copy(targetHours = v.coerceIn(4.0, 12.0), bedGoal = bedGoal) } }
                 settings = false
             }, modifier = Modifier.fillMaxWidth(), color = Noc.violet)
+            if (pickGoal) TimePickDialog(runCatching { LocalTime.parse(bedGoal) }.getOrDefault(LocalTime.of(23, 0)), { pickGoal = false }) { bedGoal = it.format(Fmt.time) }
         }
     }
 }

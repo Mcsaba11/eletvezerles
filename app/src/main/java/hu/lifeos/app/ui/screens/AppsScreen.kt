@@ -115,4 +115,4 @@ private fun Tile(a: MiniApp, ready: Boolean) {
 }
 
 /** A saját képernyővel rendelkező új modulok (a modul azonosítója egyben az útvonal is). */
-val APP_ROUTES = setOf("money", "sleep", "move", "people", "goals", "learn", "house", "trackers")
+val APP_ROUTES = setOf("mind", "money", "sleep", "move", "people", "goals", "learn", "house", "trackers")
