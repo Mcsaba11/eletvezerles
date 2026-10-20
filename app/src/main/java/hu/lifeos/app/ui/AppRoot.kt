@@ -150,7 +150,7 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, mod
                         onOpenSensei = { go("sensei") }, onOpenPatterns = { go("patterns") },
                         onOpenSettings = { nav.navigate("settings") }, onBreath = { breathTech = "relax"; breathOpen = true },
                         onCapture = { captureInitial = ""; captureOpen = true }, onVoice = voice,
-                        mods = mods, onOpenModule = { r -> nav.navigate(r) { launchSingleTop = true } },
+                        mods = mods, onOpenModule = { r -> nav.navigate(if (r == "trackers") "builder" else r) { launchSingleTop = true } },
                     )
                 }
                 composable("timeline") {
@@ -160,7 +160,8 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, mod
                 }
                 composable("apps") {
                     AppsScreen(
-                        tabPadding, s, onOpenModule = { r -> nav.navigate(r) { launchSingleTop = true } }, onToggleModule = { id -> vm.updateSettings { st -> val cur = st.moduleList(); st.copy(modules = if (id in cur) cur - id else cur + id) } },
+                        tabPadding, s, miniApps = mods.miniapps.state.collectAsState().value.apps,
+                        onOpenModule = { r -> nav.navigate(if (r == "trackers") "builder" else r) { launchSingleTop = true } }, onToggleModule = { id -> vm.updateSettings { st -> val cur = st.moduleList(); st.copy(modules = if (id in cur) cur - id else cur + id) } },
                         onOpenSatori = { openSatori() }, onOpenFood = { nav.navigate("food") },
                         onOpenCalendar = { nav.navigate("calendar") }, onOpenTodos = { nav.navigate("todos") },
                         onOpenSettings = { nav.navigate("settings") },
@@ -189,6 +190,23 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, mod
                 composable("goals") { hu.lifeos.app.mods.ui.GoalsScreen(mods, onBack = { nav.popBackStack() }) }
                 composable("learn") { hu.lifeos.app.mods.ui.LearnScreen(mods, onBack = { nav.popBackStack() }) }
                 composable("house") { hu.lifeos.app.mods.ui.HouseScreen(mods, onBack = { nav.popBackStack() }) }
+                composable("builder") {
+                    hu.lifeos.app.mods.ui.BuilderScreen(mods, onBack = { nav.popBackStack() },
+                        onOpen = { id -> nav.navigate("mini/$id") { launchSingleTop = true } },
+                        onEdit = { id -> nav.navigate("mini/$id/edit") { launchSingleTop = true } },
+                        onTrackers = { nav.navigate("trackers") { launchSingleTop = true } })
+                }
+                composable("mini/{id}", arguments = listOf(navArgument("id") { type = NavType.StringType })) { e ->
+                    val id = e.arguments?.getString("id").orEmpty()
+                    hu.lifeos.app.mods.ui.MiniAppScreen(mods, id, onBack = { nav.popBackStack() },
+                        onEdit = { nav.navigate("mini/$id/edit") { launchSingleTop = true } },
+                        onBreath = { breathTech = "relax"; breathOpen = true })
+                }
+                composable("mini/{id}/edit", arguments = listOf(navArgument("id") { type = NavType.StringType })) { e ->
+                    val id = e.arguments?.getString("id").orEmpty()
+                    hu.lifeos.app.mods.ui.MiniAppEditor(mods, id, onDone = { nav.popBackStack() },
+                        onDeleted = { nav.popBackStack("builder", inclusive = false).let { ok -> if (!ok) nav.popBackStack() } })
+                }
                 composable("trackers") { hu.lifeos.app.mods.ui.TrackersScreen(mods, onBack = { nav.popBackStack() }) }
                 composable("todos") { TodosScreen(vm, onBack = { nav.popBackStack() }) }
                 composable("food") { FoodRoot(food, onExit = { nav.popBackStack() }) }

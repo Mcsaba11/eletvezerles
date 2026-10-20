@@ -356,7 +356,8 @@ fun TodayScreen(
                 "goals" -> item { GoalsHomeCard(mods) { onOpenModule("goals") } }
                 "learn" -> item { LearnHomeCard(mods) { onOpenModule("learn") } }
                 "house" -> item { HouseHomeCard(mods) { onOpenModule("house") } }
-                "trackers" -> item { TrackersHomeCards(mods) { onOpenModule("trackers") } }
+                "trackers" -> if (mods.trackers.state.value.trackers.any { it.onHome } || mods.miniapps.state.value.apps.isEmpty()) item { TrackersHomeCards(mods) { onOpenModule("builder") } }
+                "miniapps" -> item { MiniAppsHomeCards(mods) { id -> onOpenModule("mini/$id") } }
                 "quote" -> {
                 item {
                     val qs = SatoriLogic.themeQuotes(c, st)

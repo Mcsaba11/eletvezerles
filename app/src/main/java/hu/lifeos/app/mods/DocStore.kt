@@ -84,8 +84,9 @@ class ModStores(db: AppDatabase, scope: CoroutineScope) {
     val learn = DocStore(db, "mod_learn", LearnDoc.serializer(), LearnDoc(), scope)
     val house = DocStore(db, "mod_house", HouseDoc.serializer(), HouseDoc(), scope)
     val trackers = DocStore(db, "mod_trackers", TrackersDoc.serializer(), TrackersDoc(), scope)
+    val miniapps = DocStore(db, "mod_miniapps", MiniAppsDoc.serializer(), MiniAppsDoc(), scope)
 
-    private val all: List<DocStore<*>> = listOf(money, sleep, move, people, goals, learn, house, trackers)
+    private val all: List<DocStore<*>> = listOf(money, sleep, move, people, goals, learn, house, trackers, miniapps)
 
     suspend fun loadAll() = all.forEach { it.ensureLoaded() }
 

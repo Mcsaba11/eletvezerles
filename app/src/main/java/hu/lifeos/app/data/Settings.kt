@@ -79,7 +79,7 @@ object HomeCards {
     val ALL: List<Pair<String, String?>> = listOf(
         "capture" to null, "insight" to null, "food" to Modules.FOOD, "satori" to Modules.SATORI,
         "breath" to Modules.MIND, "mood" to Modules.MIND, "money" to Modules.MONEY,
-        "focus" to Modules.TASKS, "trackers" to Modules.TRACKERS, "sleep" to Modules.SLEEP, "move" to Modules.MOVE,
+        "focus" to Modules.TASKS, "miniapps" to Modules.TRACKERS, "trackers" to Modules.TRACKERS, "sleep" to Modules.SLEEP, "move" to Modules.MOVE,
         "goals" to Modules.GOALS, "people" to Modules.PEOPLE, "learn" to Modules.LEARN, "house" to Modules.HOUSE,
         "wheel" to Modules.WHEEL, "quote" to null,
     )

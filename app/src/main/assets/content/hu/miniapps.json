@@ -1,0 +1,390 @@
+[
+ {
+  "desc": "A Satori mintájára: tiszta napok szintekkel, megtakarítás, SOS-tippek és napló. Bármilyen szokáshoz.",
+  "app": {
+   "id": "t1",
+   "name": "Leszokás",
+   "icon": "shield",
+   "color": 1,
+   "blocks": [
+    {
+     "id": "b1",
+     "type": "text",
+     "title": "Miért csinálom?",
+     "cfg": {
+      "text": "Írd ide az okaidat. Nehéz pillanatban ezeket olvasd el először."
+     }
+    },
+    {
+     "id": "b2",
+     "type": "streak",
+     "title": "Tiszta napok",
+     "cfg": {
+      "milestones": [
+       1,
+       3,
+       7,
+       14,
+       30,
+       60,
+       90,
+       180,
+       365
+      ],
+      "levelNames": [
+       "Az első lépés",
+       "Három nap",
+       "Egy hét",
+       "Két hét",
+       "Egy hónap",
+       "Két hónap",
+       "Három hónap",
+       "Fél év",
+       "Egy év"
+      ]
+     }
+    },
+    {
+     "id": "b3",
+     "type": "savings",
+     "title": "Megspórolt pénz",
+     "cfg": {
+      "perDay": 1000
+     }
+    },
+    {
+     "id": "b4",
+     "type": "sos",
+     "title": "Ha most nehéz",
+     "cfg": {
+      "items": [
+       "A késztetés hullám: 10–20 perc alatt lecseng. Állíts be egy időzítőt.",
+       "Igyál meg egy nagy pohár vizet, lassan.",
+       "Menj ki 5 percre a friss levegőre.",
+       "Hívd fel vagy írj valakinek, akiben megbízol.",
+       "Olvasd el újra, miért csinálod."
+      ]
+     }
+    },
+    {
+     "id": "b5",
+     "type": "journal",
+     "title": "Napló",
+     "cfg": {
+      "items": [
+       "Nyugodt",
+       "Kísértés",
+       "Nehéz",
+       "Megbotlás"
+      ]
+     }
+    },
+    {
+     "id": "b6",
+     "type": "chart",
+     "title": "Hangulat a naplóból",
+     "cfg": {
+      "source": "b5",
+      "days": 14
+     }
+    },
+    {
+     "id": "b7",
+     "type": "reminder",
+     "title": "Esti napló",
+     "cfg": {
+      "time": "21:00",
+      "text": "Hogy telt a nap? Írj egy sort a naplóba."
+     }
+    }
+   ]
+  }
+ },
+ {
+  "desc": "Reggeli rutin pipálható lépésekkel és a teljesítés grafikonjával.",
+  "app": {
+   "id": "t2",
+   "name": "Reggeli rutin",
+   "icon": "sun",
+   "color": 0,
+   "blocks": [
+    {
+     "id": "b1",
+     "type": "checklist",
+     "title": "Ma reggel",
+     "cfg": {
+      "items": [
+       "Egy pohár víz",
+       "5 perc nyújtás",
+       "3 mély levegő",
+       "Ágyazás",
+       "A nap legfontosabb célja"
+      ]
+     }
+    },
+    {
+     "id": "b2",
+     "type": "chart",
+     "title": "Elvégzett lépések",
+     "cfg": {
+      "source": "b1",
+      "days": 14
+     }
+    },
+    {
+     "id": "b3",
+     "type": "reminder",
+     "title": "Reggeli emlékeztető",
+     "cfg": {
+      "time": "07:00",
+      "text": "Jó reggelt! Kezdd a napot a rutinoddal."
+     }
+    }
+   ]
+  }
+ },
+ {
+  "desc": "Edzésperc napi céllal, időzítő, grafikon és jegyzetek.",
+  "app": {
+   "id": "t3",
+   "name": "Edzésnapló",
+   "icon": "fitness_center",
+   "color": 2,
+   "blocks": [
+    {
+     "id": "b1",
+     "type": "tracker",
+     "title": "Edzés ma",
+     "cfg": {
+      "kind": "number",
+      "unit": "perc",
+      "goal": 30
+     }
+    },
+    {
+     "id": "b2",
+     "type": "timer",
+     "title": "Edzésidőzítő",
+     "cfg": {
+      "minutes": 20
+     }
+    },
+    {
+     "id": "b3",
+     "type": "chart",
+     "title": "Az elmúlt 14 nap",
+     "cfg": {
+      "source": "b1",
+      "days": 14
+     }
+    },
+    {
+     "id": "b4",
+     "type": "journal",
+     "title": "Edzésjegyzet",
+     "cfg": {
+      "items": [
+       "Erő",
+       "Kardió",
+       "Nyújtás"
+      ]
+     }
+    },
+    {
+     "id": "b5",
+     "type": "reminder",
+     "title": "Edzés",
+     "cfg": {
+      "time": "17:30",
+      "text": "Ideje mozogni egy kicsit."
+     }
+    }
+   ]
+  }
+ },
+ {
+  "desc": "Minden este három dolog, amiért hálás vagy. Bizonyítottan javítja a hangulatot.",
+  "app": {
+   "id": "t4",
+   "name": "Hála-napló",
+   "icon": "favorite",
+   "color": 4,
+   "blocks": [
+    {
+     "id": "b1",
+     "type": "text",
+     "title": "Hogyan?",
+     "cfg": {
+      "text": "Írj le minden este három dolgot, amiért hálás vagy. Lehetnek apróságok is."
+     }
+    },
+    {
+     "id": "b2",
+     "type": "journal",
+     "title": "Hála",
+     "cfg": {
+      "items": [
+       "Ember",
+       "Pillanat",
+       "Apróság"
+      ]
+     }
+    },
+    {
+     "id": "b3",
+     "type": "tracker",
+     "title": "Ma leírtam",
+     "cfg": {
+      "kind": "check",
+      "goal": 1
+     }
+    },
+    {
+     "id": "b4",
+     "type": "reminder",
+     "title": "Esti hála",
+     "cfg": {
+      "time": "21:30",
+      "text": "Mi volt ma három jó dolog?"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "desc": "Pohárszámláló napi céllal és heti grafikonnal.",
+  "app": {
+   "id": "t5",
+   "name": "Vízivás",
+   "icon": "water",
+   "color": 5,
+   "blocks": [
+    {
+     "id": "b1",
+     "type": "tracker",
+     "title": "Pohár víz",
+     "cfg": {
+      "kind": "count",
+      "unit": "pohár",
+      "goal": 8
+     }
+    },
+    {
+     "id": "b2",
+     "type": "chart",
+     "title": "Az elmúlt 14 nap",
+     "cfg": {
+      "source": "b1",
+      "days": 14
+     }
+    },
+    {
+     "id": "b3",
+     "type": "reminder",
+     "title": "Igyál egy pohár vizet",
+     "cfg": {
+      "time": "11:00",
+      "text": "Igyál meg most egy pohár vizet."
+     }
+    }
+   ]
+  }
+ },
+ {
+  "desc": "Napi oldalszám, olvasási időzítő és kedvenc gondolatok.",
+  "app": {
+   "id": "t6",
+   "name": "Olvasás",
+   "icon": "book",
+   "color": 3,
+   "blocks": [
+    {
+     "id": "b1",
+     "type": "tracker",
+     "title": "Ma olvasott oldalak",
+     "cfg": {
+      "kind": "number",
+      "unit": "oldal",
+      "goal": 20
+     }
+    },
+    {
+     "id": "b2",
+     "type": "timer",
+     "title": "Olvasási idő",
+     "cfg": {
+      "minutes": 15
+     }
+    },
+    {
+     "id": "b3",
+     "type": "chart",
+     "title": "Oldalak",
+     "cfg": {
+      "source": "b1",
+      "days": 14
+     }
+    },
+    {
+     "id": "b4",
+     "type": "journal",
+     "title": "Gondolatok",
+     "cfg": {
+      "items": [
+       "Idézet",
+       "Gondolat"
+      ]
+     }
+    }
+   ]
+  }
+ },
+ {
+  "desc": "Meditációs időzítő, napi pipa és a gyakorlás grafikonja.",
+  "app": {
+   "id": "t7",
+   "name": "Meditáció",
+   "icon": "self_improvement",
+   "color": 3,
+   "blocks": [
+    {
+     "id": "b1",
+     "type": "timer",
+     "title": "Ülés",
+     "cfg": {
+      "minutes": 10
+     }
+    },
+    {
+     "id": "b2",
+     "type": "chart",
+     "title": "Perc naponta",
+     "cfg": {
+      "source": "b1",
+      "days": 14
+     }
+    },
+    {
+     "id": "b3",
+     "type": "checklist",
+     "title": "Utána",
+     "cfg": {
+      "items": [
+       "Észrevettem a légzésem",
+       "Elengedtem egy gondolatot"
+      ]
+     }
+    },
+    {
+     "id": "b4",
+     "type": "reminder",
+     "title": "Meditáció",
+     "cfg": {
+      "time": "07:30",
+      "text": "Pár perc csend, mielőtt elindul a nap."
+     }
+    }
+   ]
+  }
+ }
+]

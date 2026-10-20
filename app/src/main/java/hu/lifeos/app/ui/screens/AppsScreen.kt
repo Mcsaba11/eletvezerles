@@ -56,6 +56,7 @@ private data class MiniApp(val name: Int, val desc: Int, val icon: ImageVector, 
 @Composable
 fun AppsScreen(
     contentPadding: PaddingValues, settings: AppSettings, onToggleModule: (String) -> Unit, onOpenModule: (String) -> Unit,
+    miniApps: List<hu.lifeos.app.mods.MiniApp> = emptyList(),
     onOpenSatori: () -> Unit, onOpenFood: () -> Unit, onOpenCalendar: () -> Unit, onOpenTodos: () -> Unit, onOpenSettings: () -> Unit,
 ) {
     val active = listOfNotNull(
@@ -78,6 +79,10 @@ fun AppsScreen(
         }
         if (active.isNotEmpty()) item(span = { GridItemSpan(2) }) { SectionLabel(stringResource(R.string.apps_active)) }
         items(active) { a -> Tile(a, ready = true) }
+        if (settings.moduleOn(Modules.TRACKERS) && miniApps.isNotEmpty()) {
+            item(span = { GridItemSpan(2) }) { SectionLabel(stringResource(R.string.builder_my_apps)) }
+            items(miniApps, key = { it.id }) { a -> MiniTile(a) { onOpenModule("mini/" + a.id) } }
+        }
         item(span = { GridItemSpan(2) }) {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 SectionLabel(stringResource(R.string.apps_modules))
@@ -116,3 +121,17 @@ private fun Tile(a: MiniApp, ready: Boolean) {
 
 /** A saját képernyővel rendelkező új modulok (a modul azonosítója egyben az útvonal is). */
 val APP_ROUTES = setOf("mind", "money", "sleep", "move", "people", "goals", "learn", "house", "trackers")
+
+@Composable
+private fun MiniTile(a: hu.lifeos.app.mods.MiniApp, onClick: () -> Unit) {
+    val col = hu.lifeos.app.mods.ui.trackerColor(a.color)
+    AppCard(Modifier.height(150.dp), onClick = onClick, padding = PaddingValues(14.dp), glow = col) {
+        Box(
+            Modifier.size(40.dp).clip(RoundedCornerShape(12.dp)).background(col.copy(alpha = 0.12f)).border(1.dp, col.copy(alpha = 0.3f), RoundedCornerShape(12.dp)),
+            contentAlignment = Alignment.Center,
+        ) { Icon(hu.lifeos.app.ui.iconFor(a.icon), null, tint = col) }
+        Spacer(Modifier.weight(1f))
+        Text(a.name, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+        Text(stringResource(R.string.builder_app_badge), style = MaterialTheme.typography.bodySmall, color = Noc.text2)
+    }
+}

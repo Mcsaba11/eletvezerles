@@ -72,7 +72,7 @@ fun TrackersScreen(vm: ModsViewModel, onBack: () -> Unit) {
     val d by vm.trackers.state.collectAsState()
     var add by remember { mutableStateOf(false) }
     var edit by remember { mutableStateOf<Tracker?>(null) }
-    ModScaffold(stringResource(R.string.mod_trackers), stringResource(R.string.trackers_kicker), Noc.cyan, onBack, onAdd = { add = true }) {
+    ModScaffold(stringResource(R.string.trackers_simple), stringResource(R.string.trackers_kicker), Noc.cyan, onBack, onAdd = { add = true }) {
         LazyColumn(Modifier.fillMaxSize(), contentPadding = ModListPadding, verticalArrangement = Arrangement.spacedBy(10.dp)) {
             item { Text(stringResource(R.string.trackers_sub), style = MaterialTheme.typography.bodyMedium, color = Noc.text2) }
             if (d.trackers.isEmpty()) item {

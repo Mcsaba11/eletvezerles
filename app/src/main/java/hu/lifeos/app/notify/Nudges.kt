@@ -51,6 +51,12 @@ object Nudges {
         plan(context, BEDTIME, s.notifBedtime && s.moduleOn(Modules.SLEEP), bedGoal.minusMinutes(30).toString())
         plan(context, LEARN, s.notifLearn && s.moduleOn(Modules.LEARN), s.learnTime)
         plan(context, MOVE, s.notifMove && s.moduleOn(Modules.MOVE), s.moveTime)
+        // A mini-appok emlékeztető kockái (a törölt kockák munkája a futáskor csendben véget ér).
+        c.mods.miniapps.ensureLoaded()
+        val mini = c.mods.miniapps.state.value
+        mini.apps.flatMap { a -> a.blocks.filter { it.type == hu.lifeos.app.mods.BlockTypes.REMINDER } }.forEach { b ->
+            plan(context, "mini_" + b.id, s.moduleOn(Modules.TRACKERS), b.cfg.time)
+        }
     }
 
     private fun plan(context: Context, kind: String, on: Boolean, time: String) {
@@ -153,6 +159,17 @@ class NudgeWorker(appContext: Context, params: WorkerParameters) : CoroutineWork
             Nudges.MOVE -> {
                 val moved = c.mods.move.state.value.items.any { it.date == today }
                 if (!moved) Nudges.show(ctx, 2004, ctx.getString(R.string.nudge_move_title), ctx.getString(R.string.nudge_move_text), "move")
+            }
+            else -> {
+                val kind = inputData.getString("kind").orEmpty()
+                if (kind.startsWith("mini_")) {
+                    val bid = kind.removePrefix("mini_")
+                    val doc = c.mods.miniapps.state.value
+                    val app = doc.apps.firstOrNull { a -> a.blocks.any { it.id == bid } }
+                    val b = app?.blocks?.firstOrNull { it.id == bid }
+                    if (app == null || b == null) return Result.success()
+                    Nudges.show(ctx, 3000 + (bid.hashCode() and 0xFFF), app.name, b.cfg.text.ifBlank { b.title.ifBlank { app.name } }, "mini/" + app.id)
+                }
             }
         }
         Nudges.scheduleAll(ctx)

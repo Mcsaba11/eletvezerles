@@ -382,7 +382,8 @@ fun homeCardLabel(id: String): Int = when (id) {
     "goals" -> R.string.mod_goals
     "learn" -> R.string.mod_learn
     "house" -> R.string.mod_house
-    "trackers" -> R.string.mod_trackers
+    "trackers" -> R.string.trackers_simple
+    "miniapps" -> R.string.builder_my_apps
     else -> R.string.hc_quote
 }
 

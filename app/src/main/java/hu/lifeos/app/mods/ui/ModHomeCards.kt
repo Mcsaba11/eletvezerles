@@ -170,3 +170,49 @@ fun TrackersHomeCards(vm: ModsViewModel, onOpen: () -> Unit) {
     }
 }
 
+
+/** A kezdőlapra kitett mini-appok: ikon, név és a legfontosabb kocka összefoglalója. */
+@Composable
+fun MiniAppsHomeCards(vm: ModsViewModel, onOpen: (String) -> Unit) {
+    val doc by vm.miniapps.state.collectAsState()
+    val list = doc.apps.filter { it.onHome }
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        list.forEach { a ->
+            val col = trackerColor(a.color)
+            val today = LocalDate.now().toString()
+            AppCard(onClick = { onOpen(a.id) }) {
+                CardHeader(hu.lifeos.app.ui.iconFor(a.icon), a.name, tint = col)
+                val main = a.blocks.firstOrNull { it.type in listOf(
+                    hu.lifeos.app.mods.BlockTypes.STREAK, hu.lifeos.app.mods.BlockTypes.TRACKER, hu.lifeos.app.mods.BlockTypes.CHECKLIST,
+                    hu.lifeos.app.mods.BlockTypes.TIMER, hu.lifeos.app.mods.BlockTypes.JOURNAL) }
+                if (main != null) {
+                    VSpace(8)
+                    val d = doc.data(main.id)
+                    when (main.type) {
+                        hu.lifeos.app.mods.BlockTypes.STREAK -> {
+                            val days = hu.lifeos.app.mods.MiniLogic.streakDays(d)
+                            val lvl = hu.lifeos.app.mods.MiniLogic.level(main.cfg, days)
+                            Row(verticalAlignment = Alignment.Bottom) {
+                                Text(if (d.start == null) "–" else "$days", style = MaterialTheme.typography.headlineMedium)
+                                Text(" " + stringResource(R.string.satori_day_word) + (if (lvl >= 0) " · " + (main.cfg.levelNames.getOrNull(lvl) ?: stringResource(R.string.mini_level_n, lvl + 1)) else ""),
+                                    style = MaterialTheme.typography.bodyMedium, color = col, modifier = Modifier.padding(bottom = 4.dp))
+                            }
+                        }
+                        hu.lifeos.app.mods.BlockTypes.TRACKER -> {
+                            val v = hu.lifeos.app.mods.MiniLogic.value(d, today)
+                            Hint((main.title.ifBlank { a.name }) + ": " + if (main.cfg.kind == "check") (if (v >= 1) "✓" else "–") else "${fmtVal(v)} / ${fmtVal(main.cfg.goal)} ${main.cfg.unit}")
+                            if (main.cfg.kind == "count" || main.cfg.kind == "number") { VSpace(6); Meter((v / main.cfg.goal).toFloat(), col, height = 5.dp) }
+                        }
+                        hu.lifeos.app.mods.BlockTypes.CHECKLIST -> {
+                            val n = main.cfg.items.size; val done = d.checks[today]?.size ?: 0
+                            Hint((main.title.ifBlank { a.name }) + ": $done / $n")
+                            VSpace(6); Meter(if (n > 0) done.toFloat() / n else 0f, col, height = 5.dp)
+                        }
+                        hu.lifeos.app.mods.BlockTypes.TIMER -> Hint(stringResource(R.string.mini_timer_today, d.sessions[today] ?: 0))
+                        else -> Hint(stringResource(R.string.mini_journal_n, d.entries.count { it.date == today }))
+                    }
+                }
+            }
+        }
+    }
+}
