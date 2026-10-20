@@ -29,6 +29,7 @@ class ModsViewModel(private val c: AppContainer) : ViewModel() {
     val learn = c.mods.learn
     val house = c.mods.house
     val trackers = c.mods.trackers
+    val miniapps = c.mods.miniapps
 
     // ---------- Pénz ----------
     private val _month = MutableStateFlow(YearMonth.now())
