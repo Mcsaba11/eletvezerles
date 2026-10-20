@@ -171,7 +171,7 @@ fun SettingsScreen(vm: MainViewModel, satori: SatoriViewModel, onBack: () -> Uni
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     MODULE_INFO.forEach { m ->
                         ModuleTile(m, settings.moduleOn(m.id)) {
-                            vm.updateSettings { st -> val cur = st.modules ?: Modules.ALL; st.copy(modules = if (m.id in cur) cur - m.id else cur + m.id) }
+                            vm.updateSettings { st -> val cur = st.moduleList(); st.copy(modules = if (m.id in cur) cur - m.id else cur + m.id) }
                         }
                     }
                 }

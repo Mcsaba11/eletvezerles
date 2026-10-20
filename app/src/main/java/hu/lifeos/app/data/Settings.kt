@@ -35,7 +35,10 @@ data class AppSettings(
     /** Elrejtett kezdőlap-kártyák. */
     val homeHidden: Set<String> = emptySet(),
 ) {
-    fun moduleOn(id: String): Boolean = modules?.contains(id) ?: true
+    fun moduleOn(id: String): Boolean = (modules ?: Modules.LEGACY).contains(id)
+
+    /** A bekapcsolt modulok listája (régi telepítésnél az akkor létező modulok). */
+    fun moduleList(): List<String> = modules ?: Modules.LEGACY
 }
 
 /** A bekapcsolható modulok azonosítói. */
@@ -54,6 +57,8 @@ object Modules {
     const val HOUSE = "house"
     const val TRACKERS = "trackers"
     val ALL = listOf(FOOD, SATORI, MIND, MONEY, TASKS, SLEEP, MOVE, PEOPLE, GOALS, LEARN, HOUSE, TRACKERS, WHEEL)
+    /** A modulrendszer előtti telepítéseken ezek voltak bekapcsolva. */
+    val LEGACY = listOf(FOOD, SATORI, MIND, MONEY, TASKS, WHEEL)
 }
 
 /** A kezdőlap kártyái és a modul, amelyhez tartoznak (null = mindig elérhető). */

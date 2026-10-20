@@ -158,7 +158,7 @@ fun AppRoot(vm: MainViewModel, satori: SatoriViewModel, food: FoodViewModel, mod
                 }
                 composable("apps") {
                     AppsScreen(
-                        tabPadding, s, onOpenModule = { r -> nav.navigate(r) { launchSingleTop = true } }, onToggleModule = { id -> vm.updateSettings { st -> val cur = st.modules ?: hu.lifeos.app.data.Modules.ALL; st.copy(modules = if (id in cur) cur - id else cur + id) } },
+                        tabPadding, s, onOpenModule = { r -> nav.navigate(r) { launchSingleTop = true } }, onToggleModule = { id -> vm.updateSettings { st -> val cur = st.moduleList(); st.copy(modules = if (id in cur) cur - id else cur + id) } },
                         onOpenSatori = { openSatori() }, onOpenFood = { nav.navigate("food") },
                         onOpenCalendar = { nav.navigate("calendar") }, onOpenTodos = { nav.navigate("todos") },
                         onOpenSettings = { nav.navigate("settings") },
