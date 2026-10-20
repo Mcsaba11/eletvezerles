@@ -37,6 +37,7 @@ import hu.lifeos.app.ui.VSpace
 
 @Composable
 fun FoodCalcTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit) {
+    val packsCalc = LocalPacks.current
     val s by vm.state.collectAsState()
     val sent by vm.calcFood.collectAsState()
     val logic = vm.logic
@@ -114,7 +115,7 @@ fun FoodCalcTab(vm: FoodViewModel, modifier: Modifier, toast: (String) -> Unit) 
                     if (f.ug > 0 && f.u.isNotBlank() && mn.isFinite()) Text(stringResource(R.string.food_fits_units, fmt(mn / f.ug, 1), f.u), style = MaterialTheme.typography.bodySmall)
                 }
             }
-            if (LocalPacks.current.ir) item {
+            if (packsCalc.ir) item {
                 AppCard {
                     Text(stringResource(if (f.r == "g") R.string.food_similar else R.string.food_better), style = MaterialTheme.typography.titleSmall)
                     logic.swapsFor(s, f).forEach { sw ->
