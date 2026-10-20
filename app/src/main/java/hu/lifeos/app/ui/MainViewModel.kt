@@ -1,5 +1,7 @@
 package hu.lifeos.app.ui
 
+import kotlinx.serialization.builtins.serializer
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import hu.lifeos.app.AppContainer
@@ -229,8 +231,8 @@ class MainViewModel(private val c: AppContainer) : ViewModel() {
         const val WHEEL_KEY = "lifewheel"
         val wheelJson = kotlinx.serialization.json.Json { ignoreUnknownKeys = true }
         val wheelSer = kotlinx.serialization.builtins.MapSerializer(
-            kotlinx.serialization.builtins.serializer<String>(),
-            kotlinx.serialization.builtins.MapSerializer(kotlinx.serialization.builtins.serializer<String>(), kotlinx.serialization.builtins.serializer<Int>()),
+            String.serializer(),
+            kotlinx.serialization.builtins.MapSerializer(String.serializer(), Int.serializer()),
         )
     }
 }

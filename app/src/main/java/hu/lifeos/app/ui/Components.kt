@@ -274,7 +274,7 @@ fun MetricRing(
     Box(modifier, contentAlignment = Alignment.Center) {
         Canvas(Modifier.matchParentSizeCompat()) {
             val r = size.minDimension / 2 - sw
-            val tl = Offset(center.x - r, center.y - r)
+            val tl = Offset(size.width / 2 - r, size.height / 2 - r)
             val sz = Size(r * 2, r * 2)
             drawArc(well, 0f, 360f, false, tl, sz, style = Stroke(sw))
             if (anim > 0f) {
